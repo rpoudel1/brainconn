@@ -80,7 +80,8 @@ def test_modularity_finetune_und():
 
     # also the matlab and python versions of modularity_und return slightly
     # different modular structure, but the instability is present despite this
-    #(i.e. it is unstable both when the modular structure is identical and not)
+    # (i.e. it is unstable both when the modular structure is identical and
+    # not)
 
 
 def test_modularity_louvain_und_sign_seed():

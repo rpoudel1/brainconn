@@ -48,10 +48,8 @@ def test_distance_wei():
 def test_charpath():
     x = load_sample(thres=.02)
     d, e = bct.distance_wei(x)
-    l, eff,ecc,radius,diameter = bct.charpath(d)
+    l, eff, ecc, radius, diameter = bct.charpath(d)
 
     assert np.any(np.isinf(d))
     assert not np.isnan(radius)
     assert not np.isnan(diameter)
-
-

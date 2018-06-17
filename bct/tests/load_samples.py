@@ -1,19 +1,18 @@
+import os.path as op
 import numpy as np
 import bct
-import os
 
-MAT_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mats')
-mat_path = lambda fname: os.path.join(MAT_DIR, fname)
+MAT_DIR = op.join(op.dirname(op.realpath(__file__)), 'data')
 
 
 def load_sample(thres=1):
-    return bct.threshold_proportional(np.load(mat_path('sample_data.npy')),
+    return bct.threshold_proportional(np.load(op.join(MAT_DIR, 'sample_data.npy')),
                                       thres, copy=False)
 
 
 def load_signed_sample(thres=1):
     return bct.threshold_proportional(np.around(
-        np.load(mat_path('sample_signed.npy')), 8), thres, copy=False)
+        np.load(op.join(MAT_DIR, 'sample_signed.npy')), 8), thres, copy=False)
 
 
 def load_sparse_sample(thres=.02):
@@ -25,7 +24,7 @@ def load_binary_sample(thres=.35):
 
 
 def load_directed_sample(thres=1):
-    return bct.threshold_proportional(np.load(mat_path('sample_directed.npy')),
+    return bct.threshold_proportional(np.load(op.join(MAT_DIR, 'sample_directed.npy')),
                                       thres, copy=False)
 
 
@@ -35,7 +34,7 @@ def load_binary_directed_sample(thres=.35):
 
 def load_directed_low_modularity_sample(thres=1):
     return bct.threshold_proportional(np.load(
-        mat_path('sample_directed_gc.npy')), thres, copy=False)
+        op.join(MAT_DIR, 'sample_directed_gc.npy')), thres, copy=False)
 
 
 def load_binary_directed_low_modularity_sample(thres=.35):
@@ -71,21 +70,21 @@ def load_signed_sparse_sample(thres=.06):
 
 
 def load_sample_group_qball():
-    q = np.load(mat_path('sample_group_qball.npy'))
+    q = np.load(op.join(MAT_DIR, 'sample_group_qball.npy'))
     return np.transpose(
         list(map(bct.normalize, (q[:, :, i] for i in range(q.shape[2])))),
         (1, 2, 0))
 
 
 def load_sample_group_dsi():
-    d = np.load(mat_path('sample_group_dsi.npy'))
+    d = np.load(op.join(MAT_DIR, 'sample_group_dsi.npy'))
     return np.transpose(
         list(map(bct.normalize, (d[:, :, i] for i in range(d.shape[2])))),
         (1, 2, 0))
 
 
 def load_sample_group_fmri():
-    f = np.load(mat_path('sample_group_fmri.npy'))
+    f = np.load(op.join(MAT_DIR, 'sample_group_fmri.npy'))
     import functools
 
     def compose(*functions):

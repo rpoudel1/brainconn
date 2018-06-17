@@ -1,30 +1,28 @@
 import os
-import setuptools
+from setuptools import setup, find_packages
+
+PACKAGES = find_packages()
+
+# Get version and release info, which is all stored in bids/version.py
+ver_file = os.path.join('bct', 'version.py')
+with open(ver_file) as f:
+    exec(f.read())
+
+opts = dict(name=NAME,
+            maintainer=MAINTAINER,
+            description=DESCRIPTION,
+            long_description=LONG_DESCRIPTION,
+            url=URL,
+            download_url=DOWNLOAD_URL,
+            license=LICENSE,
+            classifiers=CLASSIFIERS,
+            author=AUTHOR,
+            author_email=AUTHOR_EMAIL,
+            platforms=PLATFORMS,
+            version=VERSION,
+            packages=PACKAGES,
+            install_requires=REQUIRES)
 
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
-setuptools.setup(
-    name="bctpy",
-    version="0.5.0",
-    maintainer="Roan LaPlante",
-    maintainer_email="rlaplant@nmr.mgh.harvard.edu",
-    description=("Brain Connectivity Toolbox for Python"),
-    license="Visuddhimagga Sutta; GPLv3+",
-    long_description=read('README.md'),
-    datafiles=[('', ['README.md', 'LICENSE'])],
-    classifiers=[
-        "Development Status :: 4 - Beta",
-        "Environment :: X11 Applications",
-        "Intended Audience :: Science/Research",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-        "Natural Language :: English",
-        "Programming Language :: Python :: 3.4",
-        "Topic :: Scientific/Engineering :: Information Analysis",
-    ],
-    url="https://github.com/aestrivex/bctpy",
-    platforms=['any'],
-    packages=['bct', 'bct.algorithms', 'bct.utils'],
-    install_requires=["numpy", "scipy"]
-)
+if __name__ == '__main__':
+    setup(**opts)

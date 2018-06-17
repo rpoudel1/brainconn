@@ -41,7 +41,6 @@ def test_component():
     x = load_sparse_sample()
     c1, cs1 = bct.get_components(x)
 
-    
     print(np.max(c1), 19)
     assert np.max(c1) == 19
 
@@ -104,6 +103,7 @@ def test_transitivity_bd():
 def test_agreement_weighted():
     # this function is very hard to use or interpret results from
     pass
+
 
 def test_agreement():
     # Case 1: nodes > partitions

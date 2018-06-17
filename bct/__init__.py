@@ -1,5 +1,9 @@
-__version__ = '0.5.0'
+"""
+bctpy: Brain Connectivity Toolbox in Python
+"""
+from .algorithms import *  # betweenness_bin
+from .utils import *  # teachers_round
+from .nbs import *  # nbs_bct
+from .version import __version__
 
-from .algorithms import *
-from .utils import *
-from .nbs import *
+# del betweenness_bin, teachers_round, nbs_bct

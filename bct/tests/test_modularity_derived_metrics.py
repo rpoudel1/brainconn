@@ -6,9 +6,9 @@ import bct
 def test_pc():
     x = load_sample(thres=.4)
     # ci,q = bct.modularity_und(x)
-    ci = np.load(mat_path('sample_partition.npy'))
+    ci = np.load(op.join(MAT_DIR, 'sample_partition.npy'))
 
-    pc = np.load(mat_path('sample_pc.npy'))
+    pc = np.load(op.join(MAT_DIR, 'sample_pc.npy'))
 
     pc_ = bct.participation_coef(x, ci)
     print(list(zip(pc, pc_)))
@@ -45,7 +45,7 @@ def participation_test():
 
 def gateway_test():
     x = load_sample(thres=.1)
-    ci = np.load(mat_path('sample_partition.npy'))
+    ci = np.load(op.join(MAT_DIR, 'sample_partition.npy'))
 
     g_pos, _ = bct.gateway_coef_sign(x, ci)
 
@@ -56,13 +56,13 @@ def gateway_test():
 
     print(np.sum(g_pos_bet), 43.4026)
     assert np.allclose(np.sum(g_pos_bet), 43.4026, atol=.001)
-    
+
 
 def test_zi():
     x = load_sample(thres=.4)
-    ci = np.load(mat_path('sample_partition.npy'))
+    ci = np.load(op.join(MAT_DIR, 'sample_partition.npy'))
 
-    zi = np.load(mat_path('sample_zi.npy'))
+    zi = np.load(op.join(MAT_DIR, 'sample_zi.npy'))
 
     zi_ = bct.module_degree_zscore(x, ci)
     print(list(zip(zi, zi_)))
@@ -79,7 +79,7 @@ def test_zi():
 
 def test_shannon_entropy():
     x = load_sample(thres=0.4)
-    ci = np.load(mat_path('sample_partition.npy'))
+    ci = np.load(op.join(MAT_DIR, 'sample_partition.npy'))
     # ci, q = bct.modularity_und(x)
     hpos, _ = bct.diversity_coef_sign(x, ci)
     print(np.sum(hpos))
