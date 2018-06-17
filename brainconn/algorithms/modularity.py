@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 import numpy as np
-from bct.utils import BCTParamError, normalize
+from ..utils import BCTParamError, normalize
 
 
 def ci2ls(ci):
@@ -87,7 +87,7 @@ def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
         initial community affiliation vector. default value=None
     B : str | NxN np.arraylike
         string describing objective function type, or provides a custom
-        NxN objective-function matrix. builtin values 
+        NxN objective-function matrix. builtin values
             'modularity' uses Q-metric as objective function
             'potts' uses Potts model Hamiltonian.
             'negative_sym' symmetric treatment of negative weights
