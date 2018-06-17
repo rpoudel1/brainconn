@@ -27,7 +27,7 @@ script:
         if [ "${COVERAGE}" == "1" ]; then
             TEST_ARGS="--cov-report term-missing --cov=tedana";
         fi
-        py.test {TEST_ARGS} brainconn;
+        py.test brainconn;
     fi
 
 after_success:
