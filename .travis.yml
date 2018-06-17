@@ -22,12 +22,14 @@ install:
 script:
   - |
     if [ "${STYLE}" == "1" ]; then
-        flake8 tedana
+        flake8 brainconn
     else
         if [ "${COVERAGE}" == "1" ]; then
-            TEST_ARGS="--cov-report term-missing --cov=tedana";
+            TEST_ARGS="--cov-report term-missing --cov=brainconn";
+        else
+            TEST_ARGS="";
         fi
-        py.test brainconn;
+        py.test ${TEST_ARGS} brainconn;
     fi
 
 after_success:
