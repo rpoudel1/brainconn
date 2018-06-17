@@ -1,3 +1,5 @@
 numpy
 scipy
+duecredit
 sphinx-argparse
+numpydoc
