@@ -1,13 +1,14 @@
 .. include:: <isonum.txt>
 
 
-NiMARE: Neuroimaging Meta-Analysis Research Environment
+brainconn: Brain connectivity analysis in Python
 ==========================================================
 
-NiMARE is a Python package for neuroimaging meta-analyses.
+brainconn is a Python package for graph theoretic analysis of neuroimaging
+data.
 
-.. image:: http://img.shields.io/badge/License-MIT-yellow.svg
-   :target: https://opensource.org/licenses/MIT
+.. image:: http://img.shields.io/badge/License-GPL-yellow.svg
+   :target: https://opensource.org/licenses/GPL
 
 
 .. toctree::

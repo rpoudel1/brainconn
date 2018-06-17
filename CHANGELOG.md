@@ -1,3 +1,7 @@
+# brainconn 0.0.1
+
+- Rename fork of BCT to brainconn for further independent development
+
 # BCT 0.4.1
 
 - Refactor code into multiple files
