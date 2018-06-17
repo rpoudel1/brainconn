@@ -2,7 +2,7 @@ from __future__ import division, print_function
 import numpy as np
 from .core import kcore_bd, kcore_bu
 from .distance import reachdist
-from bct.utils import invert
+from ..utils import invert
 
 
 def betweenness_bin(G):

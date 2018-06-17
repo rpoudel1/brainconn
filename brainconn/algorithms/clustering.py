@@ -1,8 +1,8 @@
 from __future__ import division, print_function
 import numpy as np
 from .modularity import modularity_louvain_und_sign
-from bct.utils import cuberoot, BCTParamError, dummyvar, binarize
 from .distance import breadthdist
+from ..utils import cuberoot, BCTParamError, dummyvar, binarize
 
 
 def agreement(ci, buffsz=1000):
@@ -218,7 +218,7 @@ def clustering_coef_wu_sign(W, coef_type='default'):
     '''
     Returns the weighted clustering coefficient generalized or separated
     for positive and negative weights.
-  
+
     Three Algorithms are supported; herefore referred to as default, zhang,
     and constantini.
 
@@ -447,7 +447,7 @@ def get_components(A, no_depend=False):
     if not np.all(A == A.T):  # ensure matrix is undirected
         raise BCTParamError('get_components can only be computed for undirected'
                             ' matrices.  If your matrix is noisy, correct it with np.around')
-    
+
     A = binarize(A, copy=True)
     n = len(A)
     np.fill_diagonal(A, 1)
@@ -465,7 +465,7 @@ def get_components(A, no_depend=False):
         temp.append(item)
         union_sets = temp
 
-    comps = np.array([i+1 for v in range(n) for i in 
+    comps = np.array([i+1 for v in range(n) for i in
         range(len(union_sets)) if v in union_sets[i]])
     comp_sizes = np.array([len(s) for s in union_sets])
 

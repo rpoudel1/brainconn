@@ -1,8 +1,8 @@
 from __future__ import division, print_function
 import numpy as np
-from bct.utils import BCTParamError, binarize
-from bct.utils import pick_four_unique_nodes_quickly
 from .clustering import number_of_components
+from ..utils import BCTParamError, binarize
+from ..utils import pick_four_unique_nodes_quickly
 
 
 def latmio_dir_connected(R, itr, D=None):
@@ -1211,8 +1211,8 @@ def randmio_und_connected(R, itr):
     to reach every other node in the network. The input network for this
     function must be connected.
 
-    NOTE the changes to the BCT matlab function of the same name 
-    made in the Jan 2016 release 
+    NOTE the changes to the BCT matlab function of the same name
+    made in the Jan 2016 release
     have not been propagated to this function because of substantially
     decreased time efficiency in the implementation. Expect these changes
     to be merged eventually.
@@ -1355,7 +1355,7 @@ def randmio_dir_signed(R, itr):
         att = 0
         while att <= max_attempts:
             #select four distinct vertices
-        
+
             a, b, c, d = pick_four_unique_nodes_quickly(n)
 
             #a, b, c, d = np.random.choice(n, 4)
@@ -1507,7 +1507,7 @@ def randmio_und_signed(R, itr):
             if (    np.sign(r0_ab) == np.sign(r0_cd) and
                     np.sign(r0_ad) == np.sign(r0_cb) and
                     np.sign(r0_ab) != np.sign(r0_ad)):
-        
+
                 R[a, d] = R[d, a] = r0_ab
                 R[a, b] = R[b, a] = r0_ad
 

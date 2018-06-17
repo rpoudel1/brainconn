@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 import numpy as np
-from bct.utils import cuberoot, binarize, invert
+from ..utils import cuberoot, binarize, invert
 
 
 def breadthdist(CIJ):
