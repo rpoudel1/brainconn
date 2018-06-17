@@ -1,5 +1,5 @@
 """
-bctpy: Brain Connectivity Toolbox in Python
+brainconn: Brain Connectivity Toolbox in Python
 """
 from .algorithms import *  # betweenness_bin
 from .utils import *  # teachers_round

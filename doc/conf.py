@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# NiMARE documentation build configuration file, created by
+# brainconn documentation build configuration file, created by
 # sphinx-quickstart
 #
 # This file is execfile()d with the current directory set to its
@@ -134,7 +134,7 @@ html_favicon = '_static/brainconn_favicon.png'
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'nimaredoc'
+htmlhelp_basename = 'brainconndoc'
 
 # The following is used by sphinx.ext.linkcode to provide links to github
 linkcode_resolve = make_linkcode_resolve('brainconn',

@@ -28,14 +28,14 @@ description = "Brain Connectivity Toolbox for Python"
 # Long description will go up on the pypi page
 long_description = """
 
-bctpy
+brainconn
 ======
-bctpy is a Python package for performing graph theory analysis for
+brainconn is a Python package for performing graph theory analysis for
 neuroimaging.
 
 License
 =======
-``bctpy`` is licensed under the terms of the GNU GPL license. See the file
+``brainconn`` is licensed under the terms of the GNU GPL license. See the file
 "LICENSE" for information on the history of this software, terms & conditions
 for usage, and a DISCLAIMER OF ALL WARRANTIES.
 
@@ -43,15 +43,15 @@ All trademarks referenced herein are property of their respective holders.
 
 """
 
-NAME = "bctpy"
-MAINTAINER = "bctpy developers"
+NAME = "brainconn"
+MAINTAINER = "brainconn developers"
 DESCRIPTION = description
 LONG_DESCRIPTION = long_description
-URL = "http://github.com/FIU-Neuro/bctpy"
-DOWNLOAD_URL = "http://github.com/FIU-Neuro/bctpy.git"
+URL = "http://github.com/FIU-Neuro/brainconn"
+DOWNLOAD_URL = "http://github.com/FIU-Neuro/brainconn.git"
 LICENSE = "MIT"
-AUTHOR = "bctpy developers"
-AUTHOR_EMAIL = "http://github.com/FIU-Neuro/bctpy"
+AUTHOR = "brainconn developers"
+AUTHOR_EMAIL = "http://github.com/FIU-Neuro/brainconn"
 PLATFORMS = "OS Independent"
 MAJOR = _version_major
 MINOR = _version_minor
