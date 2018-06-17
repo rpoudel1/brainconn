@@ -29,7 +29,7 @@ script:
         else
             TEST_ARGS="";
         fi
-        py.test ${TEST_ARGS} brainconn;
+        py.test --ignore=brainconn/tests/test_very_long.py ${TEST_ARGS} brainconn;
     fi
 
 after_success:

@@ -126,6 +126,7 @@ html_static_path = ['_static']
 # https://github.com/rtfd/sphinx_rtd_theme/issues/117
 def setup(app):
     app.add_stylesheet('theme_overrides.css')
+    app.connect('autodoc-process-docstring', generate_example_rst)
 
 
 html_favicon = '_static/brainconn_favicon.png'
@@ -188,9 +189,6 @@ def generate_example_rst(app, what, name, obj, options, lines):
         # touch file
         open(examples_path, 'w').close()
 
-
-def setup(app):
-    app.connect('autodoc-process-docstring', generate_example_rst)
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []
