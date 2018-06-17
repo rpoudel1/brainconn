@@ -7,11 +7,10 @@ python:
 
 matrix:
   include:
+    - python: 2.7
     - python: 3.6
       env:
         - STYLE=1
-    - python: 2.7
-    - python: 3.6
     - python: 3.6
       env:
         - COVERAGE=1
