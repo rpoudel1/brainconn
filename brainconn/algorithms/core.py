@@ -132,8 +132,8 @@ def assortativity_wei(CIJ, flag=0):
 
 
 def core_periphery_dir(W, gamma=1, C0=None):
-    ''' 
-    The optimal core/periphery subdivision is a partition of the network 
+    '''
+    The optimal core/periphery subdivision is a partition of the network
     into two nonoverlapping groups of nodes, a core group and a periphery
     group. The number of core-group edges is maximized, and the number of
     within periphery edges is minimized.
@@ -183,20 +183,20 @@ def core_periphery_dir(W, gamma=1, C0=None):
     flag = True
     it = 0
     while flag:
-        it += 1  
+        it += 1
         if it > 100:
             raise BCTParamError('Infinite Loop aborted')
 
         flag = False
         #initial node indices
-        ixes = np.arange(n)    
+        ixes = np.arange(n)
 
         Ct = C.copy()
         while len(ixes) > 0:
             Qt = np.zeros((n,))
             ctix, = np.where(Ct)
             nctix, = np.where(np.logical_not(Ct))
-            q0 = (np.sum(B[np.ix_(ctix, ctix)]) - 
+            q0 = (np.sum(B[np.ix_(ctix, ctix)]) -
                   np.sum(B[np.ix_(nctix, nctix)]))
             Qt[ctix] = q0 - 2 * np.sum(B[ctix, :], axis=1)
             Qt[nctix] = q0 + 2 * np.sum(B[nctix, :], axis=1)
@@ -214,7 +214,7 @@ def core_periphery_dir(W, gamma=1, C0=None):
             #casga
 
             ixes = np.delete(ixes, u)
-            
+
             print(max_Qt - q)
             print(len(ixes))
 
@@ -223,7 +223,7 @@ def core_periphery_dir(W, gamma=1, C0=None):
                 C = Ct.copy()
                 cix, = np.where(C)
                 ncix, = np.where(np.logical_not(C))
-                q = (np.sum(B[np.ix_(cix, cix)]) - 
+                q = (np.sum(B[np.ix_(cix, cix)]) -
                      np.sum(B[np.ix_(ncix, ncix)]))
 
     cix, = np.where(C)
@@ -378,7 +378,7 @@ def local_assortativity_wu_sign(W):
     ----------
     W : NxN np.ndarray
         undirected connection matrix with positive and negative weights
-    
+
     Returns
     -------
     loc_assort_pos : Nx1 np.ndarray
@@ -399,13 +399,13 @@ def local_assortativity_wu_sign(W):
 
     for curr_node in range(n):
         jp = np.where(W[curr_node, :] > 0)
-        loc_assort_pos[curr_node] = np.sum(np.abs(str_pos[jp] - 
+        loc_assort_pos[curr_node] = np.sum(np.abs(str_pos[jp] -
             str_pos[curr_node])) / str_pos[curr_node]
         jn = np.where(W[curr_node, :] < 0)
         loc_assort_neg[curr_node] = np.sum(np.abs(str_neg[jn] -
             str_neg[curr_node])) / str_neg[curr_node]
 
-    loc_assort_pos = ((r_pos + 1) / n - 
+    loc_assort_pos = ((r_pos + 1) / n -
         loc_assort_pos / np.sum(loc_assort_pos))
     loc_assort_neg = ((r_neg + 1) / n -
         loc_assort_neg / np.sum(loc_assort_neg))
