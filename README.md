@@ -1,40 +1,33 @@
+# brainconn (brain connectivity) library
+
+The `brainconn` Python library is a fork of `bctpy`, which in turn in a Python implementation of the `BCT` MATLAB toolbox. `bctpy` was written by [Roan LaPlante](https://github.com/aestrivex) and is a wonderful tool. However, there were certain elements of the implementation that we wanted to change, so we chose to develop independently on a fork, which we renamed to `brainconn` to allow separate releases on PyPi and the like.
+
 [![License: GPL v3](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/FIU-Neuro/brainconn.svg?branch=master)](https://travis-ci.org/FIU-Neuro/brainconn)
 [![Codecov](https://codecov.io/gh/FIU-Neuro/brainconn/branch/master/graph/badge.svg)](https://codecov.io/gh/FIU-Neuro/brainconn)
 [![Documentation Status](https://readthedocs.org/projects/brainconn/badge/?version=latest)](http://brainconn.readthedocs.io/en/latest/?badge=latest)
 
-# Brain Connectivity Toolbox for Python version 0.5.0
+## About
 
-Author: Roan LaPlante <rlaplant@nmr.mgh.harvard.edu>
+`brainconn` implements graph theoretic measures in Python.
+
+### Why graph theory?
+
+
 
 ## Copyright information
 
-This program strictly observes the tenets of fundamentalist Theravada Mahasi
-style Buddhism.  Any use of this program in violation of these aforementioned
-tenets or in violation of the principles described in the Visuddhimagga Sutta
-is strictly prohibited and punishable by extensive Mahayana style practice.
-By being or not being mindful of the immediate present moment sensations
-involved in the use of this program, you confer your acceptance of these terms
-and conditions.
+`bctpy` was released with the [GNU GPLv3+ license](https://www.gnu.org/licenses/gpl-3.0), which we adhere to as well. Changes made since splitting `brainconn` from `bctpy` are tracked in the [CHANGELOG](CHANGELOG.md).
 
-Note that the observation of the tenets of fundamentalist Theravada Mahasi
-style Buddhism and the Visuddhimagga Sutta is optional as long as the terms and
-conditions of the GNU GPLv3+ are upheld.
+## Citing brainconn
 
-## Packages used
+We eventually plan to publish `brainconn` releases on Zenodo, which will make specific versions citable. Moreover, the algorithms employed in `brainconn` (as well as the `BCT` MATLAB toolbox) should also be cited when used. We use [duecredit](https://github.com/duecredit/duecredit) to make compiling and annotating these citations easier. If you use `brainconn`, please make sure to run your code with `duecredit` before publication to make sure you have a comprehensive list of the software and papers that should be cited. You can do this by running your Python script (e.g., `run_brainconn.py`) from the command line like so: `python -m duecredit run_brainconn.py`.
 
-BCTPY is written in pure python and requires only `scipy` and `numpy`. `scipy` is required for a couple of functions for its statistical and linear algebra
-packages which have some features not available in `numpy` alone. If you don't
-have `scipy`, most functions that do not need `scipy` functionality will still work.
+## Dependencies
 
-Note that graphs must be passed in as `numpy.array`s rather than `numpy.matrix`es. Other constraints/ edge cases of the adjacency matrices (e.g. self-loops, negative weights) behave similarly to the matlab functions.
+At minimum, `brainconn` requires `numpy`, `scipy`, and `networkx`. While `bctpy` has limited dependencies to these three packages, `brainconn` is open to additional dependencies, as long as they are relatively stable and well-tested.
 
-A small number of functions (notably including network-based statistics, a
-nonparametric test for differences in undirected weighted graphs from different
-populations) currently require networkx, though this should be changed at some
-point in the future.
-
-Nosetests is used for the test suite. The test suite is not complete.
+`pytest` is used for the test suite. The test suite is not complete.
 
 ## About `bctpy` and other authors
 
