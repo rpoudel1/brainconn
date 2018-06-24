@@ -1,10 +1,13 @@
+"""
+Metrics which measure separability of modules within graphs.
+"""
 from __future__ import division, print_function
 import numpy as np
 from ..utils import BCTParamError, normalize
 
 
 def ci2ls(ci):
-    '''
+    """
     Convert from a community index vector to a 2D python list of modules
     The list is a pure python list, not requiring numpy.
 
@@ -20,7 +23,7 @@ def ci2ls(ci):
     ls : listof(list)
         pure python list with lowest value zero-indexed
         (regardless of zero-indexing parameter)
-    '''
+    """
     if not np.size(ci):
         return ci  # list is empty
     _, ci = np.unique(ci, return_inverse=True)
@@ -35,7 +38,7 @@ def ci2ls(ci):
 
 
 def ls2ci(ls, zeroindexed=False):
-    '''
+    """
     Convert from a 2D python list of modules to a community index vector.
     The list is a pure python list, not requiring numpy.
 
@@ -51,7 +54,7 @@ def ls2ci(ls, zeroindexed=False):
     -------
     ci : Nx1 np.ndarray
         community index vector
-    '''
+    """
     if ls is None or np.size(ls) == 0:
         return ()  # list is empty
     nr_indices = sum(map(len, ls))
@@ -64,7 +67,7 @@ def ls2ci(ls, zeroindexed=False):
 
 
 def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes which maximizes the number of within-group
     edges and minimizes the number of between-group edges.
@@ -101,7 +104,7 @@ def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
         final community structure
     q : float
         optimized q-statistic (modularity only)
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)
@@ -234,7 +237,7 @@ def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
 
 
 def link_communities(W, type_clustering='single'):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes which maximizes the number of within-group
     edges and minimizes the number of between-group edges.
@@ -255,7 +258,7 @@ def link_communities(W, type_clustering='single'):
     -------
     M : CxN np.ndarray
         nodal community affiliation matrix.
-    '''
+    """
     n = len(W)
     W = normalize(W)
 
@@ -457,7 +460,7 @@ def link_communities(W, type_clustering='single'):
 
 
 def modularity_dir(A, gamma=1, kci=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -490,7 +493,7 @@ def modularity_dir(A, gamma=1, kci=None):
     name incorrectly disclaims that the outcome depends on heuristics
     involving a random seed. The louvain method does depend on a random seed,
     but this function uses a deterministic modularity maximization algorithm.
-    '''
+    """
     from scipy import linalg
     n = len(A)  # number of vertices
     ki = np.sum(A, axis=0)  # in degree
@@ -559,7 +562,7 @@ def modularity_dir(A, gamma=1, kci=None):
 
 
 def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -592,7 +595,7 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -660,7 +663,7 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
 
 
 def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -693,7 +696,7 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     #import time
@@ -757,7 +760,7 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
 
 
 def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -794,7 +797,7 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes/modules
@@ -890,7 +893,7 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
 
 
 def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -926,7 +929,7 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -1019,7 +1022,7 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
 
 
 def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1055,7 +1058,7 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -1149,7 +1152,7 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
 
 
 def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1189,7 +1192,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -1313,7 +1316,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
 
 def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
                                  seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1356,7 +1359,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)
@@ -1446,7 +1449,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
 
 
 def modularity_und(A, gamma=1, kci=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1479,7 +1482,7 @@ def modularity_und(A, gamma=1, kci=None):
     name incorrectly disclaims that the outcome depends on heuristics
     involving a random seed. The louvain method does depend on a random seed,
     but this function uses a deterministic modularity maximization algorithm.
-    '''
+    """
     from scipy import linalg
     n = len(A)  # number of vertices
     k = np.sum(A, axis=0)  # degree
@@ -1548,7 +1551,7 @@ def modularity_und(A, gamma=1, kci=None):
 
 
 def modularity_und_sign(W, ci, qtype='sta'):
-    '''
+    """
     This function simply calculates the signed modularity for a given
     partition. It does not do automatic partition generation right now.
 
@@ -1573,7 +1576,7 @@ def modularity_und_sign(W, ci, qtype='sta'):
     Notes
     -----
     uses a deterministic algorithm
-    '''
+    """
     n = len(W)
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
@@ -1629,7 +1632,7 @@ def modularity_und_sign(W, ci, qtype='sta'):
 
 
 def partition_distance(cx, cy):
-    '''
+    """
     This function quantifies the distance between pairs of community
     partitions with information theoretic measures.
 
@@ -1653,7 +1656,7 @@ def partition_distance(cx, cy):
        VIn = [H(X) + H(Y) - 2MI(X,Y)]/log(n)
        MIn = 2MI(X,Y)/[H(X)+H(Y)]
     where H is entropy, MI is mutual information and n is number of nodes)
-    '''
+    """
     n = np.size(cx)
     _, cx = np.unique(cx, return_inverse=True)
     _, cy = np.unique(cy, return_inverse=True)

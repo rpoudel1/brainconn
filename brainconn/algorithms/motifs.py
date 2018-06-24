@@ -1,3 +1,6 @@
+"""
+Methods for the identification of recurrent sub-graphs and patterns.
+"""
 from __future__ import division, print_function
 import numpy as np
 from ..utils import BCTParamError, binarize
@@ -8,7 +11,7 @@ motiflib = 'motif34lib.mat'
 
 
 def find_motif34(m, n=None):
-    '''
+    """
     This function returns all motif isomorphs for a given motif id and
     class (3 or 4). The function also returns the motif id for a given
     motif matrix
@@ -36,7 +39,7 @@ def find_motif34(m, n=None):
     M : np.ndarray | int
         In use case 1, returns all isomorphs for the given motif
         In use case 2, returns the motif_id for the specified motif matrix
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -77,10 +80,10 @@ def find_motif34(m, n=None):
 
 
 def make_motif34lib():
-    '''
+    """
     This function generates the motif34lib.mat library required for all
     other motif computations. Not to be called externally.
-    '''
+    """
     from scipy import io
     import os
 
@@ -179,7 +182,7 @@ def make_motif34lib():
 
 
 def motif3funct_bin(A):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node.
@@ -195,7 +198,7 @@ def motif3funct_bin(A):
         motif frequency matrix
     f : 13x1 np.ndarray
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -248,7 +251,7 @@ def motif3funct_bin(A):
 
 
 def motif3funct_wei(W):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node. Motif intensity and coherence are weighted
@@ -271,7 +274,7 @@ def motif3funct_wei(W):
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -342,7 +345,7 @@ def motif3funct_wei(W):
 
 
 def motif3struct_bin(A):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node.
 
@@ -357,7 +360,7 @@ def motif3struct_bin(A):
         motif frequency matrix
     f : 13x1 np.ndarray
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -396,7 +399,7 @@ def motif3struct_bin(A):
 
 
 def motif3struct_wei(W):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node. Motif intensity
     and coherence are weighted generalizations of motif frequency.
@@ -418,7 +421,7 @@ def motif3struct_wei(W):
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -478,7 +481,7 @@ def motif3struct_wei(W):
 
 
 def motif4funct_bin(A):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node.
@@ -494,7 +497,7 @@ def motif4funct_bin(A):
         motif frequency matrix
     f : 199x1 np.ndarray
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -559,7 +562,7 @@ def motif4funct_bin(A):
 
 
 def motif4funct_wei(W):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node. Motif intensity and coherence are weighted
@@ -582,7 +585,7 @@ def motif4funct_wei(W):
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -671,7 +674,7 @@ def motif4funct_wei(W):
 
 
 def motif4struct_bin(A):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node.
 
@@ -686,7 +689,7 @@ def motif4struct_bin(A):
         motif frequency matrix
     f : 199x1 np.ndarray
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -742,7 +745,7 @@ def motif4struct_bin(A):
 
 
 def motif4struct_wei(W):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node. Motif intensity
     and coherence are weighted generalizations of motif frequency.
@@ -764,7 +767,7 @@ def motif4struct_wei(W):
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)

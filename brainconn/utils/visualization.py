@@ -1,10 +1,13 @@
+"""
+Tools for visualizing graphs.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .miscellaneous_utilities import BCTParamError
 
 
 def adjacency_plot_und(A, coor, tube=False):
-    '''
+    """
     This function in matlab is a visualization helper which translates an
     adjacency matrix and an Nx3 matrix of spatial coordinates, and plots a
     3D isometric network connecting the undirected unweighted nodes using a
@@ -53,7 +56,7 @@ def adjacency_plot_und(A, coor, tube=False):
     Note: Thresholding the matrix is strongly recommended.  It is recommended
     that the input matrix have fewer than 5000 total connections in order to
     achieve reasonable performance and noncluttered visualization.
-    '''
+    """
     from mayavi import mlab
 
     n = len(A)
@@ -118,7 +121,7 @@ def adjacency_plot_und(A, coor, tube=False):
 
 def align_matrices(m1, m2, dfun='sqrdiff', verbose=False, H=1e6, Texp=1,
                    T0=1e-3, Hbrk=10):
-    '''
+    """
     This function aligns two matrices relative to one another by reordering
     the nodes in M2.  The function uses a version of simulated annealing.
 
@@ -184,7 +187,7 @@ def align_matrices(m1, m2, dfun='sqrdiff', verbose=False, H=1e6, Texp=1,
 
     Setting 'Texp' to zero cancels annealing and uses a greedy algorithm
     instead.
-    '''
+    """
     n = len(m1)
     if n < 2:
         raise BCTParamError("align_matrix will infinite loop on a singleton "
@@ -266,7 +269,7 @@ def align_matrices(m1, m2, dfun='sqrdiff', verbose=False, H=1e6, Texp=1,
 
 
 def backbone_wu(CIJ, avgdeg):
-    '''
+    """
     The network backbone contains the dominant connections in the network
     and may be used to aid network visualization. This function computes
     the backbone of a given weighted and undirected connection matrix CIJ,
@@ -295,7 +298,7 @@ def backbone_wu(CIJ, avgdeg):
          (or very close to) 'avgdeg'.
     NOTE: 'avgdeg' backfill is handled slightly differently than in Hagmann
          et al 2008.
-    '''
+    """
     n = len(CIJ)
     if not np.all(CIJ == CIJ.T):
         raise BCTParamError('backbone_wu can only be computed for undirected '
@@ -345,7 +348,7 @@ def backbone_wu(CIJ, avgdeg):
 
 
 def grid_communities(c):
-    '''
+    """
     (X,Y,INDSORT) = GRID_COMMUNITIES(C) takes a vector of community
     assignments C and returns three output arguments for visualizing the
     communities. The third is INDSORT, which is an ordering of the vertices
@@ -380,7 +383,7 @@ def grid_communities(c):
 
     Note that I adapted the idea from the matlab function of the same name,
     and have not tested the functionality extensively.
-    '''
+    """
     c = c.copy()
     nr_c = np.max(c)
     ixes = np.argsort(c)
@@ -400,7 +403,7 @@ def grid_communities(c):
 
 
 def reorderMAT(m, H=5000, cost='line'):
-    '''
+    """
     This function reorders the connectivity matrix in order to place more
     edges closer to the diagonal. This often helps in displaying community
     structure, clusters, etc.
@@ -430,7 +433,7 @@ def reorderMAT(m, H=5000, cost='line'):
     differ, but this code looks a ton sketchier and might have had some minor
     bugs in it.  Considering reorder_matrix() does the same thing using a well
     vetted simulated annealing algorithm, just use that. ~rlaplant
-    '''
+    """
     from scipy import linalg, stats
     m = m.copy()
     n = len(m)
@@ -474,7 +477,7 @@ def reorderMAT(m, H=5000, cost='line'):
 
 
 def reorder_matrix(m1, cost='line', verbose=False, H=1e4, Texp=10, T0=1e-3, Hbrk=10):
-    '''
+    """
     This function rearranges the nodes in matrix M1 such that the matrix
     elements are squeezed along the main diagonal.  The function uses a
     version of simulated annealing.
@@ -526,7 +529,7 @@ def reorder_matrix(m1, cost='line', verbose=False, H=1e4, Texp=10, T0=1e-3, Hbrk
 
     Setting 'Texp' to zero cancels annealing and uses a greedy algorithm
     instead.
-    '''
+    """
     from scipy import linalg, stats
     n = len(m1)
     if n < 2:
@@ -600,7 +603,7 @@ def reorder_matrix(m1, cost='line', verbose=False, H=1e4, Texp=10, T0=1e-3, Hbrk
 
 
 def reorder_mod(A, ci):
-    '''
+    """
     This function reorders the connectivity matrix by modular structure and
     may hence be useful in visualization of modular structure.
 
@@ -617,7 +620,7 @@ def reorder_mod(A, ci):
         new node order
     Ar : NxN np.ndarray
         reordered connectivity matrix
-    '''
+    """
     # TODO update function with 2015 changes
 
     from scipy import stats
@@ -743,7 +746,7 @@ def reorder_mod(A, ci):
 
 
 def writetoPAJ(CIJ, fname, directed):
-    '''
+    """
     This function writes a Pajek .net file from a numpy matrix
 
     Parameters
@@ -756,7 +759,7 @@ def writetoPAJ(CIJ, fname, directed):
         True if the network is directed and False otherwise. The data format
         may be required to know this for some reason so I am afraid to just
         use directed as the default value.
-    '''
+    """
     n = np.size(CIJ, axis=0)
     with open(fname, 'w') as fd:
         fd.write('*vertices %i \r' % n)

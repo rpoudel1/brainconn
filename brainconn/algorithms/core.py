@@ -1,3 +1,6 @@
+"""
+Miscellaneous functions.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .degree import degrees_dir, degrees_und, strengths_dir, strengths_und
@@ -5,7 +8,7 @@ from .degree import strengths_und_sign
 
 
 def assortativity_bin(CIJ, flag=0):
-    '''
+    """
     The assortativity coefficient is a correlation coefficient between the
     degrees of all nodes on two opposite ends of a link. A positive
     assortativity coefficient indicates that nodes tend to link to other
@@ -33,7 +36,7 @@ def assortativity_bin(CIJ, flag=0):
     weights are ignored. The main diagonal should be empty. For flag 1
     the function computes the directed assortativity described in Rubinov
     and Sporns (2010) NeuroImage.
-    '''
+    """
     if flag == 0:  # undirected version
         deg = degrees_und(CIJ)
         i, j = np.where(np.triu(CIJ, 1) > 0)
@@ -69,7 +72,7 @@ def assortativity_bin(CIJ, flag=0):
 
 
 def assortativity_wei(CIJ, flag=0):
-    '''
+    """
     The assortativity coefficient is a correlation coefficient between the
     strengths (weighted degrees) of all nodes on two opposite ends of a link.
     A positive assortativity coefficient indicates that nodes tend to link to
@@ -96,7 +99,7 @@ def assortativity_wei(CIJ, flag=0):
     The main diagonal should be empty. For flag 1
        the function computes the directed assortativity described in Rubinov
        and Sporns (2010) NeuroImage.
-    '''
+    """
     if flag == 0:  # undirected version
         str = strengths_und(CIJ)
         i, j = np.where(np.triu(CIJ, 1) > 0)
@@ -132,7 +135,7 @@ def assortativity_wei(CIJ, flag=0):
 
 
 def core_periphery_dir(W, gamma=1, C0=None):
-    '''
+    """
     The optimal core/periphery subdivision is a partition of the network
     into two nonoverlapping groups of nodes, a core group and a periphery
     group. The number of core-group edges is maximized, and the number of
@@ -157,7 +160,7 @@ def core_periphery_dir(W, gamma=1, C0=None):
         0 < gamma < 1 detects large core, small periphery
     C0 : NxN np.ndarray
         Initial core structure
-    '''
+    """
     n = len(W)
     np.fill_diagonal(W, 0)
 
@@ -233,7 +236,7 @@ def core_periphery_dir(W, gamma=1, C0=None):
 
 
 def kcore_bd(CIJ, k, peel=False):
-    '''
+    """
     The k-core is the largest subnetwork comprising nodes of degree at
     least k. This function computes the k-core for a given binary directed
     connection matrix by recursively peeling off nodes with degree lower
@@ -267,7 +270,7 @@ def kcore_bd(CIJ, k, peel=False):
     -----
     'peelorder' and 'peellevel' are similar the the k-core sub-shells
     described in Modha and Singh (2010).
-    '''
+    """
     if peel:
         peelorder, peellevel = ([], [])
     iter = 0
@@ -301,7 +304,7 @@ def kcore_bd(CIJ, k, peel=False):
 
 
 def kcore_bu(CIJ, k, peel=False):
-    '''
+    """
     The k-core is the largest subnetwork comprising nodes of degree at
     least k. This function computes the k-core for a given binary
     undirected connection matrix by recursively peeling off nodes with
@@ -335,7 +338,7 @@ def kcore_bu(CIJ, k, peel=False):
     -----
     'peelorder' and 'peellevel' are similar the the k-core sub-shells
     described in Modha and Singh (2010).
-    '''
+    """
     if peel:
         peelorder, peellevel = ([], [])
     iter = 0
@@ -369,7 +372,7 @@ def kcore_bu(CIJ, k, peel=False):
 
 
 def local_assortativity_wu_sign(W):
-    '''
+    """
     Local assortativity measures the extent to which nodes are connected to
     nodes of similar strength. Adapted from Thedchanamoorthy et al. 2014
     formula to allowed weighted/signed networks.
@@ -385,7 +388,7 @@ def local_assortativity_wu_sign(W):
         local assortativity from positive weights
     loc_assort_neg : Nx1 np.ndarray
         local assortativity from negative weights
-    '''
+    """
     n = len(W)
 
     np.fill_diagonal(W, 0)
@@ -413,7 +416,7 @@ def local_assortativity_wu_sign(W):
     return loc_assort_pos, loc_assort_neg
 
 def rich_club_bd(CIJ, klevel=None):
-    '''
+    """
     The rich club coefficient, R, at level k is the fraction of edges that
     connect nodes of degree k or higher out of the maximum number of edges
     that such nodes might share.
@@ -435,7 +438,7 @@ def rich_club_bd(CIJ, klevel=None):
         number of nodes with degree > k
     Ek : int
         number of edges remaining in subgraph with degree > k
-    '''
+    """
     # definition of degree as used for RC coefficients
     # degree is taken to be the sum of incoming and outgoing connections
     id, od, deg = degrees_dir(CIJ)
@@ -459,7 +462,7 @@ def rich_club_bd(CIJ, klevel=None):
 
 
 def rich_club_bu(CIJ, klevel=None):
-    '''
+    """
     The rich club coefficient, R, at level k is the fraction of edges that
     connect nodes of degree k or higher out of the maximum number of edges
     that such nodes might share.
@@ -481,7 +484,7 @@ def rich_club_bu(CIJ, klevel=None):
         number of nodes with degree > k
     Ek : int
         number of edges remaining in subgraph with degree > k
-    '''
+    """
     deg = degrees_und(CIJ)  # compute degree of each node
 
     if klevel == None:
@@ -503,7 +506,7 @@ def rich_club_bu(CIJ, klevel=None):
 
 
 def rich_club_wd(CIJ, klevel=None):
-    '''
+    """
     Parameters
     ----------
     CIJ : NxN np.ndarray
@@ -517,7 +520,7 @@ def rich_club_wd(CIJ, klevel=None):
     -------
     Rw : Kx1 np.ndarray
         vector of rich-club coefficients for levels 1 to klevel
-    '''
+    """
     nr_nodes = len(CIJ)
     # degree of each node is defined here as in+out
     deg = np.sum((CIJ != 0), axis=0) + np.sum((CIJ.T != 0), axis=0)
@@ -550,7 +553,7 @@ def rich_club_wd(CIJ, klevel=None):
 
 
 def rich_club_wu(CIJ, klevel=None):
-    '''
+    """
     Parameters
     ----------
     CIJ : NxN np.ndarray
@@ -564,7 +567,7 @@ def rich_club_wu(CIJ, klevel=None):
     -------
     Rw : Kx1 np.ndarray
         vector of rich-club coefficients for levels 1 to klevel
-    '''
+    """
     nr_nodes = len(CIJ)
     deg = np.sum((CIJ != 0), axis=0)
 
@@ -596,7 +599,7 @@ def rich_club_wu(CIJ, klevel=None):
 
 
 def score_wu(CIJ, s):
-    '''
+    """
     The s-core is the largest subnetwork comprising nodes of strength at
     least s. This function computes the s-core for a given weighted
     undirected connection matrix. Computation is analogous to the more
@@ -617,7 +620,7 @@ def score_wu(CIJ, s):
         a strength of at least s.
     sn : int
         size of s-core
-    '''
+    """
     CIJscore = CIJ.copy()
     while True:
         str = strengths_und(CIJscore)  # get strengths of matrix

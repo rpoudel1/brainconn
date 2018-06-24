@@ -1,3 +1,6 @@
+"""
+Methods for generating or latticizing graphs.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .clustering import number_of_components
@@ -6,7 +9,7 @@ from ..utils import pick_four_unique_nodes_quickly
 
 
 def latmio_dir_connected(R, itr, D=None):
-    '''
+    """
     This function "latticizes" a directed network, while preserving the in-
     and out-degree distributions. In weighted networks, the function
     preserves the out-strength but not the in-strength distributions. The
@@ -34,7 +37,7 @@ def latmio_dir_connected(R, itr, D=None):
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     n = len(R)
 
     ind_rp = np.random.permutation(n)  # random permutation of nodes
@@ -125,7 +128,7 @@ def latmio_dir_connected(R, itr, D=None):
 
 
 def latmio_dir(R, itr, D=None):
-    '''
+    """
     This function "latticizes" a directed network, while preserving the in-
     and out-degree distributions. In weighted networks, the function
     preserves the out-strength but not the in-strength distributions.
@@ -150,7 +153,7 @@ def latmio_dir(R, itr, D=None):
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     n = len(R)
 
     ind_rp = np.random.permutation(n)  # randomly reorder matrix
@@ -216,7 +219,7 @@ def latmio_dir(R, itr, D=None):
 
 
 def latmio_und_connected(R, itr, D=None):
-    '''
+    """
     This function "latticizes" an undirected network, while preserving the
     degree distribution. The function does not preserve the strength
     distribution in weighted networks. The function also ensures that the
@@ -244,7 +247,7 @@ def latmio_und_connected(R, itr, D=None):
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     if not np.all(R == R.T):
         raise BCTParamError("Input must be undirected")
 
@@ -348,7 +351,7 @@ def latmio_und_connected(R, itr, D=None):
 
 
 def latmio_und(R, itr, D=None):
-    '''
+    """
     This function "latticizes" an undirected network, while preserving the
     degree distribution. The function does not preserve the strength
     distribution in weighted networks.
@@ -373,7 +376,7 @@ def latmio_und(R, itr, D=None):
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     n = len(R)
 
     ind_rp = np.random.permutation(n)  # randomly reorder matrix
@@ -449,7 +452,7 @@ def latmio_und(R, itr, D=None):
 
 
 def makeevenCIJ(n, k, sz_cl):
-    '''
+    """
     This function generates a random, directed network with a specified
     number of fully connected modules linked together by evenly distributed
     remaining random connections.
@@ -473,7 +476,7 @@ def makeevenCIJ(n, k, sz_cl):
     N must be a power of 2.
             A warning is generated if all modules contain more edges than K.
             Cluster size is 2^sz_cl;
-    '''
+    """
     # compute number of hierarchical levels and adjust cluster size
     mx_lvl = int(np.floor(np.log2(n)))
     sz_cl -= 1
@@ -523,7 +526,7 @@ def makeevenCIJ(n, k, sz_cl):
 
 
 def makefractalCIJ(mx_lvl, E, sz_cl):
-    '''
+    """
     This function generates a directed network with a hierarchical modular
     organization. All modules are fully connected and connection density
     decays as 1/(E^n), with n = index of hierarchical level.
@@ -543,7 +546,7 @@ def makefractalCIJ(mx_lvl, E, sz_cl):
         connection matrix
     K : int
         number of connections present in output CIJ
-    '''
+    """
     # make a stupid little template
     t = np.ones((2, 2)) * 2
 
@@ -578,7 +581,7 @@ def makefractalCIJ(mx_lvl, E, sz_cl):
 
 
 def makerandCIJdegreesfixed(inv, outv):
-    '''
+    """
     This function generates a directed random network with a specified
     in-degree and out-degree sequence.
 
@@ -610,7 +613,7 @@ def makerandCIJdegreesfixed(inv, outv):
         1-(1/(2*(k^2))). This turns out to be a serious problem when
         computing infinite degree matrices, but offers good performance
         otherwise.
-    '''
+    """
     n = len(inv)
     k = np.sum(inv)
     in_inv = np.zeros((k,))
@@ -658,7 +661,7 @@ def makerandCIJdegreesfixed(inv, outv):
 
 
 def makerandCIJ_dir(n, k):
-    '''
+    """
     This function generates a directed random network
 
     Parameters
@@ -676,7 +679,7 @@ def makerandCIJ_dir(n, k):
     Notes
     -----
     no connections are placed on the main diagonal.
-    '''
+    """
     ix, = np.where(np.logical_not(np.eye(n)).flat)
     rp = np.random.permutation(np.size(ix))
 
@@ -686,7 +689,7 @@ def makerandCIJ_dir(n, k):
 
 
 def makerandCIJ_und(n, k):
-    '''
+    """
     This function generates an undirected random network
 
     Parameters
@@ -704,7 +707,7 @@ def makerandCIJ_und(n, k):
     Notes
     -----
     no connections are placed on the main diagonal.
-    '''
+    """
     ix, = np.where(np.triu(np.logical_not(np.eye(n))).flat)
     rp = np.random.permutation(np.size(ix))
 
@@ -714,7 +717,7 @@ def makerandCIJ_und(n, k):
 
 
 def makeringlatticeCIJ(n, k):
-    '''
+    """
     This function generates a directed lattice network with toroidal
     boundary counditions (i.e. with ring-like "wrapping around").
 
@@ -735,7 +738,7 @@ def makeringlatticeCIJ(n, k):
     The lattice is made by placing connections as close as possible
     to the main diagonal, with wrapping around. No connections are made
     on the main diagonal. In/Outdegree is kept approx. constant at K/N.
-    '''
+    """
     # initialize
     CIJ = np.zeros((n, n))
     CIJ1 = np.ones((n, n))
@@ -765,7 +768,7 @@ def makeringlatticeCIJ(n, k):
 
 
 def maketoeplitzCIJ(n, k, s):
-    '''
+    """
     This function generates a directed network with a Gaussian drop-off in
     edge density with increasing distance from the main diagonal. There are
     toroidal boundary counditions (i.e. no ring-like "wrapping around").
@@ -787,7 +790,7 @@ def maketoeplitzCIJ(n, k, s):
     Notes
     -----
     no connections are placed on the main diagonal.
-    '''
+    """
     from scipy import linalg, stats
     pf = stats.norm.pdf(range(1, n), .5, s)
     template = linalg.toeplitz(np.append((0,), pf), r=np.append((0,), pf))
@@ -807,7 +810,7 @@ def maketoeplitzCIJ(n, k, s):
 
 
 def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1):
-    '''
+    """
     This function randomizes an directed network with positive and
     negative weights, while preserving the degree and strength
     distributions. This function calls randmio_dir.m
@@ -848,7 +851,7 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1):
        were preserved. Note that correlation coefficients may be a rough
        measure of strength-sequence accuracy and one could implement more
        formal tests (such as the Kolmogorov-Smirnov test) if desired.
-    '''
+    """
     W = W.copy()
     n = len(W)
     np.fill_diagonal(W, 0)  # clear diagonal
@@ -925,7 +928,7 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1):
 
 
 def null_model_und_sign(W, bin_swaps=5, wei_freq=.1):
-    '''
+    """
     This function randomizes an undirected network with positive and
     negative weights, while preserving the degree and strength
     distributions. This function calls randmio_und.m
@@ -967,7 +970,7 @@ def null_model_und_sign(W, bin_swaps=5, wei_freq=.1):
         Note that correlation coefficients may be a rough measure of
         strength-sequence accuracy and one could implement more formal tests
         (such as the Kolmogorov-Smirnov test) if desired.
-    '''
+    """
     if not np.all(W == W.T):
         raise BCTParamError("Input must be undirected")
     W = W.copy()
@@ -1050,7 +1053,7 @@ def null_model_und_sign(W, bin_swaps=5, wei_freq=.1):
 
 
 def randmio_dir_connected(R, itr):
-    '''
+    """
     This function randomizes a directed network, while preserving the in-
     and out-degree distributions. In weighted networks, the function
     preserves the out-strength but not the in-strength distributions. The
@@ -1071,7 +1074,7 @@ def randmio_dir_connected(R, itr):
         randomized network
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     R = R.copy()
     n = len(R)
     i, j = np.where(R)
@@ -1140,7 +1143,7 @@ def randmio_dir_connected(R, itr):
 
 
 def randmio_dir(R, itr):
-    '''
+    """
     This function randomizes a directed network, while preserving the in-
     and out-degree distributions. In weighted networks, the function
     preserves the out-strength but not the in-strength distributions.
@@ -1158,7 +1161,7 @@ def randmio_dir(R, itr):
         randomized network
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     R = R.copy()
     n = len(R)
     i, j = np.where(R)
@@ -1203,7 +1206,7 @@ def randmio_dir(R, itr):
 
 
 def randmio_und_connected(R, itr):
-    '''
+    """
     This function randomizes an undirected network, while preserving the
     degree distribution. The function does not preserve the strength
     distribution in weighted networks. The function also ensures that the
@@ -1230,7 +1233,7 @@ def randmio_und_connected(R, itr):
         randomized network
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     if not np.all(R == R.T):
         raise BCTParamError("Input must be undirected")
 
@@ -1317,7 +1320,7 @@ def randmio_und_connected(R, itr):
 
 
 def randmio_dir_signed(R, itr):
-    '''
+    """
     This function randomizes a directed weighted network with positively
     and negatively signed connections, while preserving the positive and
     negative degree distributions. In weighted networks by default the
@@ -1337,7 +1340,7 @@ def randmio_dir_signed(R, itr):
         randomized network
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     R = R.copy()
     n = len(R)
 
@@ -1389,7 +1392,7 @@ def randmio_dir_signed(R, itr):
     return R, eff
 
 def randmio_und(R, itr):
-    '''
+    """
     This function randomizes an undirected network, while preserving the
     degree distribution. The function does not preserve the strength
     distribution in weighted networks.
@@ -1407,7 +1410,7 @@ def randmio_und(R, itr):
         randomized network
     eff : int
         number of actual rewirings carried out
-    '''
+    """
     if not np.all(R == R.T):
         raise BCTParamError("Input must be undirected")
     R = R.copy()
@@ -1466,7 +1469,7 @@ def randmio_und(R, itr):
 
 
 def randmio_und_signed(R, itr):
-    '''
+    """
     This function randomizes an undirected weighted network with positive
     and negative weights, while simultaneously preserving the degree
     distribution of positive and negative weights. The function does not
@@ -1483,7 +1486,7 @@ def randmio_und_signed(R, itr):
     -------
     R : NxN np.ndarray
         randomized network
-    '''
+    """
     R = R.copy()
     n = len(R)
 
@@ -1522,7 +1525,7 @@ def randmio_und_signed(R, itr):
     return R, eff
 
 def randomize_graph_partial_und(A, B, maxswap):
-    '''
+    """
     A = RANDOMIZE_GRAPH_PARTIAL_UND(A,B,MAXSWAP) takes adjacency matrices A
     and B and attempts to randomize matrix A by performing MAXSWAP
     rewirings. The rewirings will avoid any spots where matrix B is
@@ -1549,7 +1552,7 @@ def randomize_graph_partial_und(A, B, maxswap):
     2. A can be weighted, though the weighted degree sequence will not be
       preserved.
     3. A must be undirected.
-    '''
+    """
     A = A.copy()
     i, j = np.where(np.triu(A, 1))
     i.setflags(write=True)
@@ -1594,7 +1597,7 @@ def randomize_graph_partial_und(A, B, maxswap):
 
 
 def randomizer_bin_und(R, alpha):
-    '''
+    """
     This function randomizes a binary undirected network, while preserving
     the degree distribution. The function directly searches for rewirable
     edge pairs (rather than trying to rewire edge pairs at random), and
@@ -1611,7 +1614,7 @@ def randomizer_bin_und(R, alpha):
     -------
     R : NxN np.ndarray
         randomized network
-    '''
+    """
     R = binarize(R, copy=True)  # binarize
     if not np.all(R == R.T):
         raise BCTParamError(

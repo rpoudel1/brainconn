@@ -1,10 +1,13 @@
+"""
+Metrics which evaluate distance between nodes based on paths.
+"""
 from __future__ import division, print_function
 import numpy as np
 from ..utils import cuberoot, binarize, invert
 
 
 def breadthdist(CIJ):
-    '''
+    """
     The binary reachability matrix describes reachability between all pairs
     of nodes. An entry (u,v)=1 means that there exists a path from node u
     to node v; alternatively (u,v)=0.
@@ -29,7 +32,7 @@ def breadthdist(CIJ):
     Notes
     -----
     slower but less memory intensive than "reachdist.m".
-    '''
+    """
     n = len(CIJ)
 
     D = np.zeros((n, n))
@@ -42,7 +45,7 @@ def breadthdist(CIJ):
 
 
 def breadth(CIJ, source):
-    '''
+    """
     Implementation of breadth-first search.
 
     Parameters
@@ -65,7 +68,7 @@ def breadth(CIJ, source):
     shortest paths), but allows the determination of at least one path with
     minimum distance. The entire graph is explored, starting from source
     vertex 'source'.
-    '''
+    """
     n = len(CIJ)
 
     # colors: white,gray,black
@@ -103,7 +106,7 @@ def breadth(CIJ, source):
 
 
 def charpath(D, include_diagonal=False, include_infinite=True):
-    '''
+    """
     The characteristic path length is the average shortest path length in
     the network. The global efficiency is the average inverse shortest path
     length in the network.
@@ -137,7 +140,7 @@ def charpath(D, include_diagonal=False, include_infinite=True):
     Characteristic path length is calculated as the global mean of
     the distance matrix D, excludings any 'Infs' but including distances on
     the main diagonal.
-    '''
+    """
     D = D.copy()
 
     if not include_diagonal:
@@ -167,7 +170,7 @@ def charpath(D, include_diagonal=False, include_infinite=True):
 
 
 def cycprob(Pq):
-    '''
+    """
     Cycles are paths which begin and end at the same node. Cycle
     probability for path length d, is the fraction of all paths of length
     d-1 that may be extended to form cycles of length d.
@@ -185,7 +188,7 @@ def cycprob(Pq):
     pcyc : Qx1 np.ndarray
         probability that a non-cyclic path of length q-1 can be extended to
         form a cycle of length q for each path length q
-    '''
+    """
 
     # note: fcyc[1] must be zero, as there cannot be cycles of length 1
     fcyc = np.zeros(np.size(Pq, axis=2))
@@ -210,7 +213,7 @@ def cycprob(Pq):
 
 
 def distance_bin(G):
-    '''
+    """
     The distance matrix contains lengths of shortest paths between all
     pairs of nodes. An entry (u,v) represents the length of shortest path
     from node u to node v. The average shortest path length is the
@@ -231,7 +234,7 @@ def distance_bin(G):
     Lengths between disconnected nodes are set to Inf.
     Lengths on the main diagonal are set to 0.
     Algorithm: Algebraic shortest paths.
-    '''
+    """
     G = binarize(G, copy=True)
     D = np.eye(len(G))
     n = 1
@@ -250,7 +253,7 @@ def distance_bin(G):
 
 
 def distance_wei(G):
-    '''
+    """
     The distance matrix contains lengths of shortest paths between all
     pairs of nodes. An entry (u,v) represents the length of shortest path
     from node u to node v. The average shortest path length is the
@@ -285,7 +288,7 @@ def distance_wei(G):
        Lengths on the main diagonal are set to 0.
 
     Algorithm: Dijkstra's algorithm.
-    '''
+    """
     n = len(G)
     D = np.zeros((n, n))  # distance matrix
     D[np.logical_not(np.eye(n))] = np.inf
@@ -467,7 +470,7 @@ def retrieve_shortest_path(s, t, hops, Pmat):
 
 
 def efficiency_bin(G, local=False):
-    '''
+    """
     The global efficiency is the average of inverse shortest path length,
     and is inversely related to the characteristic path length.
 
@@ -488,7 +491,7 @@ def efficiency_bin(G, local=False):
         global efficiency, only if local=False
     Eloc : Nx1 np.ndarray
         local efficiency, only if local=True
-    '''
+    """
     def distance_inv(g):
         D = np.eye(len(g))
         n = 1
@@ -538,7 +541,7 @@ def efficiency_bin(G, local=False):
 
 
 def efficiency_wei(Gw, local=False):
-    '''
+    """
     The global efficiency is the average of inverse shortest path length,
     and is inversely related to the characteristic path length.
 
@@ -577,7 +580,7 @@ def efficiency_wei(Gw, local=False):
     efficiency is hence not a strict generalization of the binary variant.
 
     Algorithm:  Dijkstra's algorithm
-    '''
+    """
     def distance_inv_wei(G):
         n = len(G)
         D = np.zeros((n, n))  # distance matrix
@@ -645,7 +648,7 @@ def efficiency_wei(Gw, local=False):
 
 
 def findpaths(CIJ, qmax, sources, savepths=False):
-    '''
+    """
     Paths are sequences of linked nodes, that never visit a single node
     more than once. This function finds all paths that start at a set of
     source nodes, up to a specified length. Warning: very memory-intensive.
@@ -689,7 +692,7 @@ def findpaths(CIJ, qmax, sources, savepths=False):
     Note: I am certain that this algorithm is rather inefficient -
     suggestions for improvements are welcome.
 
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
     n = len(CIJ)
     k = np.sum(CIJ)
@@ -795,7 +798,7 @@ def findpaths(CIJ, qmax, sources, savepths=False):
 
 
 def findwalks(CIJ):
-    '''
+    """
     Walks are sequences of linked nodes, that may visit a single node more
     than once. This function finds the number of walks of a given length,
     between any two nodes.
@@ -817,7 +820,7 @@ def findwalks(CIJ):
     Notes
     -----
     Wq grows very quickly for larger N,K,q. Weights are discarded.
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)
     n = len(CIJ)
     Wq = np.zeros((n, n, n))
@@ -833,7 +836,7 @@ def findwalks(CIJ):
 
 
 def reachdist(CIJ, ensure_binary=True):
-    '''
+    """
     The binary reachability matrix describes reachability between all pairs
     of nodes. An entry (u,v)=1 means that there exists a path from node u
     to node v; alternatively (u,v)=0.
@@ -862,7 +865,7 @@ def reachdist(CIJ, ensure_binary=True):
     Notes
     -----
     faster but more memory intensive than "breadthdist.m".
-    '''
+    """
     def reachdist2(CIJ, CIJpwr, R, D, n, powr, col, row):
         CIJpwr = np.dot(CIJpwr, CIJ)
         R = np.logical_or(R, CIJpwr != 0)

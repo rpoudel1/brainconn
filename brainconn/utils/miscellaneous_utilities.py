@@ -1,3 +1,6 @@
+"""
+Miscellaneous utility functions.
+"""
 from __future__ import division, print_function
 import numpy as np
 
@@ -7,10 +10,10 @@ class BCTParamError(RuntimeError):
 
 
 def teachers_round(x):
-    '''
+    """
     Do rounding such that .5 always rounds to 1, and not bankers rounding.
     This is for compatibility with matlab functions, and ease of testing.
-    '''
+    """
     if ((x > 0) and (x % 1 >= 0.5)) or ((x < 0) and (x % 1 > 0.5)):
         return int(np.ceil(x))
     else:
@@ -18,12 +21,12 @@ def teachers_round(x):
 
 
 def pick_four_unique_nodes_quickly(n):
-    '''
+    """
     This is equivalent to np.random.choice(n, 4, replace=False)
 
     Another fellow suggested np.random.random(n).argpartition(4) which is
     clever but still substantially slower.
-    '''
+    """
     k = np.random.randint(n**4)
     a = k % n
     b = k // n % n
@@ -42,15 +45,15 @@ def pick_four_unique_nodes_quickly(n):
 
 
 def cuberoot(x):
-    '''
+    """
     Correctly handle the cube root for negative weights, instead of uselessly
     crashing as in python or returning the wrong root as in matlab
-    '''
+    """
     return np.sign(x) * np.abs(x)**(1 / 3)
 
 
 def dummyvar(cis, return_sparse=False):
-    '''
+    """
     This is an efficient implementation of matlab's "dummyvar" command
     using sparse matrices.
 
@@ -63,7 +66,7 @@ def dummyvar(cis, return_sparse=False):
 
         i.e.
         r = sum((max(len(unique(partitions[i]))) for i in range(m)))
-    '''
+    """
     # num_rows is not affected by partition indexes
     n = np.size(cis, axis=0)
     m = np.size(cis, axis=1)

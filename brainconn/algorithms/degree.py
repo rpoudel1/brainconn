@@ -1,10 +1,13 @@
+"""
+Metrics which measure the number of edges connected to nodes.
+"""
 from __future__ import division, print_function
 import numpy as np
 from ..utils import binarize
 
 
 def degrees_dir(CIJ):
-    '''
+    """
     Node degree is the number of links connected to the node. The indegree
     is the number of inward links and the outdegree is the number of
     outward links.
@@ -27,7 +30,7 @@ def degrees_dir(CIJ):
     -----
     Inputs are assumed to be on the columns of the CIJ matrix.
            Weight information is discarded.
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
     id = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
     od = np.sum(CIJ, axis=1)  # outdegree = row sum of CIJ
@@ -36,7 +39,7 @@ def degrees_dir(CIJ):
 
 
 def degrees_und(CIJ):
-    '''
+    """
     Node degree is the number of links connected to the node.
 
     Parameters
@@ -52,13 +55,13 @@ def degrees_und(CIJ):
     Notes
     -----
     Weight information is discarded.
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
     return np.sum(CIJ, axis=0)
 
 
 def jdegree(CIJ):
-    '''
+    """
     This function returns a matrix in which the value of each element (u,v)
     corresponds to the number of nodes that have u outgoing connections
     and v incoming connections.
@@ -83,7 +86,7 @@ def jdegree(CIJ):
     Notes
     -----
     Weights are discarded.
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
     n = len(CIJ)
     id = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
@@ -109,7 +112,7 @@ def jdegree(CIJ):
 
 
 def strengths_dir(CIJ):
-    '''
+    """
     Node strength is the sum of weights of links connected to the node. The
     instrength is the sum of inward link weights and the outstrength is the
     sum of outward link weights.
@@ -131,14 +134,14 @@ def strengths_dir(CIJ):
     Notes
     -----
     Inputs are assumed to be on the columns of the CIJ matrix.
-    '''
+    """
     istr = np.sum(CIJ, axis=0)
     ostr = np.sum(CIJ, axis=1)
     return istr + ostr
 
 
 def strengths_und(CIJ):
-    '''
+    """
     Node strength is the sum of weights of links connected to the node.
 
     Parameters
@@ -150,12 +153,12 @@ def strengths_und(CIJ):
     -------
     str : Nx1 np.ndarray
         node strengths
-    '''
+    """
     return np.sum(CIJ, axis=0)
 
 
 def strengths_und_sign(W):
-    '''
+    """
     Node strength is the sum of weights of links connected to the node.
 
     Parameters
@@ -173,7 +176,7 @@ def strengths_und_sign(W):
         total positive weight
     vneg : float
         total negative weight
-    '''
+    """
     W = W.copy()
     n = len(W)
     np.fill_diagonal(W, 0)  # clear diagonal

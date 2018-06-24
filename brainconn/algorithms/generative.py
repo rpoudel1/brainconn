@@ -1,3 +1,6 @@
+"""
+Methods for generating simulated networks.
+"""
 from __future__ import division, print_function
 import numpy as np
 
@@ -9,7 +12,7 @@ from ..utils import BCTParamError
 
 def generative_model(A, D, m, eta, gamma=None, model_type='matching',
                      model_var='powerlaw', epsilon=1e-6, copy=True):
-    '''
+    """
     Generates synthetic networks using the models described in
     Betzel et al. (2016) Neuroimage. See this paper for more details.
 
@@ -64,7 +67,7 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
     copy : bool
         Some algorithms add edges directly to the input matrix. Set this flag
         to make a copy of the input matrix instead. Defaults to True.
-    '''
+    """
 
     if copy:
         A = A.copy()
@@ -520,7 +523,7 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
                               model_type='matching', model_var='powerlaw',
                               epsilon=1e-6):
-    '''
+    """
     Generates synthetic networks with parameters provided and evaluates their
     energy function. The energy function is defined as in Betzel et al. 2016.
     Basically it takes the Kolmogorov-Smirnov statistics of 4 network
@@ -529,7 +532,7 @@ def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
 
     The energy is globally low if the synthetic network matches the target.
     Energy is defined as the maximum difference across the four statistics.
-    '''
+    """
     m = np.size(np.where(Atgt.flat))//2
     n = len(Atgt)
     xk = np.sum(Atgt, axis=1)

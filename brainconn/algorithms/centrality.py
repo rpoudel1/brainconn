@@ -1,3 +1,6 @@
+"""
+Metrics which identify the most important nodes in graphs.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .core import kcore_bd, kcore_bu
@@ -6,7 +9,7 @@ from ..utils import invert
 
 
 def betweenness_bin(G):
-    '''
+    """
     Node betweenness centrality is the fraction of all shortest paths in
     the network that contain a given node. Nodes with high values of
     betweenness centrality participate in a large number of shortest paths.
@@ -23,7 +26,7 @@ def betweenness_bin(G):
     -----
     Betweenness centrality may be normalised to the range [0,1] as
     BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    """
     G = np.array(G, dtype=float)  # force G to have float type so it can be
     # compared to float np.inf
 
@@ -63,7 +66,7 @@ def betweenness_bin(G):
 
 
 def betweenness_wei(G):
-    '''
+    """
     Node betweenness centrality is the fraction of all shortest paths in
     the network that contain a given node. Nodes with high values of
     betweenness centrality participate in a large number of shortest paths.
@@ -87,7 +90,7 @@ def betweenness_wei(G):
         consequently be some inverse of the connectivity matrix.
        Betweenness centrality may be normalised to the range [0,1] as
         BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    """
     n = len(G)
     BC = np.zeros((n,))  # vertex betweenness
 
@@ -138,7 +141,7 @@ def betweenness_wei(G):
 
 
 def diversity_coef_sign(W, ci):
-    '''
+    """
     The Shannon-entropy based diversity coefficient measures the diversity
     of intermodular connections of individual nodes and ranges from 0 to 1.
 
@@ -155,7 +158,7 @@ def diversity_coef_sign(W, ci):
         diversity coefficient based on positive connections
     Hneg : Nx1 np.ndarray
         diversity coefficient based on negative connections
-    '''
+    """
     n = len(W)  # number of nodes
 
     _, ci = np.unique(ci, return_inverse=True)
@@ -181,7 +184,7 @@ def diversity_coef_sign(W, ci):
     return Hpos, Hneg
 
 def edge_betweenness_bin(G):
-    '''
+    """
     Edge betweenness centrality is the fraction of all shortest paths in
     the network that contain a given edge. Edges with high values of
     betweenness centrality participate in a large number of shortest paths.
@@ -202,7 +205,7 @@ def edge_betweenness_bin(G):
     -----
     Betweenness centrality may be normalised to the range [0,1] as
     BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    """
     n = len(G)
     BC = np.zeros((n,))  # vertex betweenness
     EBC = np.zeros((n, n))  # edge betweenness
@@ -249,7 +252,7 @@ def edge_betweenness_bin(G):
 
 
 def edge_betweenness_wei(G):
-    '''
+    """
     Edge betweenness centrality is the fraction of all shortest paths in
     the network that contain a given edge. Edges with high values of
     betweenness centrality participate in a large number of shortest paths.
@@ -275,7 +278,7 @@ def edge_betweenness_wei(G):
         consequently be some inverse of the connectivity matrix.
     Betweenness centrality may be normalised to the range [0,1] as
         BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    """
     n = len(G)
     BC = np.zeros((n,))  # vertex betweenness
     EBC = np.zeros((n, n))  # edge betweenness
@@ -329,7 +332,7 @@ def edge_betweenness_wei(G):
 
 
 def eigenvector_centrality_und(CIJ):
-    '''
+    """
     Eigenector centrality is a self-referential measure of centrality:
     nodes have high eigenvector centrality if they connect to other nodes
     that have high eigenvector centrality. The eigenvector centrality of
@@ -343,7 +346,7 @@ def eigenvector_centrality_und(CIJ):
 
     v : Nx1 np.ndarray
         eigenvector associated with the largest eigenvalue of the matrix
-    '''
+    """
     from scipy import linalg
 
     n = len(CIJ)
@@ -353,7 +356,7 @@ def eigenvector_centrality_und(CIJ):
 
 
 def erange(CIJ):
-    '''
+    """
     Shortcuts are central edges which significantly reduce the
     characteristic path length in the network.
 
@@ -375,7 +378,7 @@ def erange(CIJ):
         fractions of shortcuts in the graph
 
     Follows the treatment of 'shortcuts' by Duncan Watts
-    '''
+    """
     N = len(CIJ)
     K = np.size(np.where(CIJ)[1])
     Erange = np.zeros((N, N))
@@ -403,7 +406,7 @@ def erange(CIJ):
 
 
 def flow_coef_bd(CIJ):
-    '''
+    """
     Computes the flow coefficient for each node and averaged over the
     network, as described in Honey et al. (2007) PNAS. The flow coefficient
     is similar to betweenness centrality, but works on a local
@@ -423,7 +426,7 @@ def flow_coef_bd(CIJ):
         average flow coefficient over the network
     total_flo : int
         number of paths that "flow" across the central node
-    '''
+    """
     N = len(CIJ)
 
     fc = np.zeros((N,))
@@ -453,7 +456,7 @@ def flow_coef_bd(CIJ):
 
 
 def gateway_coef_sign(W, ci, centrality_type='degree'):
-    '''
+    """
     The gateway coefficient is a variant of participation coefficient.
     It is weighted by how critical the connections are to intermodular
     connectivity (e.g. if a node is the only connection between its
@@ -479,7 +482,7 @@ def gateway_coef_sign(W, ci, centrality_type='degree'):
 
     Reference:
         Vargas ER, Wahl LM, Eur Phys J B (2014) 87:1-10
-    '''
+    """
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
     n = len(W)
@@ -535,7 +538,7 @@ def gateway_coef_sign(W, ci, centrality_type='degree'):
 
 
 def kcoreness_centrality_bd(CIJ):
-    '''
+    """
     The k-core is the largest subgraph comprising nodes of degree at least
     k. The coreness of a node is k if the node belongs to the k-core but
     not to the (k+1)-core. This function computes k-coreness of all nodes
@@ -552,7 +555,7 @@ def kcoreness_centrality_bd(CIJ):
         node coreness
     kn : int
         size of k-core
-    '''
+    """
     N = len(CIJ)
 
     coreness = np.zeros((N,))
@@ -567,7 +570,7 @@ def kcoreness_centrality_bd(CIJ):
 
 
 def kcoreness_centrality_bu(CIJ):
-    '''
+    """
     The k-core is the largest subgraph comprising nodes of degree at least
     k. The coreness of a node is k if the node belongs to the k-core but
     not to the (k+1)-core. This function computes the coreness of all nodes
@@ -584,7 +587,7 @@ def kcoreness_centrality_bu(CIJ):
         node coreness
     kn : int
         size of k-core
-    '''
+    """
     N = len(CIJ)
 
     # determine if the network is undirected -- if not, compute coreness
@@ -604,7 +607,7 @@ def kcoreness_centrality_bu(CIJ):
 
 
 def module_degree_zscore(W, ci, flag=0):
-    '''
+    """
     The within-module degree z-score is a within-module version of degree
     centrality.
 
@@ -624,7 +627,7 @@ def module_degree_zscore(W, ci, flag=0):
     -------
     Z : Nx1 np.ndarray
         within-module degree Z-score
-    '''
+    """
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
 
@@ -646,7 +649,7 @@ def module_degree_zscore(W, ci, flag=0):
 
 
 def pagerank_centrality(A, d, falff=None):
-    '''
+    """
     The PageRank centrality is a variant of eigenvector centrality. This
     function computes the PageRank centrality of each vertex in a graph.
 
@@ -681,7 +684,7 @@ def pagerank_centrality(A, d, falff=None):
     -----
     Note: The algorithm will work well for smaller matrices (number of
     nodes around 1000 or less)
-    '''
+    """
     from scipy import linalg
 
     N = len(A)
@@ -701,7 +704,7 @@ def pagerank_centrality(A, d, falff=None):
 
 
 def participation_coef(W, ci, degree='undirected'):
-    '''
+    """
     Participation coefficient is a measure of diversity of intermodular
     connections of individual nodes.
 
@@ -720,7 +723,7 @@ def participation_coef(W, ci, degree='undirected'):
     -------
     P : Nx1 np.ndarray
         participation coefficient
-    '''
+    """
     if degree == 'in':
         W = W.T
 
@@ -743,7 +746,7 @@ def participation_coef(W, ci, degree='undirected'):
 
 
 def participation_coef_sign(W, ci):
-    '''
+    """
     Participation coefficient is a measure of diversity of intermodular
     connections of individual nodes.
 
@@ -760,7 +763,7 @@ def participation_coef_sign(W, ci):
         participation coefficient from positive weights
     Pneg : Nx1 np.ndarray
         participation coefficient from negative weights
-    '''
+    """
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
 
@@ -788,7 +791,7 @@ def participation_coef_sign(W, ci):
     return Ppos, Pneg
 
 def subgraph_centrality(CIJ):
-    '''
+    """
     The subgraph centrality of a node is a weighted sum of closed walks of
     different lengths in the network starting and ending at the node. This
     function returns a vector of subgraph centralities for each node of the
@@ -801,7 +804,7 @@ def subgraph_centrality(CIJ):
 
     Cs : Nx1 np.ndarray
         subgraph centrality
-    '''
+    """
     from scipy import linalg
 
     vals, vecs = linalg.eig(CIJ)  # compute eigendecomposition

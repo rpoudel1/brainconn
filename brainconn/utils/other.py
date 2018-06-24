@@ -1,10 +1,13 @@
+"""
+Other utility functions.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .miscellaneous_utilities import BCTParamError
 
 
 def threshold_absolute(W, thr, copy=True):
-    '''
+    """
     This function thresholds the connectivity matrix by absolute weight
     magnitude. All weights below the given threshold, and all weights
     on the main diagonal (self-self connections) are set to 0.
@@ -25,7 +28,7 @@ def threshold_absolute(W, thr, copy=True):
     -------
     W : np.ndarray
         thresholded connectivity matrix
-    '''
+    """
     if copy:
         W = W.copy()
     np.fill_diagonal(W, 0)  # clear diagonal
@@ -34,7 +37,7 @@ def threshold_absolute(W, thr, copy=True):
 
 
 def threshold_proportional(W, p, copy=True):
-    '''
+    """
     This function "thresholds" the connectivity matrix by preserving a
     proportion p (0<p<1) of the strongest weights. All other weights, and
     all weights on the main diagonal (self-self connections) are set to 0.
@@ -76,7 +79,7 @@ def threshold_proportional(W, p, copy=True):
     That is, the 50% thresholding of x_25 does nothing because >=50% of the
     elements in x_25 are aleady <=0. This behavior is the same as in BCT. Be
     careful with matrices that are both signed and sparse.
-    '''
+    """
     from .miscellaneous_utilities import teachers_round as round
 
     if p > 1 or p < 0:
@@ -108,7 +111,7 @@ def threshold_proportional(W, p, copy=True):
 
 
 def weight_conversion(W, wcm, copy=True):
-    '''
+    """
     W_bin = weight_conversion(W, 'binarize');
     W_nrm = weight_conversion(W, 'normalize');
     L = weight_conversion(W, 'lengths');
@@ -155,7 +158,7 @@ def weight_conversion(W, wcm, copy=True):
     This function is included for compatibility with BCT. But there are
     other functions binarize(), normalize() and invert() which are simpler to
     call directly.
-    '''
+    """
     if wcm == 'binarize':
         return binarize(W, copy)
     elif wcm == 'normalize':
@@ -167,7 +170,7 @@ def weight_conversion(W, wcm, copy=True):
 
 
 def binarize(W, copy=True):
-    '''
+    """
     Binarizes an input weighted connection matrix.  If copy is not set, this
     function will *modify W in place.*
 
@@ -183,7 +186,7 @@ def binarize(W, copy=True):
     -------
     W : NxN np.ndarray
         binary connectivity matrix
-    '''
+    """
     if copy:
         W = W.copy()
     W[W != 0] = 1
@@ -191,7 +194,7 @@ def binarize(W, copy=True):
 
 
 def normalize(W, copy=True):
-    '''
+    """
     Normalizes an input weighted connection matrix.  If copy is not set, this
     function will *modify W in place.*
 
@@ -207,7 +210,7 @@ def normalize(W, copy=True):
     -------
     W : np.ndarray
         normalized connectivity matrix
-    '''
+    """
     if copy:
         W = W.copy()
     W /= np.max(np.abs(W))
@@ -215,7 +218,7 @@ def normalize(W, copy=True):
 
 
 def invert(W, copy=True):
-    '''
+    """
     Inverts elementwise the weights in an input connection matrix.
     In other words, change the from the matrix of internode strengths to the
     matrix of internode distances.
@@ -234,7 +237,7 @@ def invert(W, copy=True):
     -------
     W : np.ndarray
         inverted connectivity matrix
-    '''
+    """
     if copy:
         W = W.copy()
     E = np.where(W)
@@ -243,7 +246,7 @@ def invert(W, copy=True):
 
 
 def autofix(W, copy=True):
-    '''
+    """
     Fix a bunch of common problems. More specifically, remove Inf and NaN,
     ensure exact binariness and symmetry (i.e. remove floating point
     instability), and zero diagonal.
@@ -261,7 +264,7 @@ def autofix(W, copy=True):
     -------
     W : np.ndarray
         connectivity matrix with fixes applied
-    '''
+    """
     if copy:
         W = W.copy()
 

@@ -1,9 +1,12 @@
+"""
+Metrics which measure physical connectivity.
+"""
 from __future__ import division, print_function
 import numpy as np
 
 
 def density_dir(CIJ):
-    '''
+    """
     Density is the fraction of present connections to possible connections.
 
     Parameters
@@ -24,7 +27,7 @@ def density_dir(CIJ):
     -----
     Assumes CIJ is directed and has no self-connections.
     Weight information is discarded.
-    '''
+    """
     n = len(CIJ)
     k = np.size(np.where(CIJ.flatten()))
     kden = k / (n * n - n)
@@ -32,7 +35,7 @@ def density_dir(CIJ):
 
 
 def density_und(CIJ):
-    '''
+    """
     Density is the fraction of present connections to possible connections.
 
     Parameters
@@ -53,7 +56,7 @@ def density_und(CIJ):
     -----
     Assumes CIJ is undirected and has no self-connections.
             Weight information is discarded.
-    '''
+    """
     n = len(CIJ)
     k = np.size(np.where(np.triu(CIJ).flatten()))
     kden = k / ((n * n - n) / 2)
@@ -61,7 +64,7 @@ def density_und(CIJ):
 
 
 def rentian_scaling(A, xyz, n):
-    '''
+    """
     Physical Rentian scaling (or more simply Rentian scaling) is a property
     of systems that are cost-efficiently embedded into physical space. It is
     what is called a "topo-physical" property because it combines information
@@ -117,7 +120,7 @@ def rentian_scaling(A, xyz, n):
     estimation is given by stats.se(1,2).
 
     Note: n=5000 was used in Bassett et al. 2010 in PLoS CB.
-    '''
+    """
     m = np.size(xyz, axis=0)  # find number of nodes in system
 
     # rescale coordinates so they are all greater than unity

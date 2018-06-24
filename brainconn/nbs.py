@@ -1,3 +1,6 @@
+"""
+Network-based statistic calculation.
+"""
 from __future__ import division, print_function
 import numpy as np
 
@@ -9,7 +12,7 @@ from .algorithms import get_components
 
 
 def nbs_bct(x, y, thresh, k=1000, tail='both', paired=False, verbose=False):
-    '''
+    """
     Performs the NBS for populations X and Y for a t-statistic threshold of
     alpha.
 
@@ -91,7 +94,7 @@ def nbs_bct(x, y, thresh, k=1000, tail='both', paired=False, verbose=False):
     [1] Zalesky A, Fornito A, Bullmore ET (2010) Network-based statistic:
         Identifying differences in brain networks. NeuroImage.
         10.1016/j.neuroimage.2010.06.041
-    '''
+    """
 
     def ttest2_stat_only(x, y, tail):
         t = np.mean(x) - np.mean(y)

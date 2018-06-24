@@ -1,13 +1,12 @@
 API Reference
 ===============
 
-
 :mod:`brainconn.algorithms`: Algorithms
 --------------------------------------------------
 
 .. automodule:: brainconn.algorithms
-   :no-members:
-   :no-inherited-members:
+    :no-members:
+    :no-inherited-members:
 
 .. autosummary:: brainconn.algorithms
     :toctree: generated/
@@ -25,37 +24,37 @@ API Reference
     brainconn.algorithms.reference
     brainconn.algorithms.similarity
 
- .. currentmodule:: brainconn.algorithms
+.. currentmodule:: brainconn.algorithms
 
- .. _calibration_ref:
+.. _calibration_ref:
 
 
- :mod:`brainconn.nbs`: Network-based statistic
- --------------------------------------------------
+:mod:`brainconn.nbs`: Network-based statistic
+--------------------------------------------------
 
- .. automodule:: brainconn.nbs
+.. automodule:: brainconn.nbs
     :no-members:
     :no-inherited-members:
 
- .. autosummary:: brainconn.nbs
+.. autosummary:: brainconn.nbs
     :toctree: generated/
     :template: function.rst
 
     brainconn.nbs.nbs_bct
 
- .. currentmodule:: brainconn.nbs
+.. currentmodule:: brainconn.nbs
 
- .. _calibration_ref:
+.. _calibration_ref:
 
 
- :mod:`brainconn.utils`: Utility functions
- --------------------------------------------------
+:mod:`brainconn.utils`: Utility functions
+--------------------------------------------------
 
- .. automodule:: brainconn.utils
+.. automodule:: brainconn.utils
     :no-members:
     :no-inherited-members:
 
- .. autosummary:: brainconn.utils
+.. autosummary:: brainconn.utils
     :toctree: generated/
     :template: module.rst
 
@@ -63,6 +62,6 @@ API Reference
     brainconn.utils.other
     brainconn.utils.visualization
 
- .. currentmodule:: brainconn.utils
+.. currentmodule:: brainconn.utils
 
- .. _calibration_ref:
+.. _calibration_ref:
