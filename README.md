@@ -1,9 +1,7 @@
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/FIU-Neuro/brainconn.svg?branch=master)](https://travis-ci.org/FIU-Neuro/brainconn)
 [![Codecov](https://codecov.io/gh/FIU-Neuro/brainconn/branch/master/graph/badge.svg)](https://codecov.io/gh/FIU-Neuro/brainconn)
-
-
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/) 
+[![Documentation Status](https://readthedocs.org/projects/brainconn/badge/?version=latest)](http://brainconn.readthedocs.io/en/latest/?badge=latest)
 
 # Brain Connectivity Toolbox for Python version 0.5.0
 
