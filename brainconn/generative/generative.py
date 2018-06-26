@@ -4,9 +4,9 @@ Methods for generating simulated networks.
 from __future__ import division, print_function
 import numpy as np
 
-from .similarity import matching_ind
-from .clustering import clustering_coef_bu
-from .centrality import betweenness_bin
+from ..similarity import matching_ind
+from ..clustering import clustering_coef_bu
+from ..centrality import betweenness_bin
 from ..utils import BCTParamError
 
 
@@ -174,9 +174,9 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
         k = np.sum(A, axis=1)
 
         Ff = Fd * Fk * np.logical_not(A)
-        u,v = np.where(np.triu(np.ones((n, n)), 1))
+        u, v = np.where(np.triu(np.ones((n, n)), 1))
 
-        #print(mseed, m)
+        # print(mseed, m)
         for i in range(mseed+1, m):
             C = np.append(0, np.cumsum(Ff[u, v]))
             r = np.sum(np.random.random()*C[-1] >= C)
@@ -200,11 +200,6 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
             bth[vv] = 1
 
             k_result = x_fun(c, bth)
-
-            #print(np.shape(k_result))
-            #print(np.shape(K))
-            #print(K)
-            #print(np.shape(K[bth,:]))
 
             K[bth, :] = k_result
             K[:, bth] = k_result.T
@@ -245,16 +240,7 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 
         b = np.zeros((m,), dtype=int)
 
-#        print(mseed)
-#        print(np.shape(u),np.shape(v))
-#        print(np.shape(b))
-#        print(np.shape(A[u,v]))
-#        print(np.shape(np.where(A[u,v])), 'sqishy')
-#        print(np.shape(P), 'squnnaq')
-
-        # b[:mseed] = np.where(A[np.ix_(u,v)])
         b[:mseed] = np.squeeze(np.where(A[u, v]))
-        # print(mseed, m)
         for i in range(mseed, m):
             C = np.append(0, np.cumsum(P[u, v]))
             r = np.sum(np.random.random()*C[-1] >= C)
@@ -277,25 +263,6 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
             P[u[b[:i]], v[b[:i]]] = P[v[b[:i]], u[b[:i]]] = 0
 
             A[u[r], v[r]] = A[v[r], u[r]] = 1
-            # P[b[u[:i]], b[v[:i]]] = P[b[v[:i]], b[u[:i]]] = 0
-            # A[uu,vv] = A[vv,uu] = 1
-
-
-#        indx = v*n + u
-#        indx[b]
-#
-#        nH = np.zeros((n,n))
-#        nH.ravel()[indx[b]]=1
-#
-#        nG = np.zeros((n,n))
-#        nG[ u[b], v[b] ]=1
-#        nG = nG + nG.T
-#
-#        print(np.shape(np.where(A != nG)))
-#
-#        import pdb
-#        pdb.set_trace()
-
         return A
 
     def matching_gen(A, K, D, m, eta, gamma, model_var):
@@ -543,7 +510,7 @@ def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
     B = generative_model(A, D, m, eta, gamma, model_type=model_type,
                          model_var=model_var, epsilon=epsilon, copy=True)
 
-    #if eta != gamma then an error is thrown within generative model
+    # if eta != gamma then an error is thrown within generative model
 
     nB = len(eta)
 

@@ -3,7 +3,7 @@ Metrics which measure similarity of nodes in graphs.
 """
 from __future__ import division, print_function
 import numpy as np
-from .degree import degrees_dir, degrees_und
+from ..degree import degrees_dir, degrees_und
 from ..utils import BCTParamError, binarize
 
 

@@ -1,10 +1,10 @@
 """
-Metrics which identify the most important nodes in graphs.
+Metrics which identify the most important nodes in graphs.!!
 """
 from __future__ import division, print_function
 import numpy as np
-from .core import kcore_bd, kcore_bu
-from .distance import reachdist
+from ..core import kcore_bd, kcore_bu
+from ..distance import reachdist
 from ..utils import invert
 
 

@@ -3,7 +3,7 @@ Methods for generating or latticizing graphs.
 """
 from __future__ import division, print_function
 import numpy as np
-from .clustering import number_of_components
+from ..clustering import number_of_components
 from ..utils import BCTParamError, binarize
 from ..utils import pick_four_unique_nodes_quickly
 

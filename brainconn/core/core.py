@@ -3,8 +3,8 @@ Miscellaneous functions.
 """
 from __future__ import division, print_function
 import numpy as np
-from .degree import degrees_dir, degrees_und, strengths_dir, strengths_und
-from .degree import strengths_und_sign
+from ..degree import degrees_dir, degrees_und, strengths_dir, strengths_und
+from ..degree import strengths_und_sign
 
 
 def assortativity_bin(CIJ, flag=0):
@@ -169,8 +169,8 @@ def core_periphery_dir(W, gamma=1, C0=None):
     else:
         C = C0.copy()
 
-    #methodological note, the core-detection null model is not corrected
-    #for degree cf community detection (to enable detection of hubs)
+    # methodological note, the core-detection null model is not corrected
+    # for degree cf community detection (to enable detection of hubs)
 
     s = np.sum(W)
     p = np.mean(W)
@@ -181,7 +181,7 @@ def core_periphery_dir(W, gamma=1, C0=None):
     q = np.sum(B[np.ix_(cix, cix)]) - np.sum(B[np.ix_(ncix, ncix)])
 
     print(q)
-    #sqish
+    # sqish
 
     flag = True
     it = 0
@@ -191,7 +191,7 @@ def core_periphery_dir(W, gamma=1, C0=None):
             raise BCTParamError('Infinite Loop aborted')
 
         flag = False
-        #initial node indices
+        # initial node indices
         ixes = np.arange(n)
 
         Ct = C.copy()
@@ -209,12 +209,12 @@ def core_periphery_dir(W, gamma=1, C0=None):
             print(np.where(np.abs(Qt[ixes]-max_Qt) < 1e-10))
             print(Qt[ixes])
             print(max_Qt)
-            #tunourn
+            # tunourn
             u = u[np.random.randint(len(u))]
             print(np.sum(Ct))
             Ct[ixes[u]] = np.logical_not(Ct[ixes[u]])
             print(np.sum(Ct))
-            #casga
+            # casga
 
             ixes = np.delete(ixes, u)
 

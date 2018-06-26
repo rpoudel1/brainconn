@@ -838,6 +838,59 @@ def findwalks(CIJ):
     return Wq, twalk, wlq
 
 
+def mean_first_passage_time(adjacency):
+    """
+    Calculates mean first passage time of `adjacency`
+
+    The first passage time from i to j is the expected number of steps it takes
+    a random walker starting at node i to arrive for the first time at node j.
+    The mean first passage time is not a symmetric measure: `mfpt(i,j)` may be
+    different from `mfpt(j,i)`.
+
+    Parameters
+    ----------
+    adjacency : (N x N) array_like
+        Weighted/unweighted, direct/undirected connection weight/length array
+
+    Returns
+    -------
+    MFPT : (N x N) ndarray
+        Pairwise mean first passage time array
+
+    References
+    ----------
+    .. [1] Goni, J., Avena-Koenigsberger, A., de Mendizabal, N. V., van den
+       Heuvel, M. P., Betzel, R. F., & Sporns, O. (2013). Exploring the
+       morphospace of communication efficiency in complex networks. PLoS One,
+       8(3), e58070.
+    """
+
+    P = np.linalg.solve(np.diag(np.sum(adjacency, axis=1)), adjacency)
+
+    n = len(P)
+    D, V = np.linalg.eig(P.T)
+
+    aux = np.abs(D - 1)
+    index = np.where(aux == aux.min())[0]
+
+    if aux[index] > 10e-3:
+        raise ValueError(("Cannot find eigenvalue of 1. Minimum eigenvalue "
+                          "value is {0}. Tolerance was "
+                          "set at 10e-3.").format(aux[index]+1))
+
+    w = V[:, index].T
+    w = w / np.sum(w)
+
+    W = np.real(np.repeat(w, n, 0))
+    I = np.eye(n)
+
+    Z = np.linalg.inv(I - P + W)
+
+    mfpt = (np.repeat(np.atleast_2d(np.diag(Z)), n, 0) - Z) / W
+
+    return mfpt
+
+
 def reachdist(CIJ, ensure_binary=True):
     """
     The binary reachability matrix describes reachability between all pairs
@@ -1013,56 +1066,3 @@ def search_information(adjacency, transform=None, has_memory=False):
                         SI[i, j] = np.inf
 
     return SI
-
-
-def mean_first_passage_time(adjacency):
-    """
-    Calculates mean first passage time of `adjacency`
-
-    The first passage time from i to j is the expected number of steps it takes
-    a random walker starting at node i to arrive for the first time at node j.
-    The mean first passage time is not a symmetric measure: `mfpt(i,j)` may be
-    different from `mfpt(j,i)`.
-
-    Parameters
-    ----------
-    adjacency : (N x N) array_like
-        Weighted/unweighted, direct/undirected connection weight/length array
-
-    Returns
-    -------
-    MFPT : (N x N) ndarray
-        Pairwise mean first passage time array
-
-    References
-    ----------
-    .. [1] Goni, J., Avena-Koenigsberger, A., de Mendizabal, N. V., van den
-       Heuvel, M. P., Betzel, R. F., & Sporns, O. (2013). Exploring the
-       morphospace of communication efficiency in complex networks. PLoS One,
-       8(3), e58070.
-    """
-
-    P = np.linalg.solve(np.diag(np.sum(adjacency, axis=1)), adjacency)
-
-    n = len(P)
-    D, V = np.linalg.eig(P.T)
-
-    aux = np.abs(D - 1)
-    index = np.where(aux == aux.min())[0]
-
-    if aux[index] > 10e-3:
-        raise ValueError(("Cannot find eigenvalue of 1. Minimum eigenvalue "
-                          "value is {0}. Tolerance was "
-                          "set at 10e-3.").format(aux[index]+1))
-
-    w = V[:, index].T
-    w = w / np.sum(w)
-
-    W = np.real(np.repeat(w, n, 0))
-    I = np.eye(n)
-
-    Z = np.linalg.inv(I - P + W)
-
-    mfpt = (np.repeat(np.atleast_2d(np.diag(Z)), n, 0) - Z) / W
-
-    return mfpt
