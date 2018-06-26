@@ -19,21 +19,21 @@ def latmio_dir_connected(R, itr, D=None):
 
     Parameters
     ----------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
-    D : np.ndarray | None
+    D : :obj:`numpy.ndarray` | None
         distance-to-diagonal matrix. Defaults to the actual distance matrix
         if not specified.
 
     Returns
     -------
-    Rlatt : NxN np.ndarray
+    Rlatt : NxN :obj:`numpy.ndarray`
         latticized network in original node ordering
-    Rrp : NxN np.ndarray
+    Rrp : NxN :obj:`numpy.ndarray`
         latticized network in node ordering used for latticization
-    ind_rp : Nx1 np.ndarray
+    ind_rp : Nx1 :obj:`numpy.ndarray`
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
@@ -135,21 +135,21 @@ def latmio_dir(R, itr, D=None):
 
     Parameters
     ----------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
-    D : np.ndarray | None
+    D : :obj:`numpy.ndarray` | None
         distance-to-diagonal matrix. Defaults to the actual distance matrix
         if not specified.
 
     Returns
     -------
-    Rlatt : NxN np.ndarray
+    Rlatt : NxN :obj:`numpy.ndarray`
         latticized network in original node ordering
-    Rrp : NxN np.ndarray
+    Rrp : NxN :obj:`numpy.ndarray`
         latticized network in node ordering used for latticization
-    ind_rp : Nx1 np.ndarray
+    ind_rp : Nx1 :obj:`numpy.ndarray`
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
@@ -229,21 +229,21 @@ def latmio_und_connected(R, itr, D=None):
 
     Parameters
     ----------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
-    D : np.ndarray | None
+    D : :obj:`numpy.ndarray` | None
         distance-to-diagonal matrix. Defaults to the actual distance matrix
         if not specified.
 
     Returns
     -------
-    Rlatt : NxN np.ndarray
+    Rlatt : NxN :obj:`numpy.ndarray`
         latticized network in original node ordering
-    Rrp : NxN np.ndarray
+    Rrp : NxN :obj:`numpy.ndarray`
         latticized network in node ordering used for latticization
-    ind_rp : Nx1 np.ndarray
+    ind_rp : Nx1 :obj:`numpy.ndarray`
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
@@ -358,21 +358,21 @@ def latmio_und(R, itr, D=None):
 
     Parameters
     ----------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
-    D : np.ndarray | None
+    D : :obj:`numpy.ndarray` | None
         distance-to-diagonal matrix. Defaults to the actual distance matrix
         if not specified.
 
     Returns
     -------
-    Rlatt : NxN np.ndarray
+    Rlatt : NxN :obj:`numpy.ndarray`
         latticized network in original node ordering
-    Rrp : NxN np.ndarray
+    Rrp : NxN :obj:`numpy.ndarray`
         latticized network in node ordering used for latticization
-    ind_rp : Nx1 np.ndarray
+    ind_rp : Nx1 :obj:`numpy.ndarray`
         node ordering used for latticization
     eff : int
         number of actual rewirings carried out
@@ -468,7 +468,7 @@ def makeevenCIJ(n, k, sz_cl):
 
     Returns
     -------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         connection matrix
 
     Notes
@@ -542,7 +542,7 @@ def makefractalCIJ(mx_lvl, E, sz_cl):
 
     Returns
     -------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         connection matrix
     K : int
         number of connections present in output CIJ
@@ -587,14 +587,14 @@ def makerandCIJdegreesfixed(inv, outv):
 
     Parameters
     ----------
-    inv : Nx1 np.ndarray
+    inv : Nx1 :obj:`numpy.ndarray`
         in-degree vector
-    outv : Nx1 np.ndarray
+    outv : Nx1 :obj:`numpy.ndarray`
         out-degree vector
 
     Returns
     -------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
 
     Notes
     -----
@@ -673,7 +673,7 @@ def makerandCIJ_dir(n, k):
 
     Returns
     -------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed random connection matrix
 
     Notes
@@ -701,7 +701,7 @@ def makerandCIJ_und(n, k):
 
     Returns
     -------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected random connection matrix
 
     Notes
@@ -730,7 +730,7 @@ def makeringlatticeCIJ(n, k):
 
     Returns
     -------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         connection matrix
 
     Notes
@@ -784,7 +784,7 @@ def maketoeplitzCIJ(n, k, s):
 
     Returns
     -------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         connection matrix
 
     Notes
@@ -817,7 +817,7 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed weighted connection matrix
     bin_swaps : int
         average number of swaps in each edge binary randomization. Default
@@ -831,7 +831,7 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1):
 
     Returns
     -------
-    W0 : NxN np.ndarray
+    W0 : NxN :obj:`numpy.ndarray`
         randomized weighted connection matrix
     R : 4-tuple of floats
         Correlation coefficients between strength sequences of input and
@@ -935,7 +935,7 @@ def null_model_und_sign(W, bin_swaps=5, wei_freq=.1):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted connection matrix
     bin_swaps : int
         average number of swaps in each edge binary randomization. Default
@@ -949,7 +949,7 @@ def null_model_und_sign(W, bin_swaps=5, wei_freq=.1):
 
     Returns
     -------
-    W0 : NxN np.ndarray
+    W0 : NxN :obj:`numpy.ndarray`
         randomized weighted connection matrix
     R : 4-tuple of floats
         Correlation coefficients between strength sequences of input and
@@ -1063,14 +1063,14 @@ def randmio_dir_connected(R, itr):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         randomized network
     eff : int
         number of actual rewirings carried out
@@ -1150,14 +1150,14 @@ def randmio_dir(R, itr):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         randomized network
     eff : int
         number of actual rewirings carried out
@@ -1222,14 +1222,14 @@ def randmio_und_connected(R, itr):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         randomized network
     eff : int
         number of actual rewirings carried out
@@ -1329,14 +1329,14 @@ def randmio_dir_signed(R, itr):
 
     Parameters
     ---------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         randomized network
     eff : int
         number of actual rewirings carried out
@@ -1399,14 +1399,14 @@ def randmio_und(R, itr):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         randomized network
     eff : int
         number of actual rewirings carried out
@@ -1477,14 +1477,14 @@ def randmio_und_signed(R, itr):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
     itr : int
         rewiring parameter. Each edge is rewired approximately itr times.
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         randomized network
     """
     R = R.copy()
@@ -1533,16 +1533,16 @@ def randomize_graph_partial_und(A, B, maxswap):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         undirected adjacency matrix to randomize
-    B : NxN np.ndarray
+    B : NxN :obj:`numpy.ndarray`
         mask; edges to avoid
     maxswap : int
         number of rewirings
 
     Returns
     -------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         randomized matrix
 
     Notes
@@ -1605,14 +1605,14 @@ def randomizer_bin_und(R, alpha):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
     alpha : float
         fraction of edges to rewire
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         randomized network
     """
     R = binarize(R, copy=True)  # binarize

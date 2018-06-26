@@ -13,7 +13,7 @@ def ci2ls(ci):
 
     Parameters
     ----------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         the community index vector
     zeroindexed : bool
         If True, ci uses zero-indexing (lowest value is 0). Defaults to False.
@@ -52,7 +52,7 @@ def ls2ci(ls, zeroindexed=False):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community index vector
     """
     if ls is None or np.size(ls) == 0:
@@ -256,7 +256,7 @@ def link_communities(W, type_clustering='single'):
 
     Returns
     -------
-    M : CxN np.ndarray
+    M : CxN :obj:`numpy.ndarray`
         nodal community affiliation matrix.
     """
     n = len(W)
@@ -469,12 +469,12 @@ def modularity_dir(A, gamma=1, kci=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    kci : Nx1 np.ndarray | None
+    kci : Nx1 :obj:`numpy.ndarray` | None
         starting community structure. If specified, calculates the Q-metric
         on the community structure giving, without doing any optimzation.
         Otherwise, if not specified, uses a spectral modularity maximization
@@ -482,7 +482,7 @@ def modularity_dir(A, gamma=1, kci=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         optimized community structure
     Q : float
         maximized modularity metric
@@ -574,9 +574,9 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed weighted/binary connection matrix
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -586,7 +586,7 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -675,9 +675,9 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -687,7 +687,7 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -772,7 +772,7 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights.
     qtype : str
@@ -781,14 +781,14 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     seed : int | None
         random seed. default value=None. if None, seeds from /dev/urandom.
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -906,7 +906,7 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -918,9 +918,9 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector. If hierarchical output enabled,
-        it is an NxH np.ndarray instead with multiple iterations
+        it is an NxH :obj:`numpy.ndarray` instead with multiple iterations
     Q : float
         optimized modularity metric. If hierarchical output enabled, becomes
         an Hx1 array of floats instead.
@@ -1035,7 +1035,7 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -1047,9 +1047,9 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector. If hierarchical output enabled,
-        it is an NxH np.ndarray instead with multiple iterations
+        it is an NxH :obj:`numpy.ndarray` instead with multiple iterations
     Q : float
         optimized modularity metric. If hierarchical output enabled, becomes
         an Hx1 array of floats instead.
@@ -1169,7 +1169,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights
     qtype : str
@@ -1183,7 +1183,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -1332,7 +1332,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights
     qtype : str
@@ -1341,7 +1341,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     p : float
         probability of random node moves. Default value = 0.45
@@ -1350,7 +1350,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -1458,12 +1458,12 @@ def modularity_und(A, gamma=1, kci=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    kci : Nx1 np.ndarray | None
+    kci : Nx1 :obj:`numpy.ndarray` | None
         starting community structure. If specified, calculates the Q-metric
         on the community structure giving, without doing any optimzation.
         Otherwise, if not specified, uses a spectral modularity maximization
@@ -1471,7 +1471,7 @@ def modularity_und(A, gamma=1, kci=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         optimized community structure
     Q : float
         maximized modularity metric
@@ -1557,10 +1557,10 @@ def modularity_und_sign(W, ci, qtype='sta'):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community partition
     qtype : str
         modularity type. Can be 'sta' (default), 'pos', 'smp', 'gja', 'neg'.
@@ -1568,7 +1568,7 @@ def modularity_und_sign(W, ci, qtype='sta'):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         the partition which was input (for consistency of the API)
     Q : float
         maximized modularity metric
@@ -1638,16 +1638,16 @@ def partition_distance(cx, cy):
 
     Parameters
     ----------
-    cx : Nx1 np.ndarray
+    cx : Nx1 :obj:`numpy.ndarray`
         community affiliation vector X
-    cy : Nx1 np.ndarray
+    cy : Nx1 :obj:`numpy.ndarray`
         community affiliation vector Y
 
     Returns
     -------
-    VIn : Nx1 np.ndarray
+    VIn : Nx1 :obj:`numpy.ndarray`
         normalized variation of information
-    MIn : Nx1 np.ndarray
+    MIn : Nx1 :obj:`numpy.ndarray`
         normalized mutual information
 
     Notes

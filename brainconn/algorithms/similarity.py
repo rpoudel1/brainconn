@@ -21,16 +21,16 @@ def edge_nei_overlap_bd(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
 
     Returns
     -------
-    EC : NxN np.ndarray
+    EC : NxN :obj:`numpy.ndarray`
         edge neighborhood overlap matrix
-    ec : Kx1 np.ndarray
+    ec : Kx1 :obj:`numpy.ndarray`
         edge neighborhood overlap per edge vector
-    degij : NxN np.ndarray
+    degij : NxN :obj:`numpy.ndarray`
         degrees of node pairs connected by each edge
     """
 
@@ -69,16 +69,16 @@ def edge_nei_overlap_bu(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
 
     Returns
     -------
-    EC : NxN np.ndarray
+    EC : NxN :obj:`numpy.ndarray`
         edge neighborhood overlap matrix
-    ec : Kx1 np.ndarray
+    ec : Kx1 :obj:`numpy.ndarray`
         edge neighborhood overlap per edge vector
-    degij : NxN np.ndarray
+    degij : NxN :obj:`numpy.ndarray`
         degrees of node pairs connected by each edge
     """
     ik, jk = np.where(CIJ)
@@ -115,14 +115,14 @@ def gtom(adj, nr_steps):
 
     Parameters
     ----------
-    adj : NxN np.ndarray
+    adj : NxN :obj:`numpy.ndarray`
         connection matrix
     nr_steps : int
         number of steps
 
     Returns
     -------
-    gt : NxN np.ndarray
+    gt : NxN :obj:`numpy.ndarray`
         GTOM matrix
 
     Notes
@@ -176,16 +176,16 @@ def matching_ind(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         adjacency matrix
 
     Returns
     -------
-    Min : NxN np.ndarray
+    Min : NxN :obj:`numpy.ndarray`
         matching index for incoming connections
-    Mout : NxN np.ndarray
+    Mout : NxN :obj:`numpy.ndarray`
         matching index for outgoing connections
-    Mall : NxN np.ndarray
+    Mall : NxN :obj:`numpy.ndarray`
         matching index for all connections
 
     Notes
@@ -257,12 +257,12 @@ def matching_ind_und(CIJ0):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected adjacency matrix
 
     Returns
     -------
-    M0 : NxN np.ndarray
+    M0 : NxN :obj:`numpy.ndarray`
         matching index matrix
     """
     K = np.sum(CIJ0, axis=0)
@@ -302,14 +302,14 @@ def dice_pairwise_und(a1, a2):
 
     Paramaters
     ----------
-    A1 : NxN np.ndarray
+    A1 : NxN :obj:`numpy.ndarray`
         Matrix 1
-    A2 : NxN np.ndarray
+    A2 : NxN :obj:`numpy.ndarray`
         Matrix 2
 
     Returns
     -------
-    D : Nx1 np.ndarray
+    D : Nx1 :obj:`numpy.ndarray`
         dice similarity vector
     """
     a1 = binarize(a1, copy=True)
@@ -337,9 +337,9 @@ def corr_flat_und(a1, a2):
 
     Parameters
     ----------
-    A1 : NxN np.ndarray
+    A1 : NxN :obj:`numpy.ndarray`
         undirected matrix 1
-    A2 : NxN np.ndarray
+    A2 : NxN :obj:`numpy.ndarray`
         undirected matrix 2
 
     Returns
@@ -362,9 +362,9 @@ def corr_flat_dir(a1, a2):
 
     Parameters
     ----------
-    A1 : NxN np.ndarray
+    A1 : NxN :obj:`numpy.ndarray`
         directed matrix 1
-    A2 : NxN np.ndarray
+    A2 : NxN :obj:`numpy.ndarray`
         directed matrix 2
 
     Returns

@@ -11,7 +11,7 @@ def density_dir(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed weighted/binary connection matrix
 
     Returns
@@ -40,7 +40,7 @@ def density_und(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected (weighted/binary) connection matrix
 
     Returns
@@ -87,9 +87,9 @@ def rentian_scaling(A, xyz, n):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         unweighted, binary, symmetric adjacency matrix
-    xyz : Nx3 np.ndarray
+    xyz : Nx3 :obj:`numpy.ndarray`
         vector of node placement coordinates
     n : int
         Number of partitions to compute. Each partition is a data point; you
@@ -97,9 +97,9 @@ def rentian_scaling(A, xyz, n):
 
     Returns
     -------
-    N : Mx1 np.ndarray
+    N : Mx1 :obj:`numpy.ndarray`
         Number of nodes in each of the M partitions
-    E : Mx1 np.ndarray
+    E : Mx1 :obj:`numpy.ndarray`
 
     Notes
     -----

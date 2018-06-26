@@ -19,14 +19,14 @@ def breadthdist(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         binary reachability matrix
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         distance matrix
 
     Notes
@@ -50,16 +50,16 @@ def breadth(CIJ, source):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
     source : int
         source vertex
 
     Returns
     -------
-    distance : Nx1 np.ndarray
+    distance : Nx1 :obj:`numpy.ndarray`
         vector of distances between source and ith vertex (0 for source)
-    branch : Nx1 np.ndarray
+    branch : Nx1 :obj:`numpy.ndarray`
         vertex that precedes i in the breadth-first search (-1 for source)
 
     Notes
@@ -113,7 +113,7 @@ def charpath(D, include_diagonal=False, include_infinite=True):
 
     Parameters
     ----------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         distance matrix
     include_diagonal : bool
         If True, include the weights on the diagonal. Default value is False.
@@ -126,7 +126,7 @@ def charpath(D, include_diagonal=False, include_infinite=True):
         characteristic path length
     efficiency : float
         global efficiency
-    ecc : Nx1 np.ndarray
+    ecc : Nx1 :obj:`numpy.ndarray`
         eccentricity at each vertex
     radius : float
         radius of graph
@@ -177,15 +177,15 @@ def cycprob(Pq):
 
     Parameters
     ----------
-    Pq : NxNxQ np.ndarray
+    Pq : NxNxQ :obj:`numpy.ndarray`
         Path matrix with Pq[i,j,q] = number of paths from i to j of length q.
         Produced by findpaths()
 
     Returns
     -------
-    fcyc : Qx1 np.ndarray
+    fcyc : Qx1 :obj:`numpy.ndarray`
         fraction of all paths that are cycles for each path length q
-    pcyc : Qx1 np.ndarray
+    pcyc : Qx1 :obj:`numpy.ndarray`
         probability that a non-cyclic path of length q-1 can be extended to
         form a cycle of length q for each path length q
     """
@@ -205,7 +205,8 @@ def cycprob(Pq):
     for q in range(np.size(Pq, axis=2)):
         if np.sum(Pq[:, :, q - 1]) - np.sum(np.diag(Pq[:, :, q - 1])) > 0:
             pcyc[q] = (np.sum(np.diag(Pq[:, :, q - 1])) /
-                       np.sum(Pq[:, :, q - 1]) - np.sum(np.diag(Pq[:, :, q - 1])))
+                       np.sum(Pq[:, :, q - 1]) -
+                       np.sum(np.diag(Pq[:, :, q - 1])))
         else:
             pcyc[q] = 0
 
@@ -221,7 +222,7 @@ def distance_bin(G):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
 
     Returns
@@ -261,15 +262,15 @@ def distance_wei(G):
 
     Parameters
     ----------
-    L : NxN np.ndarray
+    L : NxN :obj:`numpy.ndarray`
         Directed/undirected connection-length matrix.
         NB L is not the adjacency matrix. See below.
 
     Returns
     -------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         distance (shortest weighted path) matrix
-    B : NxN np.ndarray
+    B : NxN :obj:`numpy.ndarray`
         matrix of number of edges in shortest weighted path
 
     Notes
@@ -370,15 +371,17 @@ def distance_wei_floyd(adjacency, transform=None):
     argument `transform`, above).
 
     Originally written in Matlab by Andrea Avena-Koenigsberger (IU, 2012)
+    [1]_ [2]_ [3]_ [4]_.
 
     References
     ----------
     .. [1] Floyd, R. W. (1962). Algorithm 97: shortest path. Communications of
-       the ACM, 5(6), 345.
+           the ACM, 5(6), 345.
     .. [2] Roy, B. (1959). Transitivite et connexite. Comptes Rendus
-       Hebdomadaires Des Seances De L Academie Des Sciences, 249(2), 216-218.
+           Hebdomadaires Des Seances De L Academie Des Sciences, 249(2),
+           216-218.
     .. [3] Warshall, S. (1962). A theorem on boolean matrices. Journal of the
-       ACM (JACM), 9(1), 11-12.
+           ACM (JACM), 9(1), 11-12.
     .. [4] https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
     """
 
@@ -479,7 +482,7 @@ def efficiency_bin(G, local=False):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
     local : bool
         If True, computes local efficiency instead of global efficiency.
@@ -489,7 +492,7 @@ def efficiency_bin(G, local=False):
     -------
     Eglob : float
         global efficiency, only if local=False
-    Eloc : Nx1 np.ndarray
+    Eloc : Nx1 :obj:`numpy.ndarray`
         local efficiency, only if local=True
     """
     def distance_inv(g):
@@ -550,7 +553,7 @@ def efficiency_wei(Gw, local=False):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted connection matrix
         (all weights in W must be between 0 and 1)
     local : bool
@@ -561,7 +564,7 @@ def efficiency_wei(Gw, local=False):
     -------
     Eglob : float
         global efficiency, only if local=False
-    Eloc : Nx1 np.ndarray
+    Eloc : Nx1 :obj:`numpy.ndarray`
         local efficiency, only if local=True
 
     Notes
@@ -655,11 +658,11 @@ def findpaths(CIJ, qmax, sources, savepths=False):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
     qmax : int
         maximal path length
-    sources : Nx1 np.ndarray
+    sources : Nx1 :obj:`numpy.ndarray`
         source units from which paths are grown
     savepths : bool
         True if all paths are to be collected and returned. This functionality
@@ -667,18 +670,18 @@ def findpaths(CIJ, qmax, sources, savepths=False):
 
     Returns
     -------
-    Pq : NxNxQ np.ndarray
+    Pq : NxNxQ :obj:`numpy.ndarray`
         Path matrix with P[i,j,jq] = number of paths from i to j with length q
     tpath : int
         total number of paths found
-    plq : Qx1 np.ndarray
+    plq : Qx1 :obj:`numpy.ndarray`
         path length distribution as a function of q
     qstop : int
         path length at which findpaths is stopped
     allpths : None
         a matrix containing all paths up to qmax. This function is extremely
         complicated and reimplementing it in bctpy is not straightforward.
-    util : NxQ np.ndarray
+    util : NxQ :obj:`numpy.ndarray`
         node use index
 
     Notes
@@ -727,8 +730,8 @@ def findpaths(CIJ, qmax, sources, savepths=False):
     # big loop for all other pathlengths q
     for q in range(2, qmax + 1):
         # to keep track of time...
-        print((
-            'current pathlength (q=i, number of paths so far (up to q-1)=i' % (q, np.sum(Pq))))
+        print('current pathlength (q={0}, number of paths so far '
+              '(up to q-1)={1}'.format(q, np.sum(Pq)))
 
         # old paths are now in 'pths'
         # new paths are about to be collected in 'npths'
@@ -805,16 +808,16 @@ def findwalks(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
 
     Returns
     -------
-    Wq : NxNxQ np.ndarray
+    Wq : NxNxQ :obj:`numpy.ndarray`
         Wq[i,j,q] is the number of walks from i to j of length q
     twalk : int
         total number of walks found
-    wlq : Qx1 np.ndarray
+    wlq : Qx1 :obj:`numpy.ndarray`
         walk length distribution as a function of q
 
     Notes
@@ -848,7 +851,7 @@ def reachdist(CIJ, ensure_binary=True):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
     ensure_binary : bool
         Binarizes input. Defaults to true. No user who is not testing
@@ -857,9 +860,9 @@ def reachdist(CIJ, ensure_binary=True):
 
     Returns
     -------
-    R : NxN np.ndarray
+    R : NxN :obj:`numpy.ndarray`
         binary reachability matrix
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         distance matrix
 
     Notes
@@ -899,7 +902,7 @@ def reachdist(CIJ, ensure_binary=True):
 
     R, D, powr = reachdist2(CIJ, CIJpwr, R, D, n, powr, col, row)
 
-    #'invert' CIJdist to get distances
+    # 'invert' CIJdist to get distances
     D = powr - D + 1
 
     # put inf if no path found
@@ -912,10 +915,10 @@ def reachdist(CIJ, ensure_binary=True):
 
 def search_information(adjacency, transform=None, has_memory=False):
     """
-    Calculates search information of `adjacency`
+    Calculates search information of `adjacency`.
 
     Computes the amount of information (measured in bits) that a random walker
-    needs to follow the shortest path between a given pair of nodes.
+    needs to follow the shortest path between a given pair of nodes [1]_ [2]_.
 
     Parameters
     ----------
@@ -977,8 +980,12 @@ def search_information(adjacency, transform=None, has_memory=False):
                             pr_step_ff[0] = T[path[0], path[1]]
                             pr_step_bk[lp-1] = T[path[lp], path[lp-1]]
                             for z in range(1, lp):
-                                pr_step_ff[z] = T[path[z], path[z+1]] / (1 - T[path[z-1], path[z]])
-                                pr_step_bk[lp-z-1] = T[path[lp-z], path[lp-z-1]] / (1 - T[path[lp-z+1], path[lp-z]])
+                                pr_step_ff[z] = T[path[z], path[z+1]] /\
+                                                (1 - T[path[z-1], path[z]])
+                                pr_step_bk[lp-z-1] = T[path[lp-z],
+                                                       path[lp-z-1]] /\
+                                                     (1 - T[path[lp-z+1],
+                                                            path[lp-z]])
                         else:
                             for z in range(lp):
                                 pr_step_ff[z] = T[path[z], path[z+1]]
@@ -994,7 +1001,8 @@ def search_information(adjacency, transform=None, has_memory=False):
                         if has_memory:
                             pr_step_ff[0] = T[path[0], path[1]]
                             for z in range(1, lp):
-                                pr_step_ff[z] = T[path[z], path[z+1]] / (1 - T[path[z-1], path[z]])
+                                pr_step_ff[z] = T[path[z], path[z+1]] /\
+                                                (1 - T[path[z-1], path[z]])
                         else:
                             for z in range(lp):
                                 pr_step_ff[z] = T[path[z], path[z+1]]
@@ -1043,9 +1051,9 @@ def mean_first_passage_time(adjacency):
     index = np.where(aux == aux.min())[0]
 
     if aux[index] > 10e-3:
-        raise ValueError("Cannot find eigenvalue of 1. Minimum eigenvalue " +
-                         "value is {0}. Tolerance was ".format(aux[index]+1) +
-                         "set at 10e-3.")
+        raise ValueError(("Cannot find eigenvalue of 1. Minimum eigenvalue "
+                          "value is {0}. Tolerance was "
+                          "set at 10e-3.").format(aux[index]+1))
 
     w = V[:, index].T
     w = w / np.sum(w)

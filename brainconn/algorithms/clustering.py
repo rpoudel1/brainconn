@@ -25,14 +25,14 @@ def agreement(ci, buffsz=1000):
 
     Parameters
     ----------
-    ci : NxM np.ndarray
+    ci : NxM :obj:`numpy.ndarray`
         set of M (possibly degenerate) partitions of N nodes
     buffsz : int | None
         sets buffer size. If not specified, defaults to 1000
 
     Returns
     -------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         agreement matrix
     """
     ci = np.array(ci)
@@ -71,14 +71,14 @@ def agreement_weighted(ci, wts):
 
     Parameters
     ----------
-    ci : MxN np.ndarray
+    ci : MxN :obj:`numpy.ndarray`
         set of M (possibly degenerate) partitions of N nodes
-    wts : Mx1 np.ndarray
+    wts : Mx1 :obj:`numpy.ndarray`
         relative weight of each partition
 
     Returns
     -------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         weighted agreement matrix
     """
     ci = np.array(ci)
@@ -99,12 +99,12 @@ def clustering_coef_bd(A):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
 
     Notes
@@ -137,12 +137,12 @@ def clustering_coef_bu(G):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
     """
     n = len(G)
@@ -165,12 +165,12 @@ def clustering_coef_wd(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
 
     Notes
@@ -201,12 +201,12 @@ def clustering_coef_wu(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
     """
     K = np.array(np.sum(np.logical_not(W == 0), axis=1), dtype=float)
@@ -238,16 +238,16 @@ def clustering_coef_wu_sign(W, coef_type='default'):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
-    corr_type : enum
+    corr_type : {'default', 'zhang', 'constantini'}
         Allowed values are 'default', 'zhang', 'constantini'
 
     Returns
     -------
-    Cpos : Nx1 np.ndarray
+    Cpos : Nx1 :obj:`numpy.ndarray`
         Clustering coefficient vector for positive weights
-    Cneg : Nx1 np.ndarray
+    Cneg : Nx1 :obj:`numpy.ndarray`
         Clustering coefficient vector for negative weights, unless
         coef_type == 'constantini'.
 
@@ -345,7 +345,7 @@ def consensus_und(D, tau, reps=1000):
 
     Parameters
     ----------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         agreement matrix with entries between 0 and 1 denoting the probability
         of finding node i in the same cluster as node j
     tau : float
@@ -356,7 +356,7 @@ def consensus_und(D, tau, reps=1000):
 
     Returns
     -------
-    ciu : Nx1 np.ndarray
+    ciu : Nx1 :obj:`numpy.ndarray`
         consensus partition
     """
     def unique_partitions(cis):
@@ -423,16 +423,16 @@ def get_components(A, no_depend=False):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected adjacency matrix
     no_depend : Any
         Does nothing, included for backwards compatibility
 
     Returns
     -------
-    comps : Nx1 np.ndarray
+    comps : Nx1 :obj:`numpy.ndarray`
         vector of component assignments for each node
-    comp_sizes : Mx1 np.ndarray
+    comp_sizes : Mx1 :obj:`numpy.ndarray`
         vector of component sizes
 
     Notes
@@ -484,7 +484,7 @@ def get_components_old(A, no_depend=False):
 
     Parameters
     ----------
-    adj : NxN np.ndarray
+    adj : NxN :obj:`numpy.ndarray`
         binary undirected adjacency matrix
     no_depend : bool
         If true, doesn't import networkx to do the calculation. Default value
@@ -492,9 +492,9 @@ def get_components_old(A, no_depend=False):
 
     Returns
     -------
-    comps : Nx1 np.ndarray
+    comps : Nx1 :obj:`numpy.ndarray`
         vector of component assignments for each node
-    comp_sizes : Mx1 np.ndarray
+    comp_sizes : Mx1 :obj:`numpy.ndarray`
         vector of component sizes
 
     Notes
@@ -568,7 +568,7 @@ def transitivity_bd(A):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
@@ -603,7 +603,7 @@ def transitivity_bu(A):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
 
     Returns
@@ -623,7 +623,7 @@ def transitivity_wd(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix
 
     Returns
@@ -656,7 +656,7 @@ def transitivity_wu(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
 
     Returns

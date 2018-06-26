@@ -36,7 +36,7 @@ def find_motif34(m, n=None):
 
     Returns
     -------
-    M : np.ndarray | int
+    M : :obj:`numpy.ndarray` | int
         In use case 1, returns all isomorphs for the given motif
         In use case 2, returns the motif_id for the specified motif matrix
     """
@@ -189,14 +189,14 @@ def motif3funct_bin(A):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 13x1 np.ndarray
+    f : 13x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
     """
     from scipy import io
@@ -259,16 +259,16 @@ def motif3funct_wei(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 13xN np.ndarray
+    I : 13xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 13xN np.ndarray
+    Q : 13xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes
@@ -351,14 +351,14 @@ def motif3struct_bin(A):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 13x1 np.ndarray
+    f : 13x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
     """
     from scipy import io
@@ -406,16 +406,16 @@ def motif3struct_wei(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 13xN np.ndarray
+    I : 13xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 13xN np.ndarray
+    Q : 13xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes
@@ -488,14 +488,14 @@ def motif4funct_bin(A):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 199x1 np.ndarray
+    f : 199x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
     """
     from scipy import io
@@ -570,16 +570,16 @@ def motif4funct_wei(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 199xN np.ndarray
+    I : 199xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 199xN np.ndarray
+    Q : 199xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes
@@ -680,14 +680,14 @@ def motif4struct_bin(A):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 199x1 np.ndarray
+    f : 199x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
     """
     from scipy import io
@@ -752,16 +752,16 @@ def motif4struct_wei(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 199xN np.ndarray
+    I : 199xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 199xN np.ndarray
+    Q : 199xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes

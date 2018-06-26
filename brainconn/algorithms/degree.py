@@ -14,16 +14,16 @@ def degrees_dir(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
 
     Returns
     -------
-    id : Nx1 np.ndarray
+    id : Nx1 :obj:`numpy.ndarray`
         node in-degree
-    od : Nx1 np.ndarray
+    od : Nx1 :obj:`numpy.ndarray`
         node out-degree
-    deg : Nx1 np.ndarray
+    deg : Nx1 :obj:`numpy.ndarray`
         node degree (in-degree + out-degree)
 
     Notes
@@ -44,12 +44,12 @@ def degrees_und(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
 
     Returns
     -------
-    deg : Nx1 np.ndarray
+    deg : Nx1 :obj:`numpy.ndarray`
         node degree
 
     Notes
@@ -68,12 +68,12 @@ def jdegree(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed binary/weighted connnection matrix
 
     Returns
     -------
-    J : ZxZ np.ndarray
+    J : ZxZ :obj:`numpy.ndarray`
         joint degree distribution matrix
         (shifted by one, replicates matlab one-based-indexing)
     J_od : int
@@ -119,16 +119,16 @@ def strengths_dir(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed weighted connection matrix
 
     Returns
     -------
-    is : Nx1 np.ndarray
+    is : Nx1 :obj:`numpy.ndarray`
         node in-strength
-    os : Nx1 np.ndarray
+    os : Nx1 :obj:`numpy.ndarray`
         node out-strength
-    str : Nx1 np.ndarray
+    str : Nx1 :obj:`numpy.ndarray`
         node strength (in-strength + out-strength)
 
     Notes
@@ -146,12 +146,12 @@ def strengths_und(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected weighted connection matrix
 
     Returns
     -------
-    str : Nx1 np.ndarray
+    str : Nx1 :obj:`numpy.ndarray`
         node strengths
     """
     return np.sum(CIJ, axis=0)
@@ -163,14 +163,14 @@ def strengths_und_sign(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected connection matrix with positive and negative weights
 
     Returns
     -------
-    Spos : Nx1 np.ndarray
+    Spos : Nx1 :obj:`numpy.ndarray`
         nodal strength of positive weights
-    Sneg : Nx1 np.ndarray
+    Sneg : Nx1 :obj:`numpy.ndarray`
         nodal strength of positive weights
     vpos : float
         total positive weight

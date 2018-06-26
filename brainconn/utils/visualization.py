@@ -31,9 +31,9 @@ def adjacency_plot_und(A, coor, tube=False):
 
     Paramaters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         adjacency matrix
-    coor : Nx3 np.ndarray
+    coor : Nx3 :obj:`numpy.ndarray`
         vector of node coordinates
     tube : bool
         plots using cylindrical tubes for higher resolution image. If True,
@@ -127,9 +127,9 @@ def align_matrices(m1, m2, dfun='sqrdiff', verbose=False, H=1e6, Texp=1,
 
     Parameters
     ----------
-    M1 : NxN np.ndarray
+    M1 : NxN :obj:`numpy.ndarray`
         first connection matrix
-    M2 : NxN np.ndarray
+    M2 : NxN :obj:`numpy.ndarray`
         second connection matrix
     dfun : str
         distance metric to use for matching
@@ -151,9 +151,9 @@ def align_matrices(m1, m2, dfun='sqrdiff', verbose=False, H=1e6, Texp=1,
 
     Returns
     -------
-    Mreordered : NxN np.ndarray
+    Mreordered : NxN :obj:`numpy.ndarray`
         reordered connection matrix M2
-    Mindices : Nx1 np.ndarray
+    Mindices : Nx1 :obj:`numpy.ndarray`
         reordered indices
     cost : float
         objective function distance between M1 and Mreordered
@@ -277,16 +277,16 @@ def backbone_wu(CIJ, avgdeg):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
     avgdeg : int
         desired average degree of backbone
 
     Returns
     -------
-    CIJtree : NxN np.ndarray
+    CIJtree : NxN :obj:`numpy.ndarray`
         connection matrix of the minimum spanning tree of CIJ
-    CIJclus : NxN np.ndarray
+    CIJclus : NxN :obj:`numpy.ndarray`
         connection matrix of the minimum spanning tree plus strongest
         connections up to some average degree 'avgdeg'. Identical to CIJtree
         if the degree requirement is already met.
@@ -358,14 +358,14 @@ def grid_communities(c):
 
     Parameters
     ----------
-    c : Nx1 np.ndarray
+    c : Nx1 :obj:`numpy.ndarray`
         community assignments
 
     Returns
     -------
     bounds : list
         list containing the communities
-    indsort : np.ndarray
+    indsort : :obj:`numpy.ndarray`
         indices
 
     Notes
@@ -410,7 +410,7 @@ def reorderMAT(m, H=5000, cost='line'):
 
     Parameters
     ----------
-    MAT : NxN np.ndarray
+    MAT : NxN :obj:`numpy.ndarray`
         connection matrix
     H : int
         number of reordering attempts
@@ -420,9 +420,9 @@ def reorderMAT(m, H=5000, cost='line'):
 
     Returns
     -------
-    MATreordered : NxN np.ndarray
+    MATreordered : NxN :obj:`numpy.ndarray`
         reordered connection matrix
-    MATindices : Nx1 np.ndarray
+    MATindices : Nx1 :obj:`numpy.ndarray`
         reordered indices
     MATcost : float
         objective function cost of reordered matrix
@@ -484,7 +484,7 @@ def reorder_matrix(m1, cost='line', verbose=False, H=1e4, Texp=10, T0=1e-3, Hbrk
 
     Parameters
     ----------
-    M1 : NxN np.ndarray
+    M1 : NxN :obj:`numpy.ndarray`
         connection matrix weighted/binary directed/undirected
     cost : str
         'line' or 'circ' for shape of lattice (linear or ring lattice).
@@ -504,9 +504,9 @@ def reorder_matrix(m1, cost='line', verbose=False, H=1e4, Texp=10, T0=1e-3, Hbrk
 
     Returns
     -------
-    Mreordered : NxN np.ndarray
+    Mreordered : NxN :obj:`numpy.ndarray`
         reordered connection matrix
-    Mindices : Nx1 np.ndarray
+    Mindices : Nx1 :obj:`numpy.ndarray`
         reordered indices
     Mcost : float
         objective function cost of reordered matrix
@@ -609,16 +609,16 @@ def reorder_mod(A, ci):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary/weighted connectivity matrix
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         module affiliation vector
 
     Returns
     -------
-    On : Nx1 np.ndarray
+    On : Nx1 :obj:`numpy.ndarray`
         new node order
-    Ar : NxN np.ndarray
+    Ar : NxN :obj:`numpy.ndarray`
         reordered connectivity matrix
     """
     # TODO update function with 2015 changes
@@ -751,7 +751,7 @@ def writetoPAJ(CIJ, fname, directed):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         adjacency matrix
     fname : str
         filename

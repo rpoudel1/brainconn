@@ -4,6 +4,7 @@ Network-based statistic calculation.
 from __future__ import division, print_function
 import numpy as np
 
+from .due import due, Doi
 from .utils import BCTParamError
 from .algorithms import get_components
 
@@ -11,6 +12,8 @@ from .algorithms import get_components
 # generating the null distribution will take a while
 
 
+@due.dcite(Doi('10.1016/j.neuroimage.2010.06.041'),
+           description='Introduces the NBS.')
 def nbs_bct(x, y, thresh, k=1000, tail='both', paired=False, verbose=False):
     """
     Performs the NBS for populations X and Y for a t-statistic threshold of
@@ -18,47 +21,46 @@ def nbs_bct(x, y, thresh, k=1000, tail='both', paired=False, verbose=False):
 
     Parameters
     ----------
-    x : NxNxP np.ndarray
+    x : NxNxP :obj:`numpy.ndarray`
         matrix representing the first population with P subjects. must be
         symmetric.
-    y : NxNxQ np.ndarray
+    y : NxNxQ :obj:`numpy.ndarray`
         matrix representing the second population with Q subjects. Q need not
         equal P. must be symmetric.
-    thresh : float
+    thresh : :obj:`float`
         minimum t-value used as threshold
-    k : int
+    k : :obj:`int`, optional
         number of permutations used to estimate the empirical null
         distribution
-    tail : {'left', 'right', 'both'}
+    tail : {'both', 'left', 'right'}, optional
         enables specification of particular alternative hypothesis
         'left' : mean population of X < mean population of Y
         'right' : mean population of Y < mean population of X
         'both' : means are unequal (default)
-    paired : bool
+    paired : :obj:`bool`, optional
         use paired sample t-test instead of population t-test. requires both
         subject populations to have equal N. default value = False
-    verbose : bool
+    verbose : :obj:`bool`, optional
         print some extra information each iteration. defaults value = False
 
     Returns
     -------
-    pval : Cx1 np.ndarray
+    pval : Cx1 :obj:`numpy.ndarray`
         A vector of corrected p-values for each component of the networks
         identified. If at least one p-value is less than alpha, the omnibus
         null hypothesis can be rejected at alpha significance. The null
         hypothesis is that the value of the connectivity from each edge has
         equal mean across the two populations.
-    adj : IxIxC np.ndarray
+    adj : IxIxC :obj:`numpy.ndarray`
         an adjacency matrix identifying the edges comprising each component.
         edges are assigned indexed values.
-    null : Kx1 np.ndarray
+    null : Kx1 :obj:`numpy.ndarray`
         A vector of K sampled from the null distribution of maximal component
         size.
 
     Notes
     -----
-    ALGORITHM DESCRIPTION
-    The NBS is a nonparametric statistical test used to isolate the
+    The NBS[1]_ is a nonparametric statistical test used to isolate the
     components of an N x N undirected connectivity matrix that differ
     significantly between two distinct populations. Each element of the
     connectivity matrix stores a connectivity value and each member of
@@ -74,7 +76,9 @@ def nbs_bct(x, y, thresh, k=1000, tail='both', paired=False, verbose=False):
     rate, such as the false discovery rate, if the set of edges at which
     the null hypothesis is rejected constitues a large component or
     components.
+
     The NBS comprises fours steps:
+
     1. Perform a two-sample T-test at each edge indepedently to test the
        hypothesis that the value of connectivity between the two
        populations come from distributions with equal means.
@@ -91,9 +95,11 @@ def nbs_bct(x, y, thresh, k=1000, tail='both', paired=False, verbose=False):
        p-value for each observed component is then calculated using this
        null distribution.
 
-    [1] Zalesky A, Fornito A, Bullmore ET (2010) Network-based statistic:
-        Identifying differences in brain networks. NeuroImage.
-        10.1016/j.neuroimage.2010.06.041
+    References
+    ----------
+    .. [1] Zalesky A, Fornito A, Bullmore ET (2010) Network-based statistic:
+           Identifying differences in brain networks. NeuroImage.
+           10.1016/j.neuroimage.2010.06.041
     """
 
     def ttest2_stat_only(x, y, tail):

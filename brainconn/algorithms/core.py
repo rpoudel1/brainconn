@@ -16,7 +16,7 @@ def assortativity_bin(CIJ, flag=0):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
     flag : int
         0 : undirected graph; degree/degree correlation
@@ -80,7 +80,7 @@ def assortativity_wei(CIJ, flag=0):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         weighted directed/undirected connection matrix
     flag : int
         0 : undirected graph; strength/strength correlation
@@ -152,13 +152,13 @@ def core_periphery_dir(W, gamma=1, C0=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed connection matrix
     gamma : core-ness resolution parameter
         Default value = 1
         gamma > 1 detects small core, large periphery
         0 < gamma < 1 detects large core, small periphery
-    C0 : NxN np.ndarray
+    C0 : NxN :obj:`numpy.ndarray`
         Initial core structure
     """
     n = len(W)
@@ -244,7 +244,7 @@ def kcore_bd(CIJ, k, peel=False):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed adjacency matrix
     k : int
         level of k-core
@@ -254,15 +254,15 @@ def kcore_bd(CIJ, k, peel=False):
 
     Returns
     -------
-    CIJkcore : NxN np.ndarray
+    CIJkcore : NxN :obj:`numpy.ndarray`
         connection matrix of the k-core. This matrix only contains nodes of
         degree at least k.
     kn : int
         size of k-core
-    peelorder : Nx1 np.ndarray
+    peelorder : Nx1 :obj:`numpy.ndarray`
         indices in the order in which they were peeled away during k-core
         decomposition. only returned if peel is specified.
-    peellevel : Nx1 np.ndarray
+    peellevel : Nx1 :obj:`numpy.ndarray`
         corresponding level - nodes in at the same level have been peeled
         away at the same time. only return if peel is specified
 
@@ -312,7 +312,7 @@ def kcore_bu(CIJ, k, peel=False):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
     k : int
         level of k-core
@@ -322,15 +322,15 @@ def kcore_bu(CIJ, k, peel=False):
 
     Returns
     -------
-    CIJkcore : NxN np.ndarray
+    CIJkcore : NxN :obj:`numpy.ndarray`
         connection matrix of the k-core. This matrix only contains nodes of
         degree at least k.
     kn : int
         size of k-core
-    peelorder : Nx1 np.ndarray
+    peelorder : Nx1 :obj:`numpy.ndarray`
         indices in the order in which they were peeled away during k-core
         decomposition. only returned if peel is specified.
-    peellevel : Nx1 np.ndarray
+    peellevel : Nx1 :obj:`numpy.ndarray`
         corresponding level - nodes in at the same level have been peeled
         away at the same time. only return if peel is specified
 
@@ -379,14 +379,14 @@ def local_assortativity_wu_sign(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected connection matrix with positive and negative weights
 
     Returns
     -------
-    loc_assort_pos : Nx1 np.ndarray
+    loc_assort_pos : Nx1 :obj:`numpy.ndarray`
         local assortativity from positive weights
-    loc_assort_neg : Nx1 np.ndarray
+    loc_assort_neg : Nx1 :obj:`numpy.ndarray`
         local assortativity from negative weights
     """
     n = len(W)
@@ -423,7 +423,7 @@ def rich_club_bd(CIJ, klevel=None):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
     klevel : int | None
         sets the maximum level at which the rich club coefficient will be
@@ -432,7 +432,7 @@ def rich_club_bd(CIJ, klevel=None):
 
     Returns
     -------
-    R : Kx1 np.ndarray
+    R : Kx1 :obj:`numpy.ndarray`
         vector of rich-club coefficients for levels 1 to klevel
     Nk : int
         number of nodes with degree > k
@@ -469,7 +469,7 @@ def rich_club_bu(CIJ, klevel=None):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
     klevel : int | None
         sets the maximum level at which the rich club coefficient will be
@@ -478,7 +478,7 @@ def rich_club_bu(CIJ, klevel=None):
 
     Returns
     -------
-    R : Kx1 np.ndarray
+    R : Kx1 :obj:`numpy.ndarray`
         vector of rich-club coefficients for levels 1 to klevel
     Nk : int
         number of nodes with degree > k
@@ -509,7 +509,7 @@ def rich_club_wd(CIJ, klevel=None):
     """
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix
     klevel : int | None
         sets the maximum level at which the rich club coefficient will be
@@ -518,7 +518,7 @@ def rich_club_wd(CIJ, klevel=None):
 
     Returns
     -------
-    Rw : Kx1 np.ndarray
+    Rw : Kx1 :obj:`numpy.ndarray`
         vector of rich-club coefficients for levels 1 to klevel
     """
     nr_nodes = len(CIJ)
@@ -556,7 +556,7 @@ def rich_club_wu(CIJ, klevel=None):
     """
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
     klevel : int | None
         sets the maximum level at which the rich club coefficient will be
@@ -565,7 +565,7 @@ def rich_club_wu(CIJ, klevel=None):
 
     Returns
     -------
-    Rw : Kx1 np.ndarray
+    Rw : Kx1 :obj:`numpy.ndarray`
         vector of rich-club coefficients for levels 1 to klevel
     """
     nr_nodes = len(CIJ)
@@ -608,14 +608,14 @@ def score_wu(CIJ, s):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
     s : float
         level of s-core. Note that can take on any fractional value.
 
     Returns
     -------
-    CIJscore : NxN np.ndarray
+    CIJscore : NxN :obj:`numpy.ndarray`
         connection matrix of the s-core. This matrix contains only nodes with
         a strength of at least s.
     sn : int

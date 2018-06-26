@@ -16,7 +16,7 @@ def threshold_absolute(W, thr, copy=True):
 
     Parameters
     ----------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         weighted connectivity matrix
     thr : float
         absolute weight threshold
@@ -26,7 +26,7 @@ def threshold_absolute(W, thr, copy=True):
 
     Returns
     -------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         thresholded connectivity matrix
     """
     if copy:
@@ -46,7 +46,7 @@ def threshold_proportional(W, p, copy=True):
 
     Parameters
     ----------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         weighted connectivity matrix
     p : float
         proportional weight threshold (0<p<1)
@@ -56,7 +56,7 @@ def threshold_proportional(W, p, copy=True):
 
     Returns
     -------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         thresholded connectivity matrix
 
     Notes
@@ -102,7 +102,7 @@ def threshold_proportional(W, p, copy=True):
     en = int(round((n * n - n) * p / ud))		# number of links to be preserved
 
     W[(ind[0][I][en:], ind[1][I][en:])] = 0  # apply threshold
-    #W[np.ix_(ind[0][I][en:], ind[1][I][en:])]=0
+    # W[np.ix_(ind[0][I][en:], ind[1][I][en:])]=0
 
     if ud == 2:						# if symmetric matrix
         W[:, :] = W + W.T						# reconstruct symmetry
@@ -137,7 +137,7 @@ def weight_conversion(W, wcm, copy=True):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted connectivity matrix
     wcm : str
         weight conversion command.
@@ -150,7 +150,7 @@ def weight_conversion(W, wcm, copy=True):
 
     Returns
     -------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         connectivity matrix with specified changes
 
     Notes
@@ -176,7 +176,7 @@ def binarize(W, copy=True):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted connectivity matrix
     copy : bool
         if True, returns a copy of the matrix. Otherwise, modifies the matrix
@@ -184,7 +184,7 @@ def binarize(W, copy=True):
 
     Returns
     -------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         binary connectivity matrix
     """
     if copy:
@@ -200,7 +200,7 @@ def normalize(W, copy=True):
 
     Parameters
     ----------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         weighted connectivity matrix
     copy : bool
         if True, returns a copy of the matrix. Otherwise, modifies the matrix
@@ -208,7 +208,7 @@ def normalize(W, copy=True):
 
     Returns
     -------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         normalized connectivity matrix
     """
     if copy:
@@ -227,7 +227,7 @@ def invert(W, copy=True):
 
     Parameters
     ----------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         weighted connectivity matrix
     copy : bool
         if True, returns a copy of the matrix. Otherwise, modifies the matrix
@@ -235,7 +235,7 @@ def invert(W, copy=True):
 
     Returns
     -------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         inverted connectivity matrix
     """
     if copy:
@@ -254,7 +254,7 @@ def autofix(W, copy=True):
 
     Parameters
     ----------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         weighted connectivity matrix
     copy : bool
         if True, returns a copy of the matrix. Otherwise, modifies the matrix
@@ -262,7 +262,7 @@ def autofix(W, copy=True):
 
     Returns
     -------
-    W : np.ndarray
+    W : :obj:`numpy.ndarray`
         connectivity matrix with fixes applied
     """
     if copy:
@@ -277,7 +277,7 @@ def autofix(W, copy=True):
     # ensure exact binarity
     u = np.unique(W)
     if np.all(np.logical_or(np.abs(u) < 1e-8, np.abs(u - 1) < 1e-8)):
-        W = np.around(W, decimal=5)
+        W = np.around(W, decimals=5)
 
     # ensure exact symmetry
     if np.allclose(W, W.T):

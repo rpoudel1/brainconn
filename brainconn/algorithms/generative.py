@@ -27,18 +27,18 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 
     Parameters
     ----------
-    A : np.ndarray
+    A : :obj:`numpy.ndarray`
         Binary network of seed connections
-    D : np.ndarray
+    D : :obj:`numpy.ndarray`
         Matrix of euclidean distances or other distances between nodes
     m : int
         Number of connections that should be present in the final synthetic
         network
-    eta : np.ndarray
+    eta : :obj:`numpy.ndarray`
         A vector describing a range of values to estimate for eta, the
         hyperparameter describing exponential weighting of the euclidean
         distance.
-    gamma : np.ndarray
+    gamma : :obj:`numpy.ndarray`
         A vector describing a range of values to estimate for theta, the
         hyperparameter describing exponential weighting of the basis
         algorithm. If model_type='euclidean' or another distance metric,
