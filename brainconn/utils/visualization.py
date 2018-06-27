@@ -3,7 +3,7 @@ Tools for visualizing graphs.
 """
 from __future__ import division, print_function
 import numpy as np
-from .miscellaneous_utilities import BCTParamError
+from .misc import BCTParamError
 
 
 def adjacency_plot_und(A, coor, tube=False):

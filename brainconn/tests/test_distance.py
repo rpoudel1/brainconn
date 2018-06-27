@@ -5,7 +5,7 @@ import brainconn as bc
 
 def test_breadthdist():
     x = load_sample(thres=.02)
-    r, d = bc.breadthdist(x)
+    r, d = bc.distance.breadthdist(x)
     d[np.where(np.isinf(d))] = 0
     print(np.sum(r), np.sum(d))
     assert np.sum(r) == 5804
@@ -14,14 +14,14 @@ def test_breadthdist():
 
 def test_reachdist():
     x = load_sample(thres=.02)
-    r, d = bc.reachdist(x)
+    r, d = bc.distance.reachdist(x)
     d[np.where(np.isinf(d))] = 0
     print(np.sum(r), np.sum(d))
     assert np.sum(r) == 5804
     assert np.sum(d) == 30762
 
-    bx = bc.binarize(x, copy=False)
-    br, bd = bc.reachdist(bx)
+    bx = bc.utils.binarize(x, copy=False)
+    br, bd = bc.distance.reachdist(bx)
     bd[np.where(np.isinf(bd))] = 0
     print(np.sum(br), np.sum(bd))
     assert np.sum(br) == 5804
@@ -29,8 +29,8 @@ def test_reachdist():
 
 
 def test_distance_bin():
-    x = bc.binarize(load_sample(thres=.02), copy=False)
-    d = bc.distance_bin(x)
+    x = bc.utils.binarize(load_sample(thres=.02), copy=False)
+    d = bc.distance.distance_bin(x)
     d[np.where(np.isinf(d))] = 0
     print(np.sum(d))
     assert np.sum(d) == 30506  # deals with diagonals differently
@@ -38,7 +38,7 @@ def test_distance_bin():
 
 def test_distance_wei():
     x = load_sample(thres=.02)
-    d, e = bc.distance_wei(x)
+    d, e = bc.distance.distance_wei(x)
     d[np.where(np.isinf(d))] = 0
     print(np.sum(d), np.sum(e))
 
@@ -47,8 +47,8 @@ def test_distance_wei():
 
 def test_charpath():
     x = load_sample(thres=.02)
-    d, e = bc.distance_wei(x)
-    l, eff, ecc, radius, diameter = bc.charpath(d)
+    d, e = bc.distance.distance_wei(x)
+    l, eff, ecc, radius, diameter = bc.distance.charpath(d)
 
     assert np.any(np.isinf(d))
     assert not np.isnan(radius)

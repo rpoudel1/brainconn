@@ -10,10 +10,10 @@ def test_partition_distance():
     q = np.mean(q, axis=2)
     d = np.mean(d, axis=2)
 
-    qi, _ = bc.modularity_und(q)
-    di, _ = bc.modularity_und(d)
+    qi, _ = bc.modularity.modularity_und(q)
+    di, _ = bc.modularity.modularity_und(d)
 
-    vi, mi = bc.partition_distance(qi, di)
+    vi, mi = bc.modularity.partition_distance(qi, di)
 
     print(vi, mi)
     assert np.allclose(vi, 0.1964, atol=0.01)

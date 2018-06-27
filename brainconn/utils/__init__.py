@@ -1,6 +1,6 @@
 """
 Utility functions.
 """
-from .miscellaneous_utilities import *
+from .misc import *
 from .visualization import *
 from .other import *
