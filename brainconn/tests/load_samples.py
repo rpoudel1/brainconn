@@ -6,12 +6,12 @@ MAT_DIR = op.join(op.dirname(op.realpath(__file__)), 'data')
 
 
 def load_sample(thres=1):
-    return bc.threshold_proportional(np.load(op.join(MAT_DIR, 'sample_data.npy')),
-                                     thres, copy=False)
+    return bc.utils.threshold_proportional(np.load(
+        op.join(MAT_DIR, 'sample_data.npy')), thres, copy=False)
 
 
 def load_signed_sample(thres=1):
-    return bc.threshold_proportional(np.around(
+    return bc.utils.threshold_proportional(np.around(
         np.load(op.join(MAT_DIR, 'sample_signed.npy')), 8), thres, copy=False)
 
 
@@ -20,12 +20,12 @@ def load_sparse_sample(thres=.02):
 
 
 def load_binary_sample(thres=.35):
-    return bc.binarize(load_sample(thres=thres), copy=False)
+    return bc.utils.binarize(load_sample(thres=thres), copy=False)
 
 
 def load_directed_sample(thres=1):
-    return bc.threshold_proportional(np.load(op.join(MAT_DIR, 'sample_directed.npy')),
-                                     thres, copy=False)
+    return bc.utils.threshold_proportional(np.load(
+        op.join(MAT_DIR, 'sample_directed.npy')), thres, copy=False)
 
 
 def load_binary_directed_sample(thres=.35):
