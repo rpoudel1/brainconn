@@ -24,7 +24,7 @@ API Reference
         brainconn.centrality.kcoreness_centrality_bd
         brainconn.centrality.kcoreness_centrality_bu
         brainconn.centrality.module_degree_zscore
-        brainconn.centrality.pagerank_centrality,
+        brainconn.centrality.pagerank_centrality
         brainconn.centrality.participation_coef
         brainconn.centrality.participation_coef_sign
         brainconn.centrality.subgraph_centrality
