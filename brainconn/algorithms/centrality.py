@@ -1,3 +1,6 @@
+"""
+Metrics which identify the most important nodes in graphs.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .core import kcore_bd, kcore_bu
@@ -6,24 +9,24 @@ from ..utils import invert
 
 
 def betweenness_bin(G):
-    '''
+    """
     Node betweenness centrality is the fraction of all shortest paths in
     the network that contain a given node. Nodes with high values of
     betweenness centrality participate in a large number of shortest paths.
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
 
-    BC : Nx1 np.ndarray
+    BC : Nx1 :obj:`numpy.ndarray`
         node betweenness centrality vector
 
     Notes
     -----
     Betweenness centrality may be normalised to the range [0,1] as
     BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    """
     G = np.array(G, dtype=float)  # force G to have float type so it can be
     # compared to float np.inf
 
@@ -63,31 +66,32 @@ def betweenness_bin(G):
 
 
 def betweenness_wei(G):
-    '''
+    """
     Node betweenness centrality is the fraction of all shortest paths in
     the network that contain a given node. Nodes with high values of
     betweenness centrality participate in a large number of shortest paths.
 
     Parameters
     ----------
-    L : NxN np.ndarray
+    L : NxN :obj:`numpy.ndarray`
         directed/undirected weighted connection matrix
 
     Returns
     -------
-    BC : Nx1 np.ndarray
+    BC : Nx1 :obj:`numpy.ndarray`
         node betweenness centrality vector
 
     Notes
     -----
-       The input matrix must be a connection-length matrix, typically
-        obtained via a mapping from weight to length. For instance, in a
-        weighted correlation network higher correlations are more naturally
-        interpreted as shorter distances and the input matrix should
-        consequently be some inverse of the connectivity matrix.
-       Betweenness centrality may be normalised to the range [0,1] as
-        BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    The input matrix must be a connection-length matrix, typically
+    obtained via a mapping from weight to length. For instance, in a
+    weighted correlation network higher correlations are more naturally
+    interpreted as shorter distances and the input matrix should
+    consequently be some inverse of the connectivity matrix.
+
+    Betweenness centrality may be normalised to the range [0,1] as
+    BC/[(N-1)(N-2)], where N is the number of nodes in the network.
+    """
     n = len(G)
     BC = np.zeros((n,))  # vertex betweenness
 
@@ -138,24 +142,24 @@ def betweenness_wei(G):
 
 
 def diversity_coef_sign(W, ci):
-    '''
+    """
     The Shannon-entropy based diversity coefficient measures the diversity
     of intermodular connections of individual nodes and ranges from 0 to 1.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected connection matrix with positive and negative weights
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community affiliation vector
 
     Returns
     -------
-    Hpos : Nx1 np.ndarray
+    Hpos : Nx1 :obj:`numpy.ndarray`
         diversity coefficient based on positive connections
-    Hneg : Nx1 np.ndarray
+    Hneg : Nx1 :obj:`numpy.ndarray`
         diversity coefficient based on negative connections
-    '''
+    """
     n = len(W)  # number of nodes
 
     _, ci = np.unique(ci, return_inverse=True)
@@ -171,38 +175,39 @@ def diversity_coef_sign(W, ci):
         pnm = Snm / (np.tile(S, (m, 1)).T)
         pnm[np.isnan(pnm)] = 0
         pnm[np.logical_not(pnm)] = 1
-        return -np.sum(pnm * np.log(pnm), axis=1) / np.log(m)
+        return -1 * np.sum(pnm * np.log(pnm), axis=1) / np.log(m)
 
-    #explicitly ignore compiler warning for division by zero
+    # explicitly ignore compiler warning for division by zero
     with np.errstate(invalid='ignore'):
         Hpos = entropy(W * (W > 0))
         Hneg = entropy(-W * (W < 0))
 
     return Hpos, Hneg
 
+
 def edge_betweenness_bin(G):
-    '''
+    """
     Edge betweenness centrality is the fraction of all shortest paths in
     the network that contain a given edge. Edges with high values of
     betweenness centrality participate in a large number of shortest paths.
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed/undirected connection matrix
 
     Returns
     -------
-    EBC : NxN np.ndarray
+    EBC : NxN :obj:`numpy.ndarray`
         edge betweenness centrality matrix
-    BC : Nx1 np.ndarray
+    BC : Nx1 :obj:`numpy.ndarray`
         node betweenness centrality vector
 
     Notes
     -----
     Betweenness centrality may be normalised to the range [0,1] as
     BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    """
     n = len(G)
     BC = np.zeros((n,))  # vertex betweenness
     EBC = np.zeros((n, n))  # edge betweenness
@@ -249,21 +254,21 @@ def edge_betweenness_bin(G):
 
 
 def edge_betweenness_wei(G):
-    '''
+    """
     Edge betweenness centrality is the fraction of all shortest paths in
     the network that contain a given edge. Edges with high values of
     betweenness centrality participate in a large number of shortest paths.
 
     Parameters
     ----------
-    L : NxN np.ndarray
+    L : NxN :obj:`numpy.ndarray`
         directed/undirected weighted connection matrix
 
     Returns
     -------
-    EBC : NxN np.ndarray
+    EBC : NxN :obj:`numpy.ndarray`
         edge betweenness centrality matrix
-    BC : Nx1 np.ndarray
+    BC : Nx1 :obj:`numpy.ndarray`
         nodal betweenness centrality vector
 
     Notes
@@ -275,7 +280,7 @@ def edge_betweenness_wei(G):
         consequently be some inverse of the connectivity matrix.
     Betweenness centrality may be normalised to the range [0,1] as
         BC/[(N-1)(N-2)], where N is the number of nodes in the network.
-    '''
+    """
     n = len(G)
     BC = np.zeros((n,))  # vertex betweenness
     EBC = np.zeros((n, n))  # edge betweenness
@@ -329,7 +334,7 @@ def edge_betweenness_wei(G):
 
 
 def eigenvector_centrality_und(CIJ):
-    '''
+    """
     Eigenector centrality is a self-referential measure of centrality:
     nodes have high eigenvector centrality if they connect to other nodes
     that have high eigenvector centrality. The eigenvector centrality of
@@ -338,12 +343,12 @@ def eigenvector_centrality_und(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary/weighted undirected adjacency matrix
 
-    v : Nx1 np.ndarray
+    v : Nx1 :obj:`numpy.ndarray`
         eigenvector associated with the largest eigenvalue of the matrix
-    '''
+    """
     from scipy import linalg
 
     n = len(CIJ)
@@ -353,29 +358,29 @@ def eigenvector_centrality_und(CIJ):
 
 
 def erange(CIJ):
-    '''
+    """
     Shortcuts are central edges which significantly reduce the
     characteristic path length in the network.
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    Erange : NxN np.ndarray
+    Erange : NxN :obj:`numpy.ndarray`
         range for each edge, i.e. the length of the shortest path from i to j
         for edge c(i,j) after the edge has been removed from the graph
     eta : float
         average range for the entire graph
-    Eshort : NxN np.ndarray
+    Eshort : NxN :obj:`numpy.ndarray`
         entries are ones for shortcut edges
     fs : float
         fractions of shortcuts in the graph
 
     Follows the treatment of 'shortcuts' by Duncan Watts
-    '''
+    """
     N = len(CIJ)
     K = np.size(np.where(CIJ)[1])
     Erange = np.zeros((N, N))
@@ -403,7 +408,7 @@ def erange(CIJ):
 
 
 def flow_coef_bd(CIJ):
-    '''
+    """
     Computes the flow coefficient for each node and averaged over the
     network, as described in Honey et al. (2007) PNAS. The flow coefficient
     is similar to betweenness centrality, but works on a local
@@ -412,18 +417,18 @@ def flow_coef_bd(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    fc : Nx1 np.ndarray
+    fc : Nx1 :obj:`numpy.ndarray`
         flow coefficient for each node
     FC : float
         average flow coefficient over the network
     total_flo : int
         number of paths that "flow" across the central node
-    '''
+    """
     N = len(CIJ)
 
     fc = np.zeros((N,))
@@ -453,7 +458,7 @@ def flow_coef_bd(CIJ):
 
 
 def gateway_coef_sign(W, ci, centrality_type='degree'):
-    '''
+    """
     The gateway coefficient is a variant of participation coefficient.
     It is weighted by how critical the connections are to intermodular
     connectivity (e.g. if a node is the only connection between its
@@ -462,9 +467,9 @@ def gateway_coef_sign(W, ci, centrality_type='degree'):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected signed connection matrix
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community affiliation vector
     centrality_type : enum
         'degree' - uses the weighted degree (i.e, node strength)
@@ -472,29 +477,30 @@ def gateway_coef_sign(W, ci, centrality_type='degree'):
 
     Returns
     -------
-    Gpos : Nx1 np.ndarray
+    Gpos : Nx1 :obj:`numpy.ndarray`
         gateway coefficient for positive weights
-    Gneg : Nx1 np.ndarray
+    Gneg : Nx1 :obj:`numpy.ndarray`
         gateway coefficient for negative weights
 
-    Reference:
-        Vargas ER, Wahl LM, Eur Phys J B (2014) 87:1-10
-    '''
+    References
+    ----------
+    .. [1] Vargas ER, Wahl LM, Eur Phys J B (2014) 87:1-10
+    """
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
     n = len(W)
     np.fill_diagonal(W, 0)
 
     def gcoef(W):
-        #strength
+        # strength
         s = np.sum(W, axis=1)
-        #neighbor community affiliation
+        # neighbor community affiliation
         Gc = np.inner((W != 0), np.diag(ci))
-        #community specific neighbors
+        # community specific neighbors
         Sc2 = np.zeros((n,))
-        #extra modular weighting
+        # extra modular weighting
         ksm = np.zeros((n,))
-        #intra modular wieghting
+        # intra modular wieghting
         centm = np.zeros((n,))
 
         if centrality_type == 'degree':
@@ -508,19 +514,19 @@ def gateway_coef_sign(W, ci, centrality_type='degree'):
             print(np.sum(ks))
             Sc2 += ks ** 2
             for j in range(1, nr_modules+1):
-                #calculate extramodular weights
+                # calculate extramodular weights
                 ksm[ci == j] += ks[ci == j] / np.sum(ks[ci == j])
 
-            #calculate intramodular weights
+            # calculate intramodular weights
             centm[ci == i] = np.sum(cent[ci == i])
 
-        #print(Gc)
-        #print(centm)
-        #print(ksm)
-        #print(ks)
+        # print(Gc)
+        # print(centm)
+        # print(ksm)
+        # print(ks)
 
         centm = centm / max(centm)
-        #calculate total weights
+        # calculate total weights
         gs = (1 - ksm * centm) ** 2
 
         Gw = 1 - Sc2 * gs / s ** 2
@@ -535,7 +541,7 @@ def gateway_coef_sign(W, ci, centrality_type='degree'):
 
 
 def kcoreness_centrality_bd(CIJ):
-    '''
+    """
     The k-core is the largest subgraph comprising nodes of degree at least
     k. The coreness of a node is k if the node belongs to the k-core but
     not to the (k+1)-core. This function computes k-coreness of all nodes
@@ -543,16 +549,16 @@ def kcoreness_centrality_bd(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    coreness : Nx1 np.ndarray
+    coreness : Nx1 :obj:`numpy.ndarray`
         node coreness
     kn : int
         size of k-core
-    '''
+    """
     N = len(CIJ)
 
     coreness = np.zeros((N,))
@@ -567,7 +573,7 @@ def kcoreness_centrality_bd(CIJ):
 
 
 def kcoreness_centrality_bu(CIJ):
-    '''
+    """
     The k-core is the largest subgraph comprising nodes of degree at least
     k. The coreness of a node is k if the node belongs to the k-core but
     not to the (k+1)-core. This function computes the coreness of all nodes
@@ -575,16 +581,16 @@ def kcoreness_centrality_bu(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
 
     Returns
     -------
-    coreness : Nx1 np.ndarray
+    coreness : Nx1 :obj:`numpy.ndarray`
         node coreness
     kn : int
         size of k-core
-    '''
+    """
     N = len(CIJ)
 
     # determine if the network is undirected -- if not, compute coreness
@@ -604,13 +610,13 @@ def kcoreness_centrality_bu(CIJ):
 
 
 def module_degree_zscore(W, ci, flag=0):
-    '''
+    """
     The within-module degree z-score is a within-module version of degree
     centrality.
 
     Parameters
     ----------
-    W : NxN np.narray
+    W : NxN :obj:`numpy.ndarray`
         binary/weighted directed/undirected connection matrix
     ci : Nx1 np.array_like
         community affiliation vector
@@ -622,9 +628,9 @@ def module_degree_zscore(W, ci, flag=0):
 
     Returns
     -------
-    Z : Nx1 np.ndarray
+    Z : Nx1 :obj:`numpy.ndarray`
         within-module degree Z-score
-    '''
+    """
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
 
@@ -646,7 +652,7 @@ def module_degree_zscore(W, ci, flag=0):
 
 
 def pagerank_centrality(A, d, falff=None):
-    '''
+    """
     The PageRank centrality is a variant of eigenvector centrality. This
     function computes the PageRank centrality of each vertex in a graph.
 
@@ -664,24 +670,24 @@ def pagerank_centrality(A, d, falff=None):
 
     Parameters
     ----------
-    A : NxN np.narray
+    A : NxN :obj:`numpy.ndarray`
         adjacency matrix
     d : float
         damping factor (see description)
-    falff : Nx1 np.ndarray | None
+    falff : Nx1 :obj:`numpy.ndarray` or None
         Initial page rank probability, non-negative values. Default value is
         None. If not specified, a naive bayesian prior is used.
 
     Returns
     -------
-    r : Nx1 np.ndarray
+    r : Nx1 :obj:`numpy.ndarray`
         vectors of page rankings
 
     Notes
     -----
-    Note: The algorithm will work well for smaller matrices (number of
+    The algorithm will work well for smaller matrices (number of
     nodes around 1000 or less)
-    '''
+    """
     from scipy import linalg
 
     N = len(A)
@@ -701,26 +707,25 @@ def pagerank_centrality(A, d, falff=None):
 
 
 def participation_coef(W, ci, degree='undirected'):
-    '''
+    """
     Participation coefficient is a measure of diversity of intermodular
     connections of individual nodes.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         binary/weighted directed/undirected connection matrix
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community affiliation vector
-    degree : str
-        Flag to describe nature of graph 'undirected': For undirected graphs
-                                         'in': Uses the in-degree
-                                         'out': Uses the out-degree
+    degree : {'undirected', 'in', 'out'}, optional
+        Flag to describe nature of graph. 'undirected': For undirected graphs,
+        'in': Uses the in-degree, 'out': Uses the out-degree
 
     Returns
     -------
-    P : Nx1 np.ndarray
+    P : Nx1 :obj:`numpy.ndarray`
         participation coefficient
-    '''
+    """
     if degree == 'in':
         W = W.T
 
@@ -743,24 +748,24 @@ def participation_coef(W, ci, degree='undirected'):
 
 
 def participation_coef_sign(W, ci):
-    '''
+    """
     Participation coefficient is a measure of diversity of intermodular
     connections of individual nodes.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected connection matrix with positive and negative weights
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community affiliation vector
 
     Returns
     -------
-    Ppos : Nx1 np.ndarray
+    Ppos : Nx1 :obj:`numpy.ndarray`
         participation coefficient from positive weights
-    Pneg : Nx1 np.ndarray
+    Pneg : Nx1 :obj:`numpy.ndarray`
         participation coefficient from negative weights
-    '''
+    """
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
 
@@ -780,15 +785,16 @@ def participation_coef_sign(W, ci):
         P[np.where(np.logical_not(P))] = 0  # p_ind=0 if no (out)neighbors
         return P
 
-    #explicitly ignore compiler warning for division by zero
+    # explicitly ignore compiler warning for division by zero
     with np.errstate(invalid='ignore'):
         Ppos = pcoef(W * (W > 0))
         Pneg = pcoef(-W * (W < 0))
 
     return Ppos, Pneg
 
+
 def subgraph_centrality(CIJ):
-    '''
+    """
     The subgraph centrality of a node is a weighted sum of closed walks of
     different lengths in the network starting and ending at the node. This
     function returns a vector of subgraph centralities for each node of the
@@ -796,12 +802,12 @@ def subgraph_centrality(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         binary adjacency matrix
 
-    Cs : Nx1 np.ndarray
+    Cs : Nx1 :obj:`numpy.ndarray`
         subgraph centrality
-    '''
+    """
     from scipy import linalg
 
     vals, vecs = linalg.eig(CIJ)  # compute eigendecomposition

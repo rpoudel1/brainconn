@@ -1,33 +1,36 @@
+"""
+Metrics which measure the number of edges connected to nodes.
+"""
 from __future__ import division, print_function
 import numpy as np
 from ..utils import binarize
 
 
 def degrees_dir(CIJ):
-    '''
+    """
     Node degree is the number of links connected to the node. The indegree
     is the number of inward links and the outdegree is the number of
     outward links.
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
 
     Returns
     -------
-    id : Nx1 np.ndarray
+    id : Nx1 :obj:`numpy.ndarray`
         node in-degree
-    od : Nx1 np.ndarray
+    od : Nx1 :obj:`numpy.ndarray`
         node out-degree
-    deg : Nx1 np.ndarray
+    deg : Nx1 :obj:`numpy.ndarray`
         node degree (in-degree + out-degree)
 
     Notes
     -----
     Inputs are assumed to be on the columns of the CIJ matrix.
            Weight information is discarded.
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
     id = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
     od = np.sum(CIJ, axis=1)  # outdegree = row sum of CIJ
@@ -36,41 +39,41 @@ def degrees_dir(CIJ):
 
 
 def degrees_und(CIJ):
-    '''
+    """
     Node degree is the number of links connected to the node.
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
 
     Returns
     -------
-    deg : Nx1 np.ndarray
+    deg : Nx1 :obj:`numpy.ndarray`
         node degree
 
     Notes
     -----
     Weight information is discarded.
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
     return np.sum(CIJ, axis=0)
 
 
 def jdegree(CIJ):
-    '''
+    """
     This function returns a matrix in which the value of each element (u,v)
     corresponds to the number of nodes that have u outgoing connections
     and v incoming connections.
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed binary/weighted connnection matrix
 
     Returns
     -------
-    J : ZxZ np.ndarray
+    J : ZxZ :obj:`numpy.ndarray`
         joint degree distribution matrix
         (shifted by one, replicates matlab one-based-indexing)
     J_od : int
@@ -83,7 +86,7 @@ def jdegree(CIJ):
     Notes
     -----
     Weights are discarded.
-    '''
+    """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
     n = len(CIJ)
     id = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
@@ -109,71 +112,71 @@ def jdegree(CIJ):
 
 
 def strengths_dir(CIJ):
-    '''
+    """
     Node strength is the sum of weights of links connected to the node. The
     instrength is the sum of inward link weights and the outstrength is the
     sum of outward link weights.
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed weighted connection matrix
 
     Returns
     -------
-    is : Nx1 np.ndarray
+    is : Nx1 :obj:`numpy.ndarray`
         node in-strength
-    os : Nx1 np.ndarray
+    os : Nx1 :obj:`numpy.ndarray`
         node out-strength
-    str : Nx1 np.ndarray
+    str : Nx1 :obj:`numpy.ndarray`
         node strength (in-strength + out-strength)
 
     Notes
     -----
     Inputs are assumed to be on the columns of the CIJ matrix.
-    '''
+    """
     istr = np.sum(CIJ, axis=0)
     ostr = np.sum(CIJ, axis=1)
     return istr + ostr
 
 
 def strengths_und(CIJ):
-    '''
+    """
     Node strength is the sum of weights of links connected to the node.
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected weighted connection matrix
 
     Returns
     -------
-    str : Nx1 np.ndarray
+    str : Nx1 :obj:`numpy.ndarray`
         node strengths
-    '''
+    """
     return np.sum(CIJ, axis=0)
 
 
 def strengths_und_sign(W):
-    '''
+    """
     Node strength is the sum of weights of links connected to the node.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected connection matrix with positive and negative weights
 
     Returns
     -------
-    Spos : Nx1 np.ndarray
+    Spos : Nx1 :obj:`numpy.ndarray`
         nodal strength of positive weights
-    Sneg : Nx1 np.ndarray
+    Sneg : Nx1 :obj:`numpy.ndarray`
         nodal strength of positive weights
     vpos : float
         total positive weight
     vneg : float
         total negative weight
-    '''
+    """
     W = W.copy()
     n = len(W)
     np.fill_diagonal(W, 0)  # clear diagonal

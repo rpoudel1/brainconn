@@ -57,4 +57,24 @@ MAJOR = _version_major
 MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
-REQUIRES = ["numpy", "scipy"]
+REQUIRES = ['numpy', 'scipy']
+TESTS_REQUIRES = [
+    'codecov',
+    'pytest',
+    'pytest-cov'
+]
+EXTRA_REQUIRES = {
+    'doc': [
+        'sphinx>=1.5.3',
+        'sphinx_rtd_theme',
+        'sphinx-argparse',
+        'sphinx_gallery',
+        'numpydoc'
+    ],
+    'tests': TESTS_REQUIRES,
+    'duecredit': ['duecredit'],
+    'algorithms': ['networkx', 'mayavi']
+}
+
+# Enable a handle to install all extra dependencies at once
+EXTRA_REQUIRES['all'] = [val for _, val in list(EXTRA_REQUIRES.items())]

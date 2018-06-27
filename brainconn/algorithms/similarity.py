@@ -1,3 +1,6 @@
+"""
+Metrics which measure similarity of nodes in graphs.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .degree import degrees_dir, degrees_und
@@ -5,7 +8,7 @@ from ..utils import BCTParamError, binarize
 
 
 def edge_nei_overlap_bd(CIJ):
-    '''
+    """
     This function determines the neighbors of two nodes that are linked by
     an edge, and then computes their overlap.  Connection matrix must be
     binary and directed.  Entries of 'EC' that are 'inf' indicate that no
@@ -18,18 +21,18 @@ def edge_nei_overlap_bd(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         directed binary/weighted connection matrix
 
     Returns
     -------
-    EC : NxN np.ndarray
+    EC : NxN :obj:`numpy.ndarray`
         edge neighborhood overlap matrix
-    ec : Kx1 np.ndarray
+    ec : Kx1 :obj:`numpy.ndarray`
         edge neighborhood overlap per edge vector
-    degij : NxN np.ndarray
+    degij : NxN :obj:`numpy.ndarray`
         degrees of node pairs connected by each edge
-    '''
+    """
 
     ik, jk = np.where(CIJ)
     lel = len(CIJ[ik, jk])
@@ -54,7 +57,7 @@ def edge_nei_overlap_bd(CIJ):
 
 
 def edge_nei_overlap_bu(CIJ):
-    '''
+    """
     This function determines the neighbors of two nodes that are linked by
     an edge, and then computes their overlap.  Connection matrix must be
     binary and directed.  Entries of 'EC' that are 'inf' indicate that no
@@ -66,18 +69,18 @@ def edge_nei_overlap_bu(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected binary/weighted connection matrix
 
     Returns
     -------
-    EC : NxN np.ndarray
+    EC : NxN :obj:`numpy.ndarray`
         edge neighborhood overlap matrix
-    ec : Kx1 np.ndarray
+    ec : Kx1 :obj:`numpy.ndarray`
         edge neighborhood overlap per edge vector
-    degij : NxN np.ndarray
+    degij : NxN :obj:`numpy.ndarray`
         degrees of node pairs connected by each edge
-    '''
+    """
     ik, jk = np.where(CIJ)
     lel = len(CIJ[ik, jk])
     n = len(CIJ)
@@ -101,7 +104,7 @@ def edge_nei_overlap_bu(CIJ):
 
 
 def gtom(adj, nr_steps):
-    '''
+    """
     The m-th step generalized topological overlap measure (GTOM) quantifies
     the extent to which a pair of nodes have similar m-th step neighbors.
     Mth-step neighbors are nodes that are reachable by a path of at most
@@ -112,14 +115,14 @@ def gtom(adj, nr_steps):
 
     Parameters
     ----------
-    adj : NxN np.ndarray
+    adj : NxN :obj:`numpy.ndarray`
         connection matrix
     nr_steps : int
         number of steps
 
     Returns
     -------
-    gt : NxN np.ndarray
+    gt : NxN :obj:`numpy.ndarray`
         GTOM matrix
 
     Notes
@@ -131,7 +134,7 @@ def gtom(adj, nr_steps):
     'numSteps' is increased, neighbors that are furter out are considered.
     Elements of 'gt' are bounded between 0 and 1.  The 'gt' matrix can be
     converted from a similarity to a distance matrix by taking 1-gt.
-    '''
+    """
     bm = binarize(adj, copy=True)
     bm_aux = bm.copy()
     nr_nodes = len(adj)
@@ -165,7 +168,7 @@ def gtom(adj, nr_steps):
 
 
 def matching_ind(CIJ):
-    '''
+    """
     For any two nodes u and v, the matching index computes the amount of
     overlap in the connection patterns of u and v. Self-connections and
     u-v connections are ignored. The matching index is a symmetric
@@ -173,16 +176,16 @@ def matching_ind(CIJ):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         adjacency matrix
 
     Returns
     -------
-    Min : NxN np.ndarray
+    Min : NxN :obj:`numpy.ndarray`
         matching index for incoming connections
-    Mout : NxN np.ndarray
+    Mout : NxN :obj:`numpy.ndarray`
         matching index for outgoing connections
-    Mall : NxN np.ndarray
+    Mall : NxN :obj:`numpy.ndarray`
         matching index for all connections
 
     Notes
@@ -190,7 +193,7 @@ def matching_ind(CIJ):
     Does not use self- or cross connections for comparison.
     Does not use connections that are not present in BOTH u and v.
     All output matrices are calculated for upper triangular only.
-    '''
+    """
     n = len(CIJ)
 
     Min = np.zeros((n, n))
@@ -246,7 +249,7 @@ def matching_ind(CIJ):
 
 
 def matching_ind_und(CIJ0):
-    '''
+    """
     M0 = MATCHING_IND_UND(CIJ) computes matching index for undirected
     graph specified by adjacency matrix CIJ. Matching index is a measure of
     similarity between two nodes' connectivity profiles (excluding their
@@ -254,14 +257,14 @@ def matching_ind_und(CIJ0):
 
     Parameters
     ----------
-    CIJ : NxN np.ndarray
+    CIJ : NxN :obj:`numpy.ndarray`
         undirected adjacency matrix
 
     Returns
     -------
-    M0 : NxN np.ndarray
+    M0 : NxN :obj:`numpy.ndarray`
         matching index matrix
-    '''
+    """
     K = np.sum(CIJ0, axis=0)
     n = len(CIJ0)
     R = (K != 0)
@@ -293,22 +296,22 @@ def matching_ind_und(CIJ0):
 
 
 def dice_pairwise_und(a1, a2):
-    '''
+    """
     Calculates pairwise dice similarity for each vertex between two
     matrices. Treats the matrices as binary and undirected.
 
     Paramaters
     ----------
-    A1 : NxN np.ndarray
+    A1 : NxN :obj:`numpy.ndarray`
         Matrix 1
-    A2 : NxN np.ndarray
+    A2 : NxN :obj:`numpy.ndarray`
         Matrix 2
 
     Returns
     -------
-    D : Nx1 np.ndarray
+    D : Nx1 :obj:`numpy.ndarray`
         dice similarity vector
-    '''
+    """
     a1 = binarize(a1, copy=True)
     a2 = binarize(a2, copy=True)  # ensure matrices are binary
 
@@ -327,23 +330,23 @@ def dice_pairwise_und(a1, a2):
 
 
 def corr_flat_und(a1, a2):
-    '''
+    """
     Returns the correlation coefficient between two flattened adjacency
     matrices.  Only the upper triangular part is used to avoid double counting
     undirected matrices.  Similarity metric for weighted matrices.
 
     Parameters
     ----------
-    A1 : NxN np.ndarray
+    A1 : NxN :obj:`numpy.ndarray`
         undirected matrix 1
-    A2 : NxN np.ndarray
+    A2 : NxN :obj:`numpy.ndarray`
         undirected matrix 2
 
     Returns
     -------
     r : float
         Correlation coefficient describing edgewise similarity of a1 and a2
-    '''
+    """
     n = len(a1)
     if len(a2) != n:
         raise BCTParamError("Cannot calculate flattened correlation on "
@@ -353,22 +356,22 @@ def corr_flat_und(a1, a2):
 
 
 def corr_flat_dir(a1, a2):
-    '''
+    """
     Returns the correlation coefficient between two flattened adjacency
     matrices.  Similarity metric for weighted matrices.
 
     Parameters
     ----------
-    A1 : NxN np.ndarray
+    A1 : NxN :obj:`numpy.ndarray`
         directed matrix 1
-    A2 : NxN np.ndarray
+    A2 : NxN :obj:`numpy.ndarray`
         directed matrix 2
 
     Returns
     -------
     r : float
         Correlation coefficient describing edgewise similarity of a1 and a2
-    '''
+    """
     n = len(a1)
     if len(a2) != n:
         raise BCTParamError("Cannot calculate flattened correlation on "

@@ -1,16 +1,19 @@
+"""
+Metrics which measure separability of modules within graphs.
+"""
 from __future__ import division, print_function
 import numpy as np
 from ..utils import BCTParamError, normalize
 
 
 def ci2ls(ci):
-    '''
+    """
     Convert from a community index vector to a 2D python list of modules
     The list is a pure python list, not requiring numpy.
 
     Parameters
     ----------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         the community index vector
     zeroindexed : bool
         If True, ci uses zero-indexing (lowest value is 0). Defaults to False.
@@ -20,7 +23,7 @@ def ci2ls(ci):
     ls : listof(list)
         pure python list with lowest value zero-indexed
         (regardless of zero-indexing parameter)
-    '''
+    """
     if not np.size(ci):
         return ci  # list is empty
     _, ci = np.unique(ci, return_inverse=True)
@@ -35,7 +38,7 @@ def ci2ls(ci):
 
 
 def ls2ci(ls, zeroindexed=False):
-    '''
+    """
     Convert from a 2D python list of modules to a community index vector.
     The list is a pure python list, not requiring numpy.
 
@@ -49,9 +52,9 @@ def ls2ci(ls, zeroindexed=False):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community index vector
-    '''
+    """
     if ls is None or np.size(ls) == 0:
         return ()  # list is empty
     nr_indices = sum(map(len, ls))
@@ -64,7 +67,7 @@ def ls2ci(ls, zeroindexed=False):
 
 
 def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes which maximizes the number of within-group
     edges and minimizes the number of between-group edges.
@@ -101,7 +104,7 @@ def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
         final community structure
     q : float
         optimized q-statistic (modularity only)
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)
@@ -234,7 +237,7 @@ def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
 
 
 def link_communities(W, type_clustering='single'):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes which maximizes the number of within-group
     edges and minimizes the number of between-group edges.
@@ -253,9 +256,9 @@ def link_communities(W, type_clustering='single'):
 
     Returns
     -------
-    M : CxN np.ndarray
+    M : CxN :obj:`numpy.ndarray`
         nodal community affiliation matrix.
-    '''
+    """
     n = len(W)
     W = normalize(W)
 
@@ -457,7 +460,7 @@ def link_communities(W, type_clustering='single'):
 
 
 def modularity_dir(A, gamma=1, kci=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -466,12 +469,12 @@ def modularity_dir(A, gamma=1, kci=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    kci : Nx1 np.ndarray | None
+    kci : Nx1 :obj:`numpy.ndarray` | None
         starting community structure. If specified, calculates the Q-metric
         on the community structure giving, without doing any optimzation.
         Otherwise, if not specified, uses a spectral modularity maximization
@@ -479,7 +482,7 @@ def modularity_dir(A, gamma=1, kci=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         optimized community structure
     Q : float
         maximized modularity metric
@@ -490,7 +493,7 @@ def modularity_dir(A, gamma=1, kci=None):
     name incorrectly disclaims that the outcome depends on heuristics
     involving a random seed. The louvain method does depend on a random seed,
     but this function uses a deterministic modularity maximization algorithm.
-    '''
+    """
     from scipy import linalg
     n = len(A)  # number of vertices
     ki = np.sum(A, axis=0)  # in degree
@@ -559,7 +562,7 @@ def modularity_dir(A, gamma=1, kci=None):
 
 
 def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -571,9 +574,9 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed weighted/binary connection matrix
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -583,7 +586,7 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -592,7 +595,7 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -660,7 +663,7 @@ def modularity_finetune_dir(W, ci=None, gamma=1, seed=None):
 
 
 def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -672,9 +675,9 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -684,7 +687,7 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -693,7 +696,7 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     #import time
@@ -757,7 +760,7 @@ def modularity_finetune_und(W, ci=None, gamma=1, seed=None):
 
 
 def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -769,7 +772,7 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights.
     qtype : str
@@ -778,14 +781,14 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     seed : int | None
         random seed. default value=None. if None, seeds from /dev/urandom.
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -794,7 +797,7 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes/modules
@@ -890,7 +893,7 @@ def modularity_finetune_und_sign(W, qtype='sta', gamma=1, ci=None, seed=None):
 
 
 def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -903,7 +906,7 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         directed weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -915,9 +918,9 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector. If hierarchical output enabled,
-        it is an NxH np.ndarray instead with multiple iterations
+        it is an NxH :obj:`numpy.ndarray` instead with multiple iterations
     Q : float
         optimized modularity metric. If hierarchical output enabled, becomes
         an Hx1 array of floats instead.
@@ -926,7 +929,7 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -1019,7 +1022,7 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
 
 
 def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1032,7 +1035,7 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
@@ -1044,9 +1047,9 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector. If hierarchical output enabled,
-        it is an NxH np.ndarray instead with multiple iterations
+        it is an NxH :obj:`numpy.ndarray` instead with multiple iterations
     Q : float
         optimized modularity metric. If hierarchical output enabled, becomes
         an Hx1 array of floats instead.
@@ -1055,7 +1058,7 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -1149,7 +1152,7 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
 
 
 def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1166,7 +1169,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights
     qtype : str
@@ -1180,7 +1183,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -1189,7 +1192,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)  # number of nodes
@@ -1313,7 +1316,7 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
 
 def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
                                  seed=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1329,7 +1332,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights
     qtype : str
@@ -1338,7 +1341,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    ci : Nx1 np.ndarray | None
+    ci : Nx1 :obj:`numpy.ndarray` | None
         initial community affiliation vector
     p : float
         probability of random node moves. Default value = 0.45
@@ -1347,7 +1350,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         refined community affiliation vector
     Q : float
         optimized modularity metric
@@ -1356,7 +1359,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
     -----
     Ci and Q may vary from run to run, due to heuristics in the
     algorithm. Consequently, it may be worth to compare multiple runs.
-    '''
+    """
     np.random.seed(seed)
 
     n = len(W)
@@ -1446,7 +1449,7 @@ def modularity_probtune_und_sign(W, qtype='sta', gamma=1, ci=None, p=.45,
 
 
 def modularity_und(A, gamma=1, kci=None):
-    '''
+    """
     The optimal community structure is a subdivision of the network into
     nonoverlapping groups of nodes in a way that maximizes the number of
     within-group edges, and minimizes the number of between-group edges.
@@ -1455,12 +1458,12 @@ def modularity_und(A, gamma=1, kci=None):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix
     gamma : float
         resolution parameter. default value=1. Values 0 <= gamma < 1 detect
         larger modules while gamma > 1 detects smaller modules.
-    kci : Nx1 np.ndarray | None
+    kci : Nx1 :obj:`numpy.ndarray` | None
         starting community structure. If specified, calculates the Q-metric
         on the community structure giving, without doing any optimzation.
         Otherwise, if not specified, uses a spectral modularity maximization
@@ -1468,7 +1471,7 @@ def modularity_und(A, gamma=1, kci=None):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         optimized community structure
     Q : float
         maximized modularity metric
@@ -1479,7 +1482,7 @@ def modularity_und(A, gamma=1, kci=None):
     name incorrectly disclaims that the outcome depends on heuristics
     involving a random seed. The louvain method does depend on a random seed,
     but this function uses a deterministic modularity maximization algorithm.
-    '''
+    """
     from scipy import linalg
     n = len(A)  # number of vertices
     k = np.sum(A, axis=0)  # degree
@@ -1548,16 +1551,16 @@ def modularity_und(A, gamma=1, kci=None):
 
 
 def modularity_und_sign(W, ci, qtype='sta'):
-    '''
+    """
     This function simply calculates the signed modularity for a given
     partition. It does not do automatic partition generation right now.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         undirected weighted/binary connection matrix with positive and
         negative weights
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         community partition
     qtype : str
         modularity type. Can be 'sta' (default), 'pos', 'smp', 'gja', 'neg'.
@@ -1565,7 +1568,7 @@ def modularity_und_sign(W, ci, qtype='sta'):
 
     Returns
     -------
-    ci : Nx1 np.ndarray
+    ci : Nx1 :obj:`numpy.ndarray`
         the partition which was input (for consistency of the API)
     Q : float
         maximized modularity metric
@@ -1573,7 +1576,7 @@ def modularity_und_sign(W, ci, qtype='sta'):
     Notes
     -----
     uses a deterministic algorithm
-    '''
+    """
     n = len(W)
     _, ci = np.unique(ci, return_inverse=True)
     ci += 1
@@ -1629,22 +1632,22 @@ def modularity_und_sign(W, ci, qtype='sta'):
 
 
 def partition_distance(cx, cy):
-    '''
+    """
     This function quantifies the distance between pairs of community
     partitions with information theoretic measures.
 
     Parameters
     ----------
-    cx : Nx1 np.ndarray
+    cx : Nx1 :obj:`numpy.ndarray`
         community affiliation vector X
-    cy : Nx1 np.ndarray
+    cy : Nx1 :obj:`numpy.ndarray`
         community affiliation vector Y
 
     Returns
     -------
-    VIn : Nx1 np.ndarray
+    VIn : Nx1 :obj:`numpy.ndarray`
         normalized variation of information
-    MIn : Nx1 np.ndarray
+    MIn : Nx1 :obj:`numpy.ndarray`
         normalized mutual information
 
     Notes
@@ -1653,7 +1656,7 @@ def partition_distance(cx, cy):
        VIn = [H(X) + H(Y) - 2MI(X,Y)]/log(n)
        MIn = 2MI(X,Y)/[H(X)+H(Y)]
     where H is entropy, MI is mutual information and n is number of nodes)
-    '''
+    """
     n = np.size(cx)
     _, cx = np.unique(cx, return_inverse=True)
     _, cy = np.unique(cy, return_inverse=True)

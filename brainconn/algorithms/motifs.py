@@ -1,3 +1,6 @@
+"""
+Methods for the identification of recurrent sub-graphs and patterns.
+"""
 from __future__ import division, print_function
 import numpy as np
 from ..utils import BCTParamError, binarize
@@ -8,7 +11,7 @@ motiflib = 'motif34lib.mat'
 
 
 def find_motif34(m, n=None):
-    '''
+    """
     This function returns all motif isomorphs for a given motif id and
     class (3 or 4). The function also returns the motif id for a given
     motif matrix
@@ -33,10 +36,10 @@ def find_motif34(m, n=None):
 
     Returns
     -------
-    M : np.ndarray | int
+    M : :obj:`numpy.ndarray` | int
         In use case 1, returns all isomorphs for the given motif
         In use case 2, returns the motif_id for the specified motif matrix
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -77,10 +80,10 @@ def find_motif34(m, n=None):
 
 
 def make_motif34lib():
-    '''
+    """
     This function generates the motif34lib.mat library required for all
     other motif computations. Not to be called externally.
-    '''
+    """
     from scipy import io
     import os
 
@@ -179,23 +182,23 @@ def make_motif34lib():
 
 
 def motif3funct_bin(A):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node.
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 13x1 np.ndarray
+    f : 13x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -248,7 +251,7 @@ def motif3funct_bin(A):
 
 
 def motif3funct_wei(W):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node. Motif intensity and coherence are weighted
@@ -256,22 +259,22 @@ def motif3funct_wei(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 13xN np.ndarray
+    I : 13xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 13xN np.ndarray
+    Q : 13xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -342,22 +345,22 @@ def motif3funct_wei(W):
 
 
 def motif3struct_bin(A):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node.
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 13x1 np.ndarray
+    f : 13x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -396,29 +399,29 @@ def motif3struct_bin(A):
 
 
 def motif3struct_wei(W):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node. Motif intensity
     and coherence are weighted generalizations of motif frequency.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 13xN np.ndarray
+    I : 13xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 13xN np.ndarray
+    Q : 13xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 13xN np.ndarray
+    F : 13xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -478,23 +481,23 @@ def motif3struct_wei(W):
 
 
 def motif4funct_bin(A):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node.
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 199x1 np.ndarray
+    f : 199x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -559,7 +562,7 @@ def motif4funct_bin(A):
 
 
 def motif4funct_wei(W):
-    '''
+    """
     Functional motifs are subsets of connection patterns embedded within
     anatomical motifs. Motif frequency is the frequency of occurrence of
     motifs around a node. Motif intensity and coherence are weighted
@@ -567,22 +570,22 @@ def motif4funct_wei(W):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 199xN np.ndarray
+    I : 199xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 199xN np.ndarray
+    Q : 199xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -671,22 +674,22 @@ def motif4funct_wei(W):
 
 
 def motif4struct_bin(A):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node.
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
-    f : 199x1 np.ndarray
+    f : 199x1 :obj:`numpy.ndarray`
         motif frequency vector (averaged over all nodes)
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)
@@ -742,29 +745,29 @@ def motif4struct_bin(A):
 
 
 def motif4struct_wei(W):
-    '''
+    """
     Structural motifs are patterns of local connectivity. Motif frequency
     is the frequency of occurrence of motifs around a node. Motif intensity
     and coherence are weighted generalizations of motif frequency.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix (all weights between 0 and 1)
 
     Returns
     -------
-    I : 199xN np.ndarray
+    I : 199xN :obj:`numpy.ndarray`
         motif intensity matrix
-    Q : 199xN np.ndarray
+    Q : 199xN :obj:`numpy.ndarray`
         motif coherence matrix
-    F : 199xN np.ndarray
+    F : 199xN :obj:`numpy.ndarray`
         motif frequency matrix
 
     Notes
     -----
     Average intensity and coherence are given by I./F and Q./F.
-    '''
+    """
     from scipy import io
     import os
     fname = os.path.join(os.path.dirname(__file__), motiflib)

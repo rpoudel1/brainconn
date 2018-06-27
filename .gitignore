@@ -2,6 +2,8 @@ doc/_build/
 doc/generated/
 doc/auto_examples/
 
+.pytest_cache/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

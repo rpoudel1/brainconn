@@ -1,3 +1,6 @@
+"""
+Metrics which group nodes within graphs into clusters.
+"""
 from __future__ import division, print_function
 import numpy as np
 from .modularity import modularity_louvain_und_sign
@@ -6,7 +9,7 @@ from ..utils import cuberoot, BCTParamError, dummyvar, binarize
 
 
 def agreement(ci, buffsz=1000):
-    '''
+    """
     Takes as input a set of vertex partitions CI of
     dimensions [vertex x partition]. Each column in CI contains the
     assignments of each vertex to a class/community/module. This function
@@ -22,23 +25,23 @@ def agreement(ci, buffsz=1000):
 
     Parameters
     ----------
-    ci : NxM np.ndarray
+    ci : NxM :obj:`numpy.ndarray`
         set of M (possibly degenerate) partitions of N nodes
     buffsz : int | None
         sets buffer size. If not specified, defaults to 1000
 
     Returns
     -------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         agreement matrix
-    '''
+    """
     ci = np.array(ci)
     n_nodes, n_partitions = ci.shape
 
-    if n_partitions <= buffsz: # Case 1: Use all partitions at once
+    if n_partitions <= buffsz:  # Case 1: Use all partitions at once
         ind = dummyvar(ci)
         D = np.dot(ind, ind.T)
-    else: # Case 2: Add together results from subsets of partitions
+    else:  # Case 2: Add together results from subsets of partitions
         a = np.arange(0, n_partitions, buffsz)
         b = np.arange(buffsz, n_partitions, buffsz)
         if len(a) != len(b):
@@ -54,7 +57,7 @@ def agreement(ci, buffsz=1000):
 
 
 def agreement_weighted(ci, wts):
-    '''
+    """
     D = AGREEMENT_WEIGHTED(CI,WTS) is identical to AGREEMENT, with the
     exception that each partitions contribution is weighted according to
     the corresponding scalar value stored in the vector WTS. As an example,
@@ -68,16 +71,16 @@ def agreement_weighted(ci, wts):
 
     Parameters
     ----------
-    ci : MxN np.ndarray
+    ci : MxN :obj:`numpy.ndarray`
         set of M (possibly degenerate) partitions of N nodes
-    wts : Mx1 np.ndarray
+    wts : Mx1 :obj:`numpy.ndarray`
         relative weight of each partition
 
     Returns
     -------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         weighted agreement matrix
-    '''
+    """
     ci = np.array(ci)
     m, n = ci.shape
     wts = np.array(wts) / np.sum(wts)
@@ -90,18 +93,18 @@ def agreement_weighted(ci, wts):
 
 
 def clustering_coef_bd(A):
-    '''
+    """
     The clustering coefficient is the fraction of triangles around a node
     (equiv. the fraction of nodes neighbors that are neighbors of each other).
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
 
     Notes
@@ -116,7 +119,7 @@ def clustering_coef_bd(A):
            = (2 edges)*([ALL PAIRS] - [FALSE PAIRS])
            = 2 * (K(K-1)/2 - diag(A^2))
            = K(K-1) - 2(diag(A^2))
-    '''
+    """
     S = A + A.T  # symmetrized input graph
     K = np.sum(S, axis=1)  # total degree (in+out)
     cyc3 = np.diag(np.dot(S, np.dot(S, S))) / 2  # number of 3-cycles
@@ -128,20 +131,20 @@ def clustering_coef_bd(A):
 
 
 def clustering_coef_bu(G):
-    '''
+    """
     The clustering coefficient is the fraction of triangles around a node
     (equiv. the fraction of nodes neighbors that are neighbors of each other).
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
-    '''
+    """
     n = len(G)
     C = np.zeros((n,))
 
@@ -156,18 +159,18 @@ def clustering_coef_bu(G):
 
 
 def clustering_coef_wd(W):
-    '''
+    """
     The weighted clustering coefficient is the average "intensity" of
     triangles around a node.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
 
     Notes
@@ -179,7 +182,7 @@ def clustering_coef_wd(W):
 
     The above reduces to symmetric and/or binary versions of the clustering
     coefficient for respective graphs.
-    '''
+    """
     A = np.logical_not(W == 0).astype(float)  # adjacency matrix
     S = cuberoot(W) + cuberoot(W.T)  # symmetrized weights matrix ^1/3
     K = np.sum(A + A.T, axis=1)  # total degree (in+out)
@@ -192,20 +195,20 @@ def clustering_coef_wd(W):
 
 
 def clustering_coef_wu(W):
-    '''
+    """
     The weighted clustering coefficient is the average "intensity" of
     triangles around a node.
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
 
     Returns
     -------
-    C : Nx1 np.ndarray
+    C : Nx1 :obj:`numpy.ndarray`
         clustering coefficient vector
-    '''
+    """
     K = np.array(np.sum(np.logical_not(W == 0), axis=1), dtype=float)
     ws = cuberoot(W)
     cyc3 = np.diag(np.dot(ws, np.dot(ws, ws)))
@@ -215,7 +218,7 @@ def clustering_coef_wu(W):
 
 
 def clustering_coef_wu_sign(W, coef_type='default'):
-    '''
+    """
     Returns the weighted clustering coefficient generalized or separated
     for positive and negative weights.
 
@@ -235,16 +238,16 @@ def clustering_coef_wu_sign(W, coef_type='default'):
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
-    corr_type : enum
+    corr_type : {'default', 'zhang', 'constantini'}
         Allowed values are 'default', 'zhang', 'constantini'
 
     Returns
     -------
-    Cpos : Nx1 np.ndarray
+    Cpos : Nx1 :obj:`numpy.ndarray`
         Clustering coefficient vector for positive weights
-    Cneg : Nx1 np.ndarray
+    Cneg : Nx1 :obj:`numpy.ndarray`
         Clustering coefficient vector for negative weights, unless
         coef_type == 'constantini'.
 
@@ -252,7 +255,7 @@ def clustering_coef_wu_sign(W, coef_type='default'):
         Onnela et al. (2005) Phys Rev E 71:065103
         Zhang & Horvath (2005) Stat Appl Genet Mol Biol 41:1544-6115
         Costantini & Perugini (2014) PLOS ONE 9:e88669
-    '''
+    """
     n = len(W)
     np.fill_diagonal(W, 0)
 
@@ -317,7 +320,7 @@ def clustering_coef_wu_sign(W, coef_type='default'):
         return C
 
 def consensus_und(D, tau, reps=1000):
-    '''
+    """
     This algorithm seeks a consensus partition of the
     agreement matrix D. The algorithm used here is almost identical to the
     one introduced in Lancichinetti & Fortunato (2012): The agreement
@@ -342,7 +345,7 @@ def consensus_und(D, tau, reps=1000):
 
     Parameters
     ----------
-    D : NxN np.ndarray
+    D : NxN :obj:`numpy.ndarray`
         agreement matrix with entries between 0 and 1 denoting the probability
         of finding node i in the same cluster as node j
     tau : float
@@ -353,9 +356,9 @@ def consensus_und(D, tau, reps=1000):
 
     Returns
     -------
-    ciu : Nx1 np.ndarray
+    ciu : Nx1 :obj:`numpy.ndarray`
         consensus partition
-    '''
+    """
     def unique_partitions(cis):
         # relabels the partitions to recognize different numbers on same
         # topology
@@ -412,7 +415,7 @@ def consensus_und(D, tau, reps=1000):
 
 
 def get_components(A, no_depend=False):
-    '''
+    """
     Returns the components of an undirected graph specified by the binary and
     undirected adjacency matrix adj. Components and their constitutent nodes
     are assigned the same index and stored in the vector, comps. The vector,
@@ -420,16 +423,16 @@ def get_components(A, no_depend=False):
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected adjacency matrix
     no_depend : Any
         Does nothing, included for backwards compatibility
 
     Returns
     -------
-    comps : Nx1 np.ndarray
+    comps : Nx1 :obj:`numpy.ndarray`
         vector of component assignments for each node
-    comp_sizes : Mx1 np.ndarray
+    comp_sizes : Mx1 :obj:`numpy.ndarray`
         vector of component sizes
 
     Notes
@@ -442,7 +445,7 @@ def get_components(A, no_depend=False):
     matlab code, although the component topology is.
 
     Many thanks to Nick Cullen for providing this implementation
-    '''
+    """
 
     if not np.all(A == A.T):  # ensure matrix is undirected
         raise BCTParamError('get_components can only be computed for undirected'
@@ -473,7 +476,7 @@ def get_components(A, no_depend=False):
 
 
 def get_components_old(A, no_depend=False):
-    '''
+    """
     Returns the components of an undirected graph specified by the binary and
     undirected adjacency matrix adj. Components and their constitutent nodes
     are assigned the same index and stored in the vector, comps. The vector,
@@ -481,7 +484,7 @@ def get_components_old(A, no_depend=False):
 
     Parameters
     ----------
-    adj : NxN np.ndarray
+    adj : NxN :obj:`numpy.ndarray`
         binary undirected adjacency matrix
     no_depend : bool
         If true, doesn't import networkx to do the calculation. Default value
@@ -489,9 +492,9 @@ def get_components_old(A, no_depend=False):
 
     Returns
     -------
-    comps : Nx1 np.ndarray
+    comps : Nx1 :obj:`numpy.ndarray`
         vector of component assignments for each node
-    comp_sizes : Mx1 np.ndarray
+    comp_sizes : Mx1 :obj:`numpy.ndarray`
         vector of component sizes
 
     Notes
@@ -510,7 +513,7 @@ def get_components_old(A, no_depend=False):
     don't know what a Dulmage-Mendelsohn decomposition is and there doesn't
     appear to be a python equivalent. If you think of a way to implement this
     better, let me know.
-        '''
+        """
     # nonsquare matrices cannot be symmetric; no need to check
 
     if not np.all(A == A.T):  # ensure matrix is undirected
@@ -559,13 +562,13 @@ def number_of_components(A):
 
 
 def transitivity_bd(A):
-    '''
+    """
     Transitivity is the ratio of 'triangles to triplets' in the network.
     (A classical version of the clustering coefficient).
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary directed connection matrix
 
     Returns
@@ -585,7 +588,7 @@ def transitivity_bd(A):
     number of triangles = (2 edges)*([ALL PAIRS] - [FALSE PAIRS])
                         = 2 * (K(K-1)/2 - diag(A^2))
                         = K(K-1) - 2(diag(A^2))
-    '''
+    """
     S = A + A.T  # symmetrized input graph
     K = np.sum(S, axis=1)  # total degree (in+out)
     cyc3 = np.diag(np.dot(S, np.dot(S, S))) / 2  # number of 3-cycles
@@ -594,33 +597,33 @@ def transitivity_bd(A):
 
 
 def transitivity_bu(A):
-    '''
+    """
     Transitivity is the ratio of 'triangles to triplets' in the network.
     (A classical version of the clustering coefficient).
 
     Parameters
     ----------
-    A : NxN np.ndarray
+    A : NxN :obj:`numpy.ndarray`
         binary undirected connection matrix
 
     Returns
     -------
     T : float
         transitivity scalar
-    '''
+    """
     tri3 = np.trace(np.dot(A, np.dot(A, A)))
     tri2 = np.sum(np.dot(A, A)) - np.trace(np.dot(A, A))
     return tri3 / tri2
 
 
 def transitivity_wd(W):
-    '''
+    """
     Transitivity is the ratio of 'triangles to triplets' in the network.
     (A classical version of the clustering coefficient).
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted directed connection matrix
 
     Returns
@@ -635,7 +638,7 @@ def transitivity_wd(W):
 
     The above reduces to symmetric and/or binary versions of the clustering
     coefficient for respective graphs.
-    '''
+    """
     A = np.logical_not(W == 0).astype(float)  # adjacency matrix
     S = cuberoot(W) + cuberoot(W.T)  # symmetrized weights matrix ^1/3
     K = np.sum(A + A.T, axis=1)  # total degree (in+out)
@@ -647,20 +650,20 @@ def transitivity_wd(W):
 
 
 def transitivity_wu(W):
-    '''
+    """
     Transitivity is the ratio of 'triangles to triplets' in the network.
     (A classical version of the clustering coefficient).
 
     Parameters
     ----------
-    W : NxN np.ndarray
+    W : NxN :obj:`numpy.ndarray`
         weighted undirected connection matrix
 
     Returns
     -------
     T : int
         transitivity scalar
-    '''
+    """
     K = np.sum(np.logical_not(W == 0), axis=1)
     ws = cuberoot(W)
     cyc3 = np.diag(np.dot(ws, np.dot(ws, ws)))
