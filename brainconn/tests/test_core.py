@@ -1,6 +1,6 @@
-from load_samples import *
-import brainconn as bc
 import numpy as np
+import brainconn as bc
+from brainconn.tests.utils import load_sample
 
 
 def test_assortativity_wu_sign():

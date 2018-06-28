@@ -1,6 +1,8 @@
-from load_samples import *
+import os.path as op
+
 import numpy as np
 import brainconn as bc
+from brainconn.tests.utils import (load_sample, MAT_DIR)
 
 
 def test_pc():
