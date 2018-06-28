@@ -1,6 +1,9 @@
-from load_samples import *
 import numpy as np
 import brainconn as bc
+from brainconn.tests.utils import (load_sample, load_directed_sample,
+                                   load_signed_sample, load_sparse_sample,
+                                   load_directed_low_modularity_sample,
+                                   load_binary_directed_low_modularity_sample)
 
 
 def test_cluscoef_wu():
@@ -98,11 +101,6 @@ def test_transitivity_bd():
     t = bc.clustering.transitivity_bd(x)
     print(t, 0.50919)
     assert np.allclose(t, 0.50919493)
-
-
-def test_agreement_weighted():
-    # this function is very hard to use or interpret results from
-    pass
 
 
 def test_agreement():

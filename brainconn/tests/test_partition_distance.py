@@ -1,6 +1,7 @@
-from load_samples import *
 import numpy as np
 import brainconn as bc
+from brainconn.tests.utils import (load_sample_group_qball,
+                                   load_sample_group_dsi)
 
 
 def test_partition_distance():
