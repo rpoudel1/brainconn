@@ -1,6 +1,9 @@
-from load_samples import *
 import numpy as np
 import brainconn as bc
+from brainconn.tests.utils import (load_sample,
+                                   load_signed_sample, load_sparse_sample,
+                                   load_directed_low_modularity_sample,
+                                   load_binary_directed_low_modularity_sample)
 
 
 def test_cluscoef_wu():

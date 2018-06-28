@@ -1,6 +1,8 @@
-from load_samples import *
 import numpy as np
 import brainconn as bc
+from brainconn.tests.utils import (load_sample_group_qball,
+                                   load_sample_group_dsi,
+                                   load_sample_group_fmri)
 
 
 def test_nbs_dsi_qbi():
