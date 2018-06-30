@@ -19,10 +19,14 @@
 #
 import os
 import sys
+import sphinx
+from distutils.version import LooseVersion
+
 sys.path.insert(0, os.path.abspath('sphinxext'))
 sys.path.insert(0, os.path.abspath('../brainconn'))
 
 from github_link import make_linkcode_resolve
+import brainconn
 
 
 # -- General configuration ------------------------------------------------
@@ -52,8 +56,6 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx_gallery.gen_gallery',
               ]
 
-import sphinx
-from distutils.version import LooseVersion
 if LooseVersion(sphinx.__version__) < LooseVersion('1.4'):
     extensions.append('sphinx.ext.pngmath')
 else:
@@ -78,7 +80,6 @@ author = 'brainconn developers'
 # built documents.
 #
 # The short X.Y version.
-import brainconn
 version = brainconn.__version__
 # The full version, including alpha/beta/rc tags.
 release = brainconn.__version__
@@ -108,7 +109,6 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 # installing theme package
-import sphinx_rtd_theme
 html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -156,14 +156,14 @@ intersphinx_mapping = {
 
 sphinx_gallery_conf = {
     # path to your examples scripts
-    'examples_dirs'     : '../examples',
+    'examples_dirs': '../examples',
     # path where to save gallery generated examples
-    'gallery_dirs'      : 'auto_examples',
+    'gallery_dirs': 'auto_examples',
     'backreferences_dir': '_build/backreferences',
     # Modules for which function level galleries are created.  In
     # this case sphinx_gallery and numpy in a tuple of strings.
-    'doc_module'        : ('brainconn'),
-    'ignore_patterns'   : ['utils/'],
+    'doc_module': ('brainconn'),
+    'ignore_patterns': ['utils/'],
     }
 
 # -- Options for Texinfo output -------------------------------------------
@@ -173,9 +173,10 @@ sphinx_gallery_conf = {
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'project-template', u'project-template Documentation',
-   u'Vighnesh Birodkar', 'project-template', 'One line description of project.',
-   'Miscellaneous'),
+   u'Vighnesh Birodkar', 'project-template',
+   'One line description of project.', 'Miscellaneous'),
 ]
+
 
 def generate_example_rst(app, what, name, obj, options, lines):
     # generate empty examples files, so that we don't get
@@ -191,13 +192,13 @@ def generate_example_rst(app, what, name, obj, options, lines):
 
 
 # Documents to append as an appendix to all manuals.
-#texinfo_appendices = []
+# texinfo_appendices = []
 
 # If false, no module index is generated.
-#texinfo_domain_indices = True
+# texinfo_domain_indices = True
 
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
-#texinfo_show_urls = 'footnote'
+# texinfo_show_urls = 'footnote'
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
-#texinfo_no_detailmenu = False
+# texinfo_no_detailmenu = False

@@ -271,14 +271,14 @@ def matching_ind_und(CIJ0):
     N = np.sum(R)
     xR, = np.where(R == 0)
     CIJ = np.delete(np.delete(CIJ0, xR, axis=0), xR, axis=1)
-    I = np.logical_not(np.eye(N))
+    inv_eye = np.logical_not(np.eye(N))
     M = np.zeros((N, N))
 
     for i in range(N):
         c1 = CIJ[i, :]
         use = np.logical_or(c1, CIJ)
         use[:, i] = 0
-        use *= I
+        use *= inv_eye
 
         ncon1 = c1 * use
         ncon2 = c1 * CIJ
@@ -287,7 +287,7 @@ def matching_ind_und(CIJ0):
 
         M[:, i] = 2 * np.sum(np.logical_and(ncon1, ncon2), axis=1) / ncon
 
-    M *= I
+    M *= inv_eye
     M[np.isnan(M)] = 0
     M0 = np.zeros((n, n))
     yR, = np.where(R)

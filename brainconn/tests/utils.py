@@ -1,3 +1,5 @@
+# emacs: -*- mode: python-mode; py-indent-offset: 4; tab-width: 4 -*-
+# ex: set sts=4 ts=4 sw=4 et:
 import os.path as op
 import numpy as np
 import brainconn as bc
@@ -91,5 +93,5 @@ def load_sample_group_fmri():
         return functools.reduce(lambda f, g: lambda x: f(g(x)), functions)
     thresh_fun = functools.partial(bc.utils.threshold_proportional, p=.5)
     return np.transpose(list(map(compose(bc.utils.normalize, thresh_fun),
-                            (f[:, :, i] for i in range(f.shape[2])))),
-                           (1, 2, 0))
+                                 (f[:, :, i] for i in range(f.shape[2])))),
+                        (1, 2, 0))

@@ -1,3 +1,5 @@
+# emacs: -*- mode: python-mode; py-indent-offset: 4; tab-width: 4 -*-
+# ex: set sts=4 ts=4 sw=4 et:
 import numpy as np
 import brainconn as bc
 from brainconn.tests.utils import (load_sample, load_signed_sample,
@@ -153,17 +155,6 @@ def test_modularity_louvain_dir_low_modularity():
     _, q = bc.modularity.modularity_louvain_dir(x, seed=seed)
     assert np.allclose(q, .06934894)
 
-# def test_modularity_finetune_dir_low_modularity():
-#	x = load_directed_low_modularity_sample(thres=.67)
-#	seed = 39602351
-#	ci,oq = bc.modularity.modularity_louvain_dir(x, seed=seed)
-#	_,q = bc.modularity.modularity_finetune_dir(x, ci=ci, seed=seed)
-#	print q,oq
-#	assert q >= oq
-    # this does not pass. the matlab code appears to have no idea what to do
-    # with
-    # the low modularity directed modules. this may be someone else's fault.
-
 
 def test_modularity_dir():
     x = load_directed_sample()
@@ -177,20 +168,6 @@ def test_modularity_louvain_dir():
     seed = 43938304
     _, q = bc.modularity.modularity_louvain_dir(x, seed=seed)
     assert np.allclose(q, .32697921)
-
-# def test_modularity_finetune_dir():
-#	x = load_directed_sample()
-#	seed = 26080
-#	ci,oq = bc.modularity.modularity_louvain_dir(x, seed=seed)
-#	for i in xrange(100):
-#		_,q = bc.modularity.modularity_finetune_dir(x, ci=ci)
-#		print q,oq
-#		assert q >= oq
-    # this does not pass with similar behavior to low modularity.
-    # the code occasionally returns lower modularity (but very very similar,
-    # order .001) partitions despite returning
-    # higher modularity partitions a slight majority of the time. i dont know
-    # what is wrong
 
 
 def test_community_louvain():

@@ -1,3 +1,5 @@
+# emacs: -*- mode: python-mode; py-indent-offset: 4; tab-width: 4 -*-
+# ex: set sts=4 ts=4 sw=4 et:
 import numpy as np
 import brainconn as bc
 from brainconn.tests.utils import (load_sample,
@@ -40,7 +42,6 @@ def test_transitivity_signed():
 
 
 def test_component():
-    from scipy import stats
     x = load_sparse_sample()
     c1, cs1 = bc.clustering.get_components(x)
 

@@ -1,3 +1,5 @@
+# emacs: -*- mode: python-mode; py-indent-offset: 4; tab-width: 4 -*-
+# ex: set sts=4 ts=4 sw=4 et:
 import numpy as np
 import brainconn as bc
 from brainconn.tests.utils import (load_sample, load_directed_sample)
@@ -31,7 +33,7 @@ def test_threshold_absolute():
 def test_strengths_und():
     x = load_sample()
     s = bc.degree.strengths_und(x)
-    assert np.allclose(np.sum(x), 38967.38702018)
+    assert np.allclose(np.sum(s), 38967.38702018)
 
 
 def test_degrees_und():

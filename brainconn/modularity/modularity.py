@@ -154,8 +154,8 @@ def community_louvain(W, gamma=1, ci=None, B='modularity', seed=None):
     else:
         try:
             B = np.array(B)
-        except:
-            raise BCTParamError('unknown objective function type')
+        except BCTParamError:
+            print('unknown objective function type')
 
         if B.shape != W.shape:
             raise BCTParamError('objective function matrix does not match '
@@ -335,8 +335,6 @@ def link_communities(W, type_clustering='single'):
 
     U = np.arange(m)  # initial community assignments
     C[0, :] = np.arange(m)
-
-    import time
 
     for i in range(m - 1):
         print('hierarchy %i' % i)
@@ -953,7 +951,7 @@ def modularity_louvain_dir(W, gamma=1, hierarchy=False, seed=None):
         while flag:
             it += 1
             if it > 1000:
-                raise BCTParamError('Modularity Infinite Loop Style F.  Please '
+                raise BCTParamError('Modularity Infinite Loop Style F. Please '
                                     'contact the developer with this error.')
             flag = False
 
@@ -1083,7 +1081,7 @@ def modularity_louvain_und(W, gamma=1, hierarchy=False, seed=None):
         while flag:
             it += 1
             if it > 1000:
-                raise BCTParamError('Modularity Infinite Loop Style C.  Please '
+                raise BCTParamError('Modularity Infinite Loop Style C. Please '
                                     'contact the developer with this error.')
             flag = False
 
@@ -1243,15 +1241,18 @@ def modularity_louvain_und_sign(W, gamma=1, qtype='sta', seed=None):
             it += 1
             if it > 1000:
                 raise BCTParamError('Infinite Loop was detected and stopped. '
-                                    'This was probably caused by passing in a directed matrix.')
+                                    'This was probably caused by passing in a '
+                                    'directed matrix.')
             flag = False
             # loop over nodes in random order
             for u in np.random.permutation(nh):
                 ma = m[u] - 1
+                # positive dQ
                 dQ0 = ((knm0[u, :] + W0[u, u] - knm0[u, ma]) -
-                       gamma * kn0[u] * (km0 + kn0[u] - km0[ma]) / s0)  # positive dQ
+                       gamma * kn0[u] * (km0 + kn0[u] - km0[ma]) / s0)
+                # negative dQ
                 dQ1 = ((knm1[u, :] + W1[u, u] - knm1[u, ma]) -
-                       gamma * kn1[u] * (km1 + kn1[u] - km1[ma]) / s1)  # negative dQ
+                       gamma * kn1[u] * (km1 + kn1[u] - km1[ma]) / s1)
 
                 dQ = d0 * dQ0 - d1 * dQ1  # rescaled changes in modularity
                 dQ[ma] = 0  # no changes for same module
@@ -1588,8 +1589,8 @@ def modularity_und_sign(W, ci, qtype='sta'):
 
     Kn0 = np.sum(Knm0, axis=1)  # positive node degree
     Kn1 = np.sum(Knm1, axis=1)  # negative node degree
-    Km0 = np.sum(Knm0, axis=0)  # positive module degree
-    Km1 = np.sum(Knm1, axis=0)  # negaitve module degree
+    # Km0 = np.sum(Knm0, axis=0)  # positive module degree
+    # Km1 = np.sum(Knm1, axis=0)  # negaitve module degree
 
     if qtype == 'smp':
         d0 = 1 / s0

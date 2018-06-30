@@ -5,6 +5,7 @@ from __future__ import division, print_function
 import numpy as np
 from ..degree import degrees_dir, degrees_und, strengths_dir, strengths_und
 from ..degree import strengths_und_sign
+from ..utils import BCTParamError
 
 
 def assortativity_bin(CIJ, flag=0):
@@ -164,7 +165,7 @@ def core_periphery_dir(W, gamma=1, C0=None):
     n = len(W)
     np.fill_diagonal(W, 0)
 
-    if C0 == None:
+    if C0 is None:
         C = np.random.randint(2, size=(n,))
     else:
         C = C0.copy()
@@ -403,17 +404,20 @@ def local_assortativity_wu_sign(W):
     for curr_node in range(n):
         jp = np.where(W[curr_node, :] > 0)
         loc_assort_pos[curr_node] = np.sum(np.abs(str_pos[jp] -
-            str_pos[curr_node])) / str_pos[curr_node]
+                                                  str_pos[curr_node])) /\
+            str_pos[curr_node]
         jn = np.where(W[curr_node, :] < 0)
         loc_assort_neg[curr_node] = np.sum(np.abs(str_neg[jn] -
-            str_neg[curr_node])) / str_neg[curr_node]
+                                                  str_neg[curr_node])) /\
+            str_neg[curr_node]
 
-    loc_assort_pos = ((r_pos + 1) / n -
-        loc_assort_pos / np.sum(loc_assort_pos))
-    loc_assort_neg = ((r_neg + 1) / n -
-        loc_assort_neg / np.sum(loc_assort_neg))
+    loc_assort_pos = ((r_pos + 1) / n - loc_assort_pos /
+                      np.sum(loc_assort_pos))
+    loc_assort_neg = ((r_neg + 1) / n - loc_assort_neg /
+                      np.sum(loc_assort_neg))
 
     return loc_assort_pos, loc_assort_neg
+
 
 def rich_club_bd(CIJ, klevel=None):
     """
@@ -487,7 +491,7 @@ def rich_club_bu(CIJ, klevel=None):
     """
     deg = degrees_und(CIJ)  # compute degree of each node
 
-    if klevel == None:
+    if klevel is None:
         klevel = int(np.max(deg))
 
     R = np.zeros((klevel,))
@@ -521,7 +525,7 @@ def rich_club_wd(CIJ, klevel=None):
     Rw : Kx1 :obj:`numpy.ndarray`
         vector of rich-club coefficients for levels 1 to klevel
     """
-    nr_nodes = len(CIJ)
+    # nr_nodes = len(CIJ)
     # degree of each node is defined here as in+out
     deg = np.sum((CIJ != 0), axis=0) + np.sum((CIJ.T != 0), axis=0)
 
@@ -568,7 +572,7 @@ def rich_club_wu(CIJ, klevel=None):
     Rw : Kx1 :obj:`numpy.ndarray`
         vector of rich-club coefficients for levels 1 to klevel
     """
-    nr_nodes = len(CIJ)
+    # nr_nodes = len(CIJ)
     deg = np.sum((CIJ != 0), axis=0)
 
     if klevel is None:

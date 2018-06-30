@@ -1,3 +1,5 @@
+# emacs: -*- mode: python-mode; py-indent-offset: 4; tab-width: 4 -*-
+# ex: set sts=4 ts=4 sw=4 et:
 import os.path as op
 
 import numpy as np
@@ -23,7 +25,8 @@ def participation_test():
     ci = np.array([1, 1, 2])
 
     assert np.allclose(bc.centrality.participation_coef(W, ci), [0, 0, 0])
-    assert np.allclose(bc.centrality.participation_coef_sign(W, ci)[0], [0, 0, 0])
+    assert np.allclose(bc.centrality.participation_coef_sign(W, ci)[0],
+                       [0, 0, 0])
 
     W = np.ones((3, 3))
     assert np.allclose(bc.centrality.participation_coef(W, ci), [
@@ -34,16 +37,17 @@ def participation_test():
     W = np.eye(3)
     W[0, 1] = 1
     W[0, 2] = 1
-    assert np.allclose(bc.centrality.participation_coef(W, ci), [0.44444444, 0, 0])
-    assert np.allclose(bc.centrality.participation_coef_sign(W, ci)
-                       [0], [0.44444444, 0, 0])
+    assert np.allclose(bc.centrality.participation_coef(W, ci),
+                       [0.44444444, 0, 0])
+    assert np.allclose(bc.centrality.participation_coef_sign(W, ci)[0],
+                       [0.44444444, 0, 0])
 
     W = np.eye(3)
     W[0, 1] = -1
     W[0, 2] = -1
     W[1, 2] = 1
     assert np.allclose(bc.centrality.participation_coef_sign(W, ci)[0],
-        [0.,  0.5,  0.])
+                       [0.,  0.5,  0.])
 
 
 def gateway_test():
@@ -56,7 +60,7 @@ def gateway_test():
     assert np.allclose(np.sum(g_pos), 43.4382, atol=.001)
 
     g_pos_bet, _ = bc.centrality.gateway_coef_sign(x, ci,
-        centrality_type='betweenness')
+                                                   centrality_type='betweenness')
 
     print(np.sum(g_pos_bet), 43.4026)
     assert np.allclose(np.sum(g_pos_bet), 43.4026, atol=.001)

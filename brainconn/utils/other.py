@@ -96,12 +96,13 @@ def threshold_proportional(W, p, copy=True):
 
     ind = np.where(W)					# find all links
 
-    I = np.argsort(W[ind])[::-1]		# sort indices by magnitude
+    sorted_values = np.argsort(W[ind])[::-1]  # sort indices by magnitude
 
     en = int(round((n * n - n) * p / ud))		# number of links to be preserved
 
-    W[(ind[0][I][en:], ind[1][I][en:])] = 0  # apply threshold
-    # W[np.ix_(ind[0][I][en:], ind[1][I][en:])]=0
+    # apply threshold
+    W[(ind[0][sorted_values][en:], ind[1][sorted_values][en:])] = 0
+    # W[np.ix_(ind[0][sorted_values][en:], ind[1][sorted_values][en:])]=0
 
     if ud == 2:						# if symmetric matrix
         W[:, :] = W + W.T						# reconstruct symmetry

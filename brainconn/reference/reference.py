@@ -85,7 +85,8 @@ def latmio_dir_connected(R, itr, D=None):
             # rewiring condition
             if not (R[a, d] or R[c, b]):
                 # lattice condition
-                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >= D[a, d] * R[a, b] + D[c, b] * R[c, d]):
+                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >=
+                        D[a, d] * R[a, b] + D[c, b] * R[c, d]):
                     # connectedness condition
                     if not (np.any((R[a, c], R[d, b], R[d, c])) and
                             np.any((R[c, a], R[b, d], R[b, a]))):
@@ -105,7 +106,8 @@ def latmio_dir_connected(R, itr, D=None):
                             if not np.all(np.any(P, axis=1)):
                                 rewire = False
                                 break
-                            elif np.any(PN[0, (b, c)]) and np.any(PN[1, (d, a)]):
+                            elif np.any(PN[0, (b, c)]) and \
+                                    np.any(PN[1, (d, a)]):
                                 break
                     # end connectedness testing
 
@@ -200,7 +202,8 @@ def latmio_dir(R, itr, D=None):
             # rewiring condition
             if not (R[a, d] or R[c, b]):
                 # lattice condition
-                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >= D[a, d] * R[a, b] + D[c, b] * R[c, d]):
+                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >=
+                        D[a, d] * R[a, b] + D[c, b] * R[c, d]):
                     R[a, d] = R[a, b]
                     R[a, b] = 0
                     R[c, b] = R[c, d]
@@ -308,7 +311,8 @@ def latmio_und_connected(R, itr, D=None):
             # rewiring condition
             if not (R[a, d] or R[c, b]):
                 # lattice condition
-                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >= D[a, d] * R[a, b] + D[c, b] * R[c, d]):
+                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >=
+                        D[a, d] * R[a, b] + D[c, b] * R[c, d]):
                     # connectedness condition
                     if not (R[a, c] or R[b, d]):
                         P = R[(a, d), :].copy()
@@ -430,7 +434,8 @@ def latmio_und(R, itr, D=None):
             # rewiring condition
             if not (R[a, d] or R[c, b]):
                 # lattice condition
-                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >= D[a, d] * R[a, b] + D[c, b] * R[c, d]):
+                if (D[a, b] * R[a, b] + D[c, d] * R[c, d] >=
+                        D[a, d] * R[a, b] + D[c, b] * R[c, d]):
                     R[a, d] = R[a, b]
                     R[a, b] = 0
                     R[d, a] = R[b, a]
@@ -803,8 +808,8 @@ def maketoeplitzCIJ(n, k, s):
         itr += 1
         if itr > 10000:
             raise BCTParamError('Infinite loop was caught generating toeplitz '
-                                'matrix.  This means the matrix could not be resolved with the '
-                                'specified parameters.')
+                                'matrix.  This means the matrix could not be '
+                                'resolved with the specified parameters.')
 
     return CIJ
 
@@ -863,7 +868,7 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1):
         An_r = W_r < 0
     else:
         Ap_r = Ap
-        An_r = An
+        # An_r = An
 
     W0 = np.zeros((n, n))
     for s in (1, -1):
@@ -871,7 +876,7 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1):
             Acur = Ap
             A_rcur = Ap_r
         else:
-            Acur = An
+            # Acur = An
             A_rcur = An_r
 
         Si = np.sum(W * Acur, axis=0)  # positive in-strength
@@ -1346,37 +1351,29 @@ def randmio_dir_signed(R, itr):
 
     itr *= n * (n - 1)
 
-    #maximal number of rewiring attempts per iter
+    # maximal number of rewiring attempts per iter
     max_attempts = n
-    #actual number of successful rewirings
+    # actual number of successful rewirings
     eff = 0
 
-    #print(itr)
-
     for it in range(int(itr)):
-        #print(it)
         att = 0
         while att <= max_attempts:
-            #select four distinct vertices
-
+            # select four distinct vertices
             a, b, c, d = pick_four_unique_nodes_quickly(n)
 
-            #a, b, c, d = np.random.choice(n, 4)
-            #a, b, c, d = np.random.permutation(4)
+            # a, b, c, d = np.random.choice(n, 4)
+            # a, b, c, d = np.random.permutation(4)
 
             r0_ab = R[a, b]
             r0_cd = R[c, d]
             r0_ad = R[a, d]
             r0_cb = R[c, b]
 
-            #print(np.sign(r0_ab), np.sign(r0_ad))
-
-            #rewiring condition
-            if (    np.sign(r0_ab) == np.sign(r0_cd) and
+            # rewiring condition
+            if (np.sign(r0_ab) == np.sign(r0_cd) and
                     np.sign(r0_ad) == np.sign(r0_cb) and
                     np.sign(r0_ab) != np.sign(r0_ad)):
-
-
                 R[a, d] = r0_ab
                 R[a, b] = r0_ad
                 R[c, b] = r0_cd
@@ -1387,9 +1384,8 @@ def randmio_dir_signed(R, itr):
 
             att += 1
 
-    #print(eff)
-
     return R, eff
+
 
 def randmio_und(R, itr):
     """
@@ -1490,7 +1486,7 @@ def randmio_und_signed(R, itr):
     R = R.copy()
     n = len(R)
 
-    itr *= int(n * (n -1) / 2)
+    itr *= int(n * (n - 1) / 2)
 
     max_attempts = int(np.round(n / 2))
     eff = 0
@@ -1506,8 +1502,8 @@ def randmio_und_signed(R, itr):
             r0_ad = R[a, d]
             r0_cb = R[c, b]
 
-            #rewiring condition
-            if (    np.sign(r0_ab) == np.sign(r0_cd) and
+            # rewiring condition
+            if (np.sign(r0_ab) == np.sign(r0_cd) and
                     np.sign(r0_ad) == np.sign(r0_cb) and
                     np.sign(r0_ab) != np.sign(r0_ad)):
 
@@ -1523,6 +1519,7 @@ def randmio_und_signed(R, itr):
             att += 1
 
     return R, eff
+
 
 def randomize_graph_partial_und(A, B, maxswap):
     """
@@ -1580,7 +1577,8 @@ def randomize_graph_partial_und(A, B, maxswap):
             d = j[e2]  # to explore all potential rewirings
 
         # rewiring condition
-        if not (A[a, d] or A[c, b] or B[a, d] or B[c, b]):  # avoid specified ixes
+        # avoid specified ixes
+        if not (A[a, d] or A[c, b] or B[a, d] or B[c, b]):
             A[a, d] = A[a, b]
             A[a, b] = 0
             A[d, a] = A[b, a]

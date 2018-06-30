@@ -16,7 +16,8 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
     Generates synthetic networks using the models described in
     Betzel et al. (2016) Neuroimage. See this paper for more details.
 
-    Succinctly, the probability of forming a connection between nodes u and v is
+    Succinctly, the probability of forming a connection between nodes u and v
+    is
     P(u,v) = E(u,v)**eta * K(u,v)**gamma
     where eta and gamma are hyperparameters, E(u,v) is the euclidean or similar
     distance measure, and K(u,v) is the algorithm that defines the model.
@@ -74,9 +75,9 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 
     n = len(D)
 
-    #These parameters don't do any of the voronoi narrowing.
-    #Its a list of eta values paired with gamma values.
-    #To try 3 eta and 3 gamma pairs, should use 9 list values.
+    # These parameters don't do any of the voronoi narrowing.
+    # Its a list of eta values paired with gamma values.
+    # To try 3 eta and 3 gamma pairs, should use 9 list values.
     if len(eta) != len(gamma):
         raise BCTParamError('Eta and gamma hyperparameters must be lists of '
                             'the same size')
@@ -86,10 +87,12 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
     B = np.zeros((n, n, nparams))
 
     def k_avg(K):
-        return ((np.tile(K, (n, 1)) + np.transpose(np.tile(K, (n, 1))))/2 + epsilon)
+        return ((np.tile(K, (n, 1)) + np.transpose(np.tile(K, (n, 1)))) /
+                2 + epsilon)
 
     def k_diff(K):
-        return np.abs(np.tile(K, (n, 1)) - np.transpose(np.tile(K, (n, 1)))) + epsilon
+        return np.abs(np.tile(K, (n, 1)) - np.transpose(np.tile(K, (n, 1))))\
+            + epsilon
 
     def k_max(K):
         return np.max(np.dstack((np.tile(K, (n, 1)),
@@ -148,7 +151,6 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
         Ka = np.reshape(K[ixes], (nr_ixes, 1))
         Kb = np.reshape(np.transpose(K), (1, n))
         return np.outer(Ka, Kb) + epsilon
-
 
     def clu_gen(A, K, D, m, eta, gamma, model_var, x_fun):
         mseed = np.size(np.where(A.flat))//2
@@ -310,7 +312,10 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
                 if ncon == 0:
                     K[uu, j] = K[j, uu] = epsilon
                 else:
-                    K[uu, j] = K[j, uu] = (2 / ncon * np.sum(np.logical_and(c1[use], c2[use])) + epsilon)
+                    K[uu, j] = K[j, uu] = (2 / ncon *
+                                           np.sum(np.logical_and(c1[use],
+                                                                 c2[use])) +
+                                           epsilon)
 
             updatevv, = np.where(np.inner(A, A[:, vv]))
             np.delete(updatevv, np.where(updatevv == uu))
@@ -327,7 +332,10 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
                 if ncon == 0:
                     K[vv, j] = K[j, vv] = epsilon
                 else:
-                    K[vv, j] = K[j, vv] = (2 / ncon * np.sum(np.logical_and(c1[use], c2[use])) + epsilon)
+                    K[vv, j] = K[j, vv] = (2 / ncon *
+                                           np.sum(np.logical_and(c1[use],
+                                                                 c2[use])) +
+                                           epsilon)
 
             Ff = Fd * Fk * np.logical_not(A)
 
@@ -487,6 +495,7 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 
     return np.squeeze(B)
 
+
 def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
                               model_type='matching', model_var='powerlaw',
                               epsilon=1e-6):
@@ -501,7 +510,7 @@ def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
     Energy is defined as the maximum difference across the four statistics.
     """
     m = np.size(np.where(Atgt.flat))//2
-    n = len(Atgt)
+    # n = len(Atgt)
     xk = np.sum(Atgt, axis=1)
     xc = clustering_coef_bu(Atgt)
     xb = betweenness_bin(Atgt)
