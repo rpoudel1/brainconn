@@ -19,3 +19,8 @@ from .version import __version__
 del (centrality_, clustering_, core_, degree_, distance_, generative_,
      modularity_, motifs_, phys_, reference_, similarity_, teachers_round,
      nbs_bct)
+
+__all__ = ['__version__', 'centrality', 'clustering', 'core', 'degree',
+           'distance', 'generative', 'modularity', 'motifs',
+           'physical_connectivity', 'reference', 'similarity', 'utils',
+           'nbs']

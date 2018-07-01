@@ -59,11 +59,11 @@ def gateway_test():
     print(np.sum(g_pos), 43.4382)
     assert np.allclose(np.sum(g_pos), 43.4382, atol=.001)
 
-    g_pos_bet, _ = bc.centrality.gateway_coef_sign(x, ci,
-                                                   centrality_type='betweenness')
+    gpb, _ = bc.centrality.gateway_coef_sign(x, ci,
+                                             centrality_type='betweenness')
 
-    print(np.sum(g_pos_bet), 43.4026)
-    assert np.allclose(np.sum(g_pos_bet), 43.4026, atol=.001)
+    print(np.sum(gpb), 43.4026)
+    assert np.allclose(np.sum(gpb), 43.4026, atol=.001)
 
 
 def test_zi():

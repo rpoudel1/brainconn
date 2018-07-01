@@ -98,8 +98,8 @@ def adjacency_plot_und(A, coor, tube=False):
     vectors.glyph.glyph_source.glyph_position = 'head'
     vectors.actor.property.opacity = .7
     if tube:
-        vectors.glyph.glyph_source.glyph_source = (vectors.glyph.glyph_source.
-                                                   glyph_dict['cylinder_source'])
+        vectors.glyph.glyph_source.glyph_source = \
+            vectors.glyph.glyph_source.glyph_dict['cylinder_source']
         vectors.glyph.glyph_source.glyph_source.radius = 0.015
     else:
         vectors.glyph.glyph_source.glyph_source.glyph_type = 'dash'
