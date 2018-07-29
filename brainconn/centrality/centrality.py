@@ -1,10 +1,10 @@
 """
-Metrics which identify the most important nodes in graphs.
+Metrics which identify the most important nodes in graphs.!!
 """
 from __future__ import division, print_function
 import numpy as np
-from .core import kcore_bd, kcore_bu
-from .distance import reachdist
+from ..core import kcore_bd, kcore_bu
+from ..distance import reachdist
 from ..utils import invert
 
 
@@ -31,15 +31,15 @@ def betweenness_bin(G):
     # compared to float np.inf
 
     n = len(G)  # number of nodes
-    I = np.eye(n)  # identity matrix
+    eye = np.eye(n)  # identity matrix
     d = 1  # path length
     NPd = G.copy()  # number of paths of length |d|
     NSPd = G.copy()  # number of shortest paths of length |d|
     NSP = G.copy()  # number of shortest paths of any length
     L = G.copy()  # length of shortest paths
 
-    NSP[np.where(I)] = 1
-    L[np.where(I)] = 1
+    NSP[np.where(eye)] = 1
+    L[np.where(eye)] = 1
 
     # calculate NSP and L
     while np.any(NSPd):
@@ -50,7 +50,7 @@ def betweenness_bin(G):
         L = L + d * (NSPd != 0)
 
     L[L == 0] = np.inf  # L for disconnected vertices is inf
-    L[np.where(I)] = 0
+    L[np.where(eye)] = 0
     NSP[NSP == 0] = 1  # NSP for disconnected vertices is 1
 
     DP = np.zeros((n, n))  # vertex on vertex dependency
@@ -351,7 +351,7 @@ def eigenvector_centrality_und(CIJ):
     """
     from scipy import linalg
 
-    n = len(CIJ)
+    # n = len(CIJ)
     vals, vecs = linalg.eig(CIJ)
     i = np.argmax(vals)
     return np.abs(vecs[:, i])

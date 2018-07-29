@@ -61,7 +61,8 @@ def find_motif34(m, n=None):
         M = np.zeros((4, 4, len(ix)))
         for i, ind in enumerate(ix):
             M[:, :, i] = np.reshape(np.concatenate(
-                (z, m4[ind, 0:4], z, m4[ind, 4:8], z, m4[ind, 8:12], z)), (4, 4))
+                (z, m4[ind, 0:4], z, m4[ind, 4:8], z, m4[ind, 8:12], z)),
+                (4, 4))
     elif n is None:
         try:
             m = np.array(m)
@@ -124,7 +125,8 @@ def make_motif34lib():
         M = M[ix, :]  # sort isomorphs
         N = np.squeeze(np.sum(M, axis=1))  # number of edges
         Mn = np.array(np.sum(np.tile(np.power(10, np.arange(5, -1, -1)),
-                                     (M.shape[0], 1)) * M, axis=1), dtype=np.uint32)
+                                     (M.shape[0], 1)) * M, axis=1),
+                      dtype=np.uint32)
         return M, Mn, ID, N
 
     def motif4generate():
@@ -136,7 +138,8 @@ def make_motif34lib():
             m = '{0:b}'.format(i)
             m = str().zfill(12 - len(m)) + m
             G = np.array(((0, m[3], m[6], m[9]), (m[0], 0, m[7], m[10]),
-                          (m[1], m[4], 0, m[11]), (m[2], m[5], m[8], 0)), dtype=int)
+                          (m[1], m[4], 0, m[11]), (m[2], m[5], m[8], 0)),
+                         dtype=int)
             Gs = G + G.T
             v = Gs[0, :]
             for j in range(2):
@@ -165,7 +168,8 @@ def make_motif34lib():
         M = M[ix, :]  # sort isomorphs
         N = np.sum(M, axis=1)  # number of edges
         Mn = np.array(np.sum(np.tile(np.power(10, np.arange(11, -1, -1)),
-                                     (M.shape[0], 1)) * M, axis=1), dtype=np.uint64)
+                                     (M.shape[0], 1)) * M, axis=1),
+                      dtype=np.uint64)
         return M, Mn, ID, N
 
     dir = os.path.dirname(__file__)
@@ -535,10 +539,9 @@ def motif4funct_bin(A):
                 V3 = np.logical_or(
                     np.append(np.zeros((vz,)), As[u, vz + 1:n + 1]), V3)
                 for v3 in np.where(V3)[0]:
-                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1], A[v2, v1],
-                                  A[v3, v1], A[u, v2], A[v1, v2], A[
-                                      v3, v2], A[u, v3], A[v1, v3],
-                                  A[v2, v3]))
+                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1],
+                                  A[v2, v1], A[v3, v1], A[u, v2], A[v1, v2],
+                                  A[v3, v2], A[u, v3], A[v1, v3], A[v2, v3]))
 
                     ix = (np.dot(m4, a) == n4)  # find all contained isomorphs
                     id = id4[ix] - 1
@@ -624,16 +627,14 @@ def motif4funct_wei(W):
                 V3 = np.logical_or(
                     np.append(np.zeros((vz,)), As[u, vz + 1:n + 1]), V3)
                 for v3 in np.where(V3)[0]:
-                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1], A[v2, v1],
-                                  A[v3, v1], A[u, v2], A[v1, v2], A[
-                                      v3, v2], A[u, v3], A[v1, v3],
-                                  A[v2, v3]))
+                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1],
+                                  A[v2, v1], A[v3, v1], A[u, v2], A[v1, v2],
+                                  A[v3, v2], A[u, v3], A[v1, v3], A[v2, v3]))
                     ix = (np.dot(m4, a) == n4)  # find all contained isomorphs
 
-                    w = np.array((W[v1, u], W[v2, u], W[v3, u], W[u, v1], W[v2, v1],
-                                  W[v3, v1], W[u, v2], W[v1, v2], W[
-                                      v3, v2], W[u, v3], W[v1, v3],
-                                  W[v2, v3]))
+                    w = np.array((W[v1, u], W[v2, u], W[v3, u], W[u, v1],
+                                  W[v2, v1], W[v3, v1], W[u, v2], W[v1, v2],
+                                  W[v3, v2], W[u, v3], W[v1, v3], W[v2, v3]))
 
                     m = np.sum(ix)
                     M = m4[ix, :] * np.tile(w, (m, 1))
@@ -727,10 +728,9 @@ def motif4struct_bin(A):
                     np.append(np.zeros((vz,)), As[u, vz + 1:n + 1]), V3)
                 for v3 in np.where(V3)[0]:
 
-                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1], A[v2, v1],
-                                  A[v3, v1], A[u, v2], A[v1, v2], A[
-                                      v3, v2], A[u, v3], A[v1, v3],
-                                  A[v2, v3]))
+                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1],
+                                  A[v2, v1], A[v3, v1], A[u, v2], A[v1, v2],
+                                  A[v3, v2], A[u, v3], A[v1, v3], A[v2, v3]))
 
                     s = np.uint64(
                         np.sum(np.power(10, np.arange(11, -1, -1)) * a))
@@ -807,19 +807,17 @@ def motif4struct_wei(W):
                 V3 = np.logical_or(
                     np.append(np.zeros((vz,)), As[u, vz + 1:n + 1]), V3)
                 for v3 in np.where(V3)[0]:
-                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1], A[v2, v1],
-                                  A[v3, v1], A[u, v2], A[v1, v2], A[
-                                      v3, v2], A[u, v3], A[v1, v3],
-                                  A[v2, v3]))
+                    a = np.array((A[v1, u], A[v2, u], A[v3, u], A[u, v1],
+                                  A[v2, v1], A[v3, v1], A[u, v2], A[v1, v2],
+                                  A[v3, v2], A[u, v3], A[v1, v3], A[v2, v3]))
                     s = np.uint64(
                         np.sum(np.power(10, np.arange(11, -1, -1)) * a))
                     # print np.shape(s),np.shape(m4n)
                     ix = np.squeeze(s == m4n)
 
-                    w = np.array((W[v1, u], W[v2, u], W[v3, u], W[u, v1], W[v2, v1],
-                                  W[v3, v1], W[u, v2], W[v1, v2], W[
-                                      v3, v2], W[u, v3], W[v1, v3],
-                                  W[v2, v3]))
+                    w = np.array((W[v1, u], W[v2, u], W[v3, u], W[u, v1],
+                                  W[v2, v1], W[v3, v1], W[u, v2], W[v1, v2],
+                                  W[v3, v2], W[u, v3], W[v1, v3], W[v2, v3]))
 
                     M = w * m4[ix, :]
                     id = id4[ix] - 1
