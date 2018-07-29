@@ -4,9 +4,9 @@ Methods for generating simulated networks.
 from __future__ import division, print_function
 import numpy as np
 
-from .similarity import matching_ind
-from .clustering import clustering_coef_bu
-from .centrality import betweenness_bin
+from ..similarity import matching_ind
+from ..clustering import clustering_coef_bu
+from ..centrality import betweenness_bin
 from ..utils import BCTParamError
 
 
@@ -16,7 +16,8 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
     Generates synthetic networks using the models described in
     Betzel et al. (2016) Neuroimage. See this paper for more details.
 
-    Succinctly, the probability of forming a connection between nodes u and v is
+    Succinctly, the probability of forming a connection between nodes u and v
+    is
     P(u,v) = E(u,v)**eta * K(u,v)**gamma
     where eta and gamma are hyperparameters, E(u,v) is the euclidean or similar
     distance measure, and K(u,v) is the algorithm that defines the model.
@@ -74,9 +75,9 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 
     n = len(D)
 
-    #These parameters don't do any of the voronoi narrowing.
-    #Its a list of eta values paired with gamma values.
-    #To try 3 eta and 3 gamma pairs, should use 9 list values.
+    # These parameters don't do any of the voronoi narrowing.
+    # Its a list of eta values paired with gamma values.
+    # To try 3 eta and 3 gamma pairs, should use 9 list values.
     if len(eta) != len(gamma):
         raise BCTParamError('Eta and gamma hyperparameters must be lists of '
                             'the same size')
@@ -86,10 +87,12 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
     B = np.zeros((n, n, nparams))
 
     def k_avg(K):
-        return ((np.tile(K, (n, 1)) + np.transpose(np.tile(K, (n, 1))))/2 + epsilon)
+        return ((np.tile(K, (n, 1)) + np.transpose(np.tile(K, (n, 1)))) /
+                2 + epsilon)
 
     def k_diff(K):
-        return np.abs(np.tile(K, (n, 1)) - np.transpose(np.tile(K, (n, 1)))) + epsilon
+        return np.abs(np.tile(K, (n, 1)) - np.transpose(np.tile(K, (n, 1))))\
+            + epsilon
 
     def k_max(K):
         return np.max(np.dstack((np.tile(K, (n, 1)),
@@ -149,7 +152,6 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
         Kb = np.reshape(np.transpose(K), (1, n))
         return np.outer(Ka, Kb) + epsilon
 
-
     def clu_gen(A, K, D, m, eta, gamma, model_var, x_fun):
         mseed = np.size(np.where(A.flat))//2
 
@@ -174,9 +176,9 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
         k = np.sum(A, axis=1)
 
         Ff = Fd * Fk * np.logical_not(A)
-        u,v = np.where(np.triu(np.ones((n, n)), 1))
+        u, v = np.where(np.triu(np.ones((n, n)), 1))
 
-        #print(mseed, m)
+        # print(mseed, m)
         for i in range(mseed+1, m):
             C = np.append(0, np.cumsum(Ff[u, v]))
             r = np.sum(np.random.random()*C[-1] >= C)
@@ -200,11 +202,6 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
             bth[vv] = 1
 
             k_result = x_fun(c, bth)
-
-            #print(np.shape(k_result))
-            #print(np.shape(K))
-            #print(K)
-            #print(np.shape(K[bth,:]))
 
             K[bth, :] = k_result
             K[:, bth] = k_result.T
@@ -245,16 +242,7 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 
         b = np.zeros((m,), dtype=int)
 
-#        print(mseed)
-#        print(np.shape(u),np.shape(v))
-#        print(np.shape(b))
-#        print(np.shape(A[u,v]))
-#        print(np.shape(np.where(A[u,v])), 'sqishy')
-#        print(np.shape(P), 'squnnaq')
-
-        # b[:mseed] = np.where(A[np.ix_(u,v)])
         b[:mseed] = np.squeeze(np.where(A[u, v]))
-        # print(mseed, m)
         for i in range(mseed, m):
             C = np.append(0, np.cumsum(P[u, v]))
             r = np.sum(np.random.random()*C[-1] >= C)
@@ -277,25 +265,6 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
             P[u[b[:i]], v[b[:i]]] = P[v[b[:i]], u[b[:i]]] = 0
 
             A[u[r], v[r]] = A[v[r], u[r]] = 1
-            # P[b[u[:i]], b[v[:i]]] = P[b[v[:i]], b[u[:i]]] = 0
-            # A[uu,vv] = A[vv,uu] = 1
-
-
-#        indx = v*n + u
-#        indx[b]
-#
-#        nH = np.zeros((n,n))
-#        nH.ravel()[indx[b]]=1
-#
-#        nG = np.zeros((n,n))
-#        nG[ u[b], v[b] ]=1
-#        nG = nG + nG.T
-#
-#        print(np.shape(np.where(A != nG)))
-#
-#        import pdb
-#        pdb.set_trace()
-
         return A
 
     def matching_gen(A, K, D, m, eta, gamma, model_var):
@@ -343,7 +312,10 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
                 if ncon == 0:
                     K[uu, j] = K[j, uu] = epsilon
                 else:
-                    K[uu, j] = K[j, uu] = (2 / ncon * np.sum(np.logical_and(c1[use], c2[use])) + epsilon)
+                    K[uu, j] = K[j, uu] = (2 / ncon *
+                                           np.sum(np.logical_and(c1[use],
+                                                                 c2[use])) +
+                                           epsilon)
 
             updatevv, = np.where(np.inner(A, A[:, vv]))
             np.delete(updatevv, np.where(updatevv == uu))
@@ -360,7 +332,10 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
                 if ncon == 0:
                     K[vv, j] = K[j, vv] = epsilon
                 else:
-                    K[vv, j] = K[j, vv] = (2 / ncon * np.sum(np.logical_and(c1[use], c2[use])) + epsilon)
+                    K[vv, j] = K[j, vv] = (2 / ncon *
+                                           np.sum(np.logical_and(c1[use],
+                                                                 c2[use])) +
+                                           epsilon)
 
             Ff = Fd * Fk * np.logical_not(A)
 
@@ -520,6 +495,7 @@ def generative_model(A, D, m, eta, gamma=None, model_type='matching',
 
     return np.squeeze(B)
 
+
 def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
                               model_type='matching', model_var='powerlaw',
                               epsilon=1e-6):
@@ -534,7 +510,7 @@ def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
     Energy is defined as the maximum difference across the four statistics.
     """
     m = np.size(np.where(Atgt.flat))//2
-    n = len(Atgt)
+    # n = len(Atgt)
     xk = np.sum(Atgt, axis=1)
     xc = clustering_coef_bu(Atgt)
     xb = betweenness_bin(Atgt)
@@ -543,7 +519,7 @@ def evaluate_generative_model(A, Atgt, D, eta, gamma=None,
     B = generative_model(A, D, m, eta, gamma, model_type=model_type,
                          model_var=model_var, epsilon=epsilon, copy=True)
 
-    #if eta != gamma then an error is thrown within generative model
+    # if eta != gamma then an error is thrown within generative model
 
     nB = len(eta)
 

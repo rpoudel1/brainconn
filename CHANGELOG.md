@@ -1,6 +1,8 @@
 # brainconn 0.0.2 (current)
 
-- 
+- Change structure from single `algorithms` submodule to separated submodules:
+`centrality`, `clustering`, `core`, `degree`, `distance`, `generative`,
+`modularity`, `motifs`, `physical_connectivity`, `reference`, and `similarity`.
 
 # brainconn 0.0.1
 
