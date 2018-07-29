@@ -2,18 +2,46 @@
 # ex: set sts=4 ts=4 sw=4 et:
 import os.path as op
 
+import pytest
 import numpy as np
 from brainconn import centrality
 from brainconn.tests.utils import (load_sample, MAT_DIR)
 
 
-def test_edge_betweenness_wei():
+@pytest.fixture(scope='module')
+def testdata1():
     n = 200
-    data = np.random.random((n, n))
-    data -= np.eye(n)
-    edge_betw, node_betw = centrality.edge_betweenness_wei(data)
-    assert edge_betw.shape == data.shape
-    assert node_betw.shape == data.shape[:1]
+    corr = np.random.random((n, n))
+    corr += corr.T
+    wei = corr - np.eye(n)
+    bin = (wei > np.mean(wei)).astype(int)
+    data_dict = {'corr': corr,
+                 'wei': wei,
+                 'bin': bin,
+                 }
+    return data_dict
+
+
+def test_node_betweenness_bin(testdata1):
+    node_betw = centrality.betweenness_bin(testdata1['bin'])
+    assert node_betw.shape == testdata1['bin'].shape[:1]
+
+
+def test_node_betweenness_wei(testdata1):
+    node_betw = centrality.betweenness_wei(testdata1['wei'])
+    assert node_betw.shape == testdata1['wei'].shape[:1]
+
+
+def test_edge_betweenness_bin(testdata1):
+    edge_betw, node_betw = centrality.edge_betweenness_wei(testdata1['bin'])
+    assert edge_betw.shape == testdata1['bin'].shape
+    assert node_betw.shape == testdata1['bin'].shape[:1]
+
+
+def test_edge_betweenness_wei(testdata1):
+    edge_betw, node_betw = centrality.edge_betweenness_wei(testdata1['wei'])
+    assert edge_betw.shape == testdata1['wei'].shape
+    assert node_betw.shape == testdata1['wei'].shape[:1]
 
 
 def test_pc():
