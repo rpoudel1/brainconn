@@ -947,6 +947,7 @@ def reachdist(CIJ, ensure_binary=True):
     D = powr - D + 1
 
     # put inf if no path found
+    D = D.astype(float)  # has to be done for the following to work
     D[D == n + 2] = np.inf
     D[:, id0] = np.inf
     D[od0, :] = np.inf

@@ -379,6 +379,8 @@ def erange(CIJ):
     fs : float
         fractions of shortcuts in the graph
 
+    Notes
+    -----
     Follows the treatment of 'shortcuts' by Duncan Watts
     """
     N = len(CIJ)
@@ -554,9 +556,9 @@ def kcoreness_centrality_bd(CIJ):
 
     Returns
     -------
-    coreness : Nx1 :obj:`numpy.ndarray`
+    coreness : (N,) :obj:`numpy.ndarray`
         node coreness
-    kn : int
+    kn : (N,) :obj:`numpy.ndarray`
         size of k-core
     """
     N = len(CIJ)
@@ -586,9 +588,9 @@ def kcoreness_centrality_bu(CIJ):
 
     Returns
     -------
-    coreness : Nx1 :obj:`numpy.ndarray`
+    coreness : (N,) :obj:`numpy.ndarray`
         node coreness
-    kn : int
+    kn : (N,) :obj:`numpy.ndarray`
         size of k-core
     """
     N = len(CIJ)

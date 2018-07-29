@@ -10,38 +10,98 @@ from brainconn.tests.utils import (load_sample, MAT_DIR)
 
 @pytest.fixture(scope='module')
 def testdata1():
-    n = 200
-    corr = np.random.random((n, n))
-    corr += corr.T
-    wei = corr - np.eye(n)
-    bin = (wei > np.mean(wei)).astype(int)
+    """
+    Undirected data.
+    """
+    n_nodes = 200
+    corr = np.random.random((n_nodes, n_nodes))
+    corr += corr.T  # Make symmetric
+    wei = corr - np.eye(n_nodes)
+    bin_ = (wei > np.mean(wei)).astype(int)
     data_dict = {'corr': corr,
                  'wei': wei,
-                 'bin': bin,
+                 'bin': bin_,
+                 }
+    return data_dict
+
+
+@pytest.fixture(scope='module')
+def testdata2():
+    """
+    Directed data.
+    """
+    n_nodes = 200
+    corr = np.random.random((n_nodes, n_nodes))
+    wei = corr - np.eye(n_nodes)
+    bin_ = (wei > np.mean(wei)).astype(int)
+    data_dict = {'corr': corr,
+                 'wei': wei,
+                 'bin': bin_,
                  }
     return data_dict
 
 
 def test_node_betweenness_bin(testdata1):
+    """
+    Smoke test for brainconn.centrality.betweenness_bin.
+    """
     node_betw = centrality.betweenness_bin(testdata1['bin'])
     assert node_betw.shape == testdata1['bin'].shape[:1]
 
 
 def test_node_betweenness_wei(testdata1):
+    """
+    Smoke test for brainconn.centrality.betweenness_wei.
+    """
     node_betw = centrality.betweenness_wei(testdata1['wei'])
     assert node_betw.shape == testdata1['wei'].shape[:1]
 
 
 def test_edge_betweenness_bin(testdata1):
+    """
+    Smoke test for brainconn.centrality.edge_betweenness_wei.
+    """
     edge_betw, node_betw = centrality.edge_betweenness_wei(testdata1['bin'])
     assert edge_betw.shape == testdata1['bin'].shape
     assert node_betw.shape == testdata1['bin'].shape[:1]
 
 
 def test_edge_betweenness_wei(testdata1):
+    """
+    Smoke test for brainconn.centrality.edge_betweenness_wei.
+    """
     edge_betw, node_betw = centrality.edge_betweenness_wei(testdata1['wei'])
     assert edge_betw.shape == testdata1['wei'].shape
     assert node_betw.shape == testdata1['wei'].shape[:1]
+
+
+def test_erange(testdata2):
+    """
+    Smoke test for brainconn.centrality.erange.
+    """
+    erange, eta, eshort, fs = centrality.erange(testdata2['bin'])
+    assert erange.shape == testdata2['bin'].shape
+    assert isinstance(eta, float)
+    assert eshort.shape == testdata2['bin'].shape
+    assert isinstance(fs, float)
+
+
+def test_kcoreness_centrality_bd(testdata2):
+    """
+    Smoke test for brainconn.centrality.kcoreness_centrality_bd.
+    """
+    coreness, kn = centrality.kcoreness_centrality_bd(testdata2['bin'])
+    assert coreness.shape == testdata2['bin'].shape[:1]
+    assert kn.shape == testdata2['bin'].shape[:1]
+
+
+def test_kcoreness_centrality_bu(testdata1):
+    """
+    Smoke test for brainconn.centrality.kcoreness_centrality_bu.
+    """
+    coreness, kn = centrality.kcoreness_centrality_bu(testdata1['bin'])
+    assert coreness.shape == testdata1['bin'].shape[:1]
+    assert kn.shape == testdata1['bin'].shape[:1]
 
 
 def test_pc():
