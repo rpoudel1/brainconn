@@ -3,10 +3,20 @@ Miscellaneous utility functions.
 """
 from __future__ import division, print_function
 import numpy as np
-
+import os.path as op
 
 class BCTParamError(RuntimeError):
     pass
+
+
+def get_resource_path():
+    """
+    Returns the path to general resources, terminated with separator. Resources
+    are kept outside package folder in "datasets".
+    Based on function by Yaroslav Halchenko used in Neurosynth Python package.
+    """
+    return op.abspath(op.join(op.dirname(__file__), op.pardir,
+                              'data') + op.sep)
 
 
 def teachers_round(x):
