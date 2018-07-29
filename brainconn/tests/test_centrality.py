@@ -7,6 +7,15 @@ from brainconn import centrality
 from brainconn.tests.utils import (load_sample, MAT_DIR)
 
 
+def test_edge_betweenness_wei():
+    n = 200
+    data = np.random.random((n, n))
+    data -= np.eye(n)
+    edge_betw, node_betw = centrality.edge_betweenness_wei(data)
+    assert edge_betw.shape == data.shape
+    assert node_betw.shape == data.shape[:1]
+
+
 def test_pc():
     x = load_sample(thres=.4)
     # ci,q = bc.modularity_und(x)
