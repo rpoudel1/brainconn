@@ -20,7 +20,7 @@ def test_pc():
     assert np.allclose(pc, pc_, atol=0.02)
 
 
-def participation_test():
+def test_participation():
     W = np.eye(3)
     ci = np.array([1, 1, 2])
 
@@ -47,10 +47,10 @@ def participation_test():
     W[0, 2] = -1
     W[1, 2] = 1
     assert np.allclose(centrality.participation_coef_sign(W, ci)[0],
-                       [0.,  0.5,  0.])
+                       [0., 0.5, 0.])
 
 
-def gateway_test():
+def test_gateway():
     x = load_sample(thres=.1)
     ci = np.load(op.join(MAT_DIR, 'sample_partition.npy'))
 
@@ -59,8 +59,7 @@ def gateway_test():
     print(np.sum(g_pos), 43.4382)
     assert np.allclose(np.sum(g_pos), 43.4382, atol=.001)
 
-    gpb, _ = centrality.gateway_coef_sign(x, ci,
-                                             centrality_type='betweenness')
+    gpb, _ = centrality.gateway_coef_sign(x, ci, centrality_type='betweenness')
 
     print(np.sum(gpb), 43.4026)
     assert np.allclose(np.sum(gpb), 43.4026, atol=.001)
