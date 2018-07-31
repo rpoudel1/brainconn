@@ -19,9 +19,9 @@ def degrees_dir(CIJ):
 
     Returns
     -------
-    id : Nx1 :obj:`numpy.ndarray`
+    in_degree : Nx1 :obj:`numpy.ndarray`
         node in-degree
-    od : Nx1 :obj:`numpy.ndarray`
+    out_degree : Nx1 :obj:`numpy.ndarray`
         node out-degree
     deg : Nx1 :obj:`numpy.ndarray`
         node degree (in-degree + out-degree)
@@ -32,10 +32,10 @@ def degrees_dir(CIJ):
            Weight information is discarded.
     """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
-    id = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
-    od = np.sum(CIJ, axis=1)  # outdegree = row sum of CIJ
-    deg = id + od  # degree = indegree+outdegree
-    return id, od, deg
+    in_degree = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
+    out_degree = np.sum(CIJ, axis=1)  # outdegree = row sum of CIJ
+    deg = in_degree + out_degree  # degree = indegree+outdegree
+    return in_degree, out_degree, deg
 
 
 def degrees_und(CIJ):
@@ -77,33 +77,34 @@ def jdegree(CIJ):
         joint degree distribution matrix
         (shifted by one, replicates matlab one-based-indexing)
     J_od : int
-        number of vertices with od>id
+        number of vertices with out_degree>in_degree
     J_id : int
-        number of vertices with id>od
+        number of vertices with in_degree>out_degree
     J_bl : int
-        number of vertices with id==od
+        number of vertices with in_degree==out_degree
 
     Notes
     -----
     Weights are discarded.
     """
     CIJ = binarize(CIJ, copy=True)  # ensure CIJ is binary
-    n = len(CIJ)
-    id = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
-    od = np.sum(CIJ, axis=1)  # outdegree = row sum of CIJ
+    n_nodes = len(CIJ)
+    in_degree = np.sum(CIJ, axis=0)  # indegree = column sum of CIJ
+    out_degree = np.sum(CIJ, axis=1)  # outdegree = row sum of CIJ
 
     # create the joint degree distribution matrix
-    # note: the matrix is shifted by one, to accomodate zero id and od in the
-    # first row/column
-    # upper triangular part of the matrix has vertices with od>id
-    # lower triangular part has vertices with id>od
-    # main diagonal has units with id=od
+    # note: the matrix is shifted by one, to accomodate zero in_degree and
+    # out_degree in the first row/column
+    # upper triangular part of the matrix has vertices with
+    # out_degree>in_degree
+    # lower triangular part has vertices with in_degree>out_degree
+    # main diagonal has units with in_degree=out_degree
 
-    szJ = np.max((id, od)) + 1
+    szJ = np.max((in_degree, out_degree)) + 1
     J = np.zeros((szJ, szJ))
 
-    for i in range(n):
-        J[id[i], od[i]] += 1
+    for i in range(n_nodes):
+        J[in_degree[i], out_degree[i]] += 1
 
     J_od = np.sum(np.triu(J, 1))
     J_id = np.sum(np.tril(J, -1))
@@ -178,7 +179,6 @@ def strengths_und_sign(W):
         total negative weight
     """
     W = W.copy()
-    # n = len(W)
     np.fill_diagonal(W, 0)  # clear diagonal
     Spos = np.sum(W * (W > 0), axis=0)  # positive strengths
     Sneg = np.sum(W * (W < 0), axis=0)  # negative strengths

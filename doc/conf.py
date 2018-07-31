@@ -54,6 +54,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.ifconfig',
               'sphinx.ext.linkcode',
               'sphinx_gallery.gen_gallery',
+              'm2r',
               ]
 
 if LooseVersion(sphinx.__version__) < LooseVersion('1.4'):

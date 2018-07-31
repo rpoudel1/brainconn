@@ -14,14 +14,17 @@ data.
 .. image:: https://codecov.io/gh/FIU-Neuro/brainconn/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/FIU-Neuro/brainconn
 
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
+   graph_theory
    introduction
    api
    auto_examples/index
+   whats_new
 
 
 Indices and tables

@@ -4,12 +4,13 @@
 .. _ex1:
 
 =========================================
- Something something centrality
+ Calculate centrality measures
 =========================================
 
 Centrality is a thing with stuff and things.
 
 """
+# sphinx_gallery_thumbnail_number = 3
 
 ###############################################################################
 # Start with the necessary imports
@@ -39,7 +40,7 @@ ax.imshow(adj_wei)
 fig.show()
 
 ###############################################################################
-# Look at weighted adjacency matrix
+# Look at binary adjacency matrix
 # -------------------------------------------
 fig, ax = plt.subplots(figsize=(7, 7))
 ax.imshow(adj_bin)

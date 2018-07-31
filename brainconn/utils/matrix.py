@@ -190,6 +190,7 @@ def binarize(W, copy=True):
     if copy:
         W = W.copy()
     W[W != 0] = 1
+    W = W.astype(int)
     return W
 
 
