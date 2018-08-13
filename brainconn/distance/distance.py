@@ -418,11 +418,11 @@ def distance_wei_floyd(adjacency, transform=None):
 
         SPL = np.min(np.stack([SPL, i2k_k2j], 2), 2)
 
-    I = np.eye(n) > 0
-    SPL[I] = 0
+    eye = np.eye(n) > 0
+    SPL[eye] = 0
 
     if flag_find_paths:
-        hops[I], Pmat[I] = 0, 0
+        hops[eye], Pmat[eye] = 0, 0
 
     return SPL, hops, Pmat
 
@@ -517,12 +517,6 @@ def efficiency_bin(G, local=False):
         E = np.zeros((n,))  # local efficiency
 
         for u in range(n):
-            # V,=np.where(G[u,:])			#neighbors
-            # k=len(V)					#degree
-            # if k>=2:					#degree must be at least 2
-            #	e=distance_inv(G[V].T[V])
-            #	E[u]=np.sum(e)/(k*k-k)	#local efficiency computation
-
             # find pairs of neighbors
             V, = np.where(np.logical_or(G[u, :], G[u, :].T))
             # inverse distance matrix
@@ -621,12 +615,6 @@ def efficiency_wei(Gw, local=False):
     if local:
         E = np.zeros((n,))  # local efficiency
         for u in range(n):
-            # V,=np.where(Gw[u,:])		#neighbors
-            # k=len(V)					#degree
-            # if k>=2:					#degree must be at least 2
-            #	e=(distance_inv_wei(Gl[V].T[V])*np.outer(Gw[V,u],Gw[u,V]))**1/3
-            #	E[u]=np.sum(e)/(k*k-k)
-
             # find pairs of neighbors
             V, = np.where(np.logical_or(Gw[u, :], Gw[:, u].T))
             # symmetrized vector of weights
@@ -838,6 +826,59 @@ def findwalks(CIJ):
     return Wq, twalk, wlq
 
 
+def mean_first_passage_time(adjacency):
+    """
+    Calculates mean first passage time of `adjacency`
+
+    The first passage time from i to j is the expected number of steps it takes
+    a random walker starting at node i to arrive for the first time at node j.
+    The mean first passage time is not a symmetric measure: `mfpt(i,j)` may be
+    different from `mfpt(j,i)`.
+
+    Parameters
+    ----------
+    adjacency : (N x N) array_like
+        Weighted/unweighted, direct/undirected connection weight/length array
+
+    Returns
+    -------
+    MFPT : (N x N) ndarray
+        Pairwise mean first passage time array
+
+    References
+    ----------
+    .. [1] Goni, J., Avena-Koenigsberger, A., de Mendizabal, N. V., van den
+       Heuvel, M. P., Betzel, R. F., & Sporns, O. (2013). Exploring the
+       morphospace of communication efficiency in complex networks. PLoS One,
+       8(3), e58070.
+    """
+
+    P = np.linalg.solve(np.diag(np.sum(adjacency, axis=1)), adjacency)
+
+    n = len(P)
+    D, V = np.linalg.eig(P.T)
+
+    aux = np.abs(D - 1)
+    index = np.where(aux == aux.min())[0]
+
+    if aux[index] > 10e-3:
+        raise ValueError(("Cannot find eigenvalue of 1. Minimum eigenvalue "
+                          "value is {0}. Tolerance was "
+                          "set at 10e-3.").format(aux[index]+1))
+
+    w = V[:, index].T
+    w = w / np.sum(w)
+
+    W = np.real(np.repeat(w, n, 0))
+    eye = np.eye(n)
+
+    Z = np.linalg.inv(eye - P + W)
+
+    mfpt = (np.repeat(np.atleast_2d(np.diag(Z)), n, 0) - Z) / W
+
+    return mfpt
+
+
 def reachdist(CIJ, ensure_binary=True):
     """
     The binary reachability matrix describes reachability between all pairs
@@ -981,11 +1022,10 @@ def search_information(adjacency, transform=None, has_memory=False):
                             pr_step_bk[lp-1] = T[path[lp], path[lp-1]]
                             for z in range(1, lp):
                                 pr_step_ff[z] = T[path[z], path[z+1]] /\
-                                                (1 - T[path[z-1], path[z]])
+                                    (1 - T[path[z-1], path[z]])
                                 pr_step_bk[lp-z-1] = T[path[lp-z],
                                                        path[lp-z-1]] /\
-                                                     (1 - T[path[lp-z+1],
-                                                            path[lp-z]])
+                                    (1 - T[path[lp-z+1], path[lp-z]])
                         else:
                             for z in range(lp):
                                 pr_step_ff[z] = T[path[z], path[z+1]]
@@ -1013,56 +1053,3 @@ def search_information(adjacency, transform=None, has_memory=False):
                         SI[i, j] = np.inf
 
     return SI
-
-
-def mean_first_passage_time(adjacency):
-    """
-    Calculates mean first passage time of `adjacency`
-
-    The first passage time from i to j is the expected number of steps it takes
-    a random walker starting at node i to arrive for the first time at node j.
-    The mean first passage time is not a symmetric measure: `mfpt(i,j)` may be
-    different from `mfpt(j,i)`.
-
-    Parameters
-    ----------
-    adjacency : (N x N) array_like
-        Weighted/unweighted, direct/undirected connection weight/length array
-
-    Returns
-    -------
-    MFPT : (N x N) ndarray
-        Pairwise mean first passage time array
-
-    References
-    ----------
-    .. [1] Goni, J., Avena-Koenigsberger, A., de Mendizabal, N. V., van den
-       Heuvel, M. P., Betzel, R. F., & Sporns, O. (2013). Exploring the
-       morphospace of communication efficiency in complex networks. PLoS One,
-       8(3), e58070.
-    """
-
-    P = np.linalg.solve(np.diag(np.sum(adjacency, axis=1)), adjacency)
-
-    n = len(P)
-    D, V = np.linalg.eig(P.T)
-
-    aux = np.abs(D - 1)
-    index = np.where(aux == aux.min())[0]
-
-    if aux[index] > 10e-3:
-        raise ValueError(("Cannot find eigenvalue of 1. Minimum eigenvalue "
-                          "value is {0}. Tolerance was "
-                          "set at 10e-3.").format(aux[index]+1))
-
-    w = V[:, index].T
-    w = w / np.sum(w)
-
-    W = np.real(np.repeat(w, n, 0))
-    I = np.eye(n)
-
-    Z = np.linalg.inv(I - P + W)
-
-    mfpt = (np.repeat(np.atleast_2d(np.diag(Z)), n, 0) - Z) / W
-
-    return mfpt

@@ -3,7 +3,8 @@ Other utility functions.
 """
 from __future__ import division, print_function
 import numpy as np
-from .miscellaneous_utilities import BCTParamError
+from .misc import BCTParamError
+from .misc import teachers_round as round
 
 
 def threshold_absolute(W, thr, copy=True):
@@ -80,8 +81,6 @@ def threshold_proportional(W, p, copy=True):
     elements in x_25 are aleady <=0. This behavior is the same as in BCT. Be
     careful with matrices that are both signed and sparse.
     """
-    from .miscellaneous_utilities import teachers_round as round
-
     if p > 1 or p < 0:
         raise BCTParamError('Threshold must be in range [0,1]')
     if copy:
@@ -97,12 +96,13 @@ def threshold_proportional(W, p, copy=True):
 
     ind = np.where(W)					# find all links
 
-    I = np.argsort(W[ind])[::-1]		# sort indices by magnitude
+    sorted_values = np.argsort(W[ind])[::-1]  # sort indices by magnitude
 
     en = int(round((n * n - n) * p / ud))		# number of links to be preserved
 
-    W[(ind[0][I][en:], ind[1][I][en:])] = 0  # apply threshold
-    # W[np.ix_(ind[0][I][en:], ind[1][I][en:])]=0
+    # apply threshold
+    W[(ind[0][sorted_values][en:], ind[1][sorted_values][en:])] = 0
+    # W[np.ix_(ind[0][sorted_values][en:], ind[1][sorted_values][en:])]=0
 
     if ud == 2:						# if symmetric matrix
         W[:, :] = W + W.T						# reconstruct symmetry
