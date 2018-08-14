@@ -339,9 +339,9 @@ API Reference
         :toctree: generated/
         :template: module.rst
 
-        brainconn.utils.miscellaneous_utilities
-        brainconn.utils.other
+        brainconn.utils.matrix
         brainconn.utils.visualization
+        brainconn.utils.misc
 
     .. currentmodule:: brainconn.utils
 

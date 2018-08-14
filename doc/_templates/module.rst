@@ -2,6 +2,8 @@
 {{ underline }}
 
 .. automodule:: {{ fullname }}
+   :no-members:
+   :no-inherited-members:
 
    {% block classes %}
    {% if classes %}
