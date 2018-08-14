@@ -5,7 +5,7 @@ import nibabel as nib
 from nilearn import datasets, input_data
 from nilearn.image import resample_to_img
 
-from brainconn import centrality, utils
+from brainconn import utils
 
 mask_img = datasets.load_mni152_brain_mask()
 subjects = datasets.fetch_adhd(n_subjects=1)
