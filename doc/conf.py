@@ -160,11 +160,14 @@ sphinx_gallery_conf = {
     'examples_dirs': '../examples',
     # path where to save gallery generated examples
     'gallery_dirs': 'auto_examples',
-    'backreferences_dir': '_build/backreferences',
+    'backreferences_dir': 'generated',
+    'reference_url': {
+        'brainconn': 'http://brainconn.readthedocs.io/en/latest/',
+    },
     # Modules for which function level galleries are created.  In
     # this case sphinx_gallery and numpy in a tuple of strings.
     'doc_module': ('brainconn'),
-    'ignore_patterns': ['utils/'],
+    'ignore_patterns': [],
     }
 
 # -- Options for Texinfo output -------------------------------------------

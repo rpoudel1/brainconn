@@ -21,16 +21,16 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from brainconn import centrality, utils
+import brainconn
 
 ###############################################################################
 # Get some data
 # --------------------------------
-corr = np.loadtxt(op.join(utils.get_resource_path(), 'example_corr.txt'))
+corr = np.loadtxt(op.join(brainconn.utils.get_resource_path(), 'example_corr.txt'))
 
 # Zero diagonal
 adj_wei = corr - np.eye(corr.shape[0])
-adj_bin = utils.binarize(utils.threshold_proportional(adj_wei, 0.2))
+adj_bin = brainconn.utils.binarize(brainconn.utils.threshold_proportional(adj_wei, 0.2))
 
 ###############################################################################
 # Look at weighted adjacency matrix
@@ -49,16 +49,16 @@ fig.show()
 ###############################################################################
 # Compute stuff
 # -------------------------------------------
-betw_wei = centrality.betweenness_wei(adj_wei)
-betw_bin = centrality.betweenness_bin(adj_bin)
-edg_betw_wei = centrality.edge_betweenness_wei(adj_wei)[0]
+betw_wei = brainconn.centrality.betweenness_wei(adj_wei)
+betw_bin = brainconn.centrality.betweenness_bin(adj_bin)
+edg_betw_wei = brainconn.centrality.edge_betweenness_wei(adj_wei)[0]
 idx = np.triu_indices(edg_betw_wei.shape[0], k=1)
 edg_betw_wei = edg_betw_wei[idx]
-edg_betw_wei = edg_betw_wei[edg_betw_wei>0]
-edg_betw_bin = centrality.edge_betweenness_bin(adj_bin)[0]
+edg_betw_wei = edg_betw_wei[edg_betw_wei > 0]
+edg_betw_bin = brainconn.centrality.edge_betweenness_bin(adj_bin)[0]
 idx = np.triu_indices(edg_betw_bin.shape[0], k=1)
 edg_betw_bin = edg_betw_bin[idx]
-edg_betw_bin = edg_betw_bin[edg_betw_bin>0]
+edg_betw_bin = edg_betw_bin[edg_betw_bin > 0]
 
 vals = [betw_wei, betw_bin, edg_betw_wei, edg_betw_bin]
 names = ['Weighted Node Betweenness Centrality',
