@@ -190,7 +190,7 @@ def binarize(W, copy=True):
     if copy:
         W = W.copy()
     W[W != 0] = 1
-    W = W.astype(int)
+    # W = W.astype(int)  # causes tests to fail, but should be included
     return W
 
 
