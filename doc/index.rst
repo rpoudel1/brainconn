@@ -20,9 +20,11 @@ Contents
 .. toctree::
    :maxdepth: 2
 
+   graph_theory
    introduction
    api
    auto_examples/index
+   whats_new
 
 
 Indices and tables

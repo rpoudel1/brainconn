@@ -300,7 +300,7 @@ def dice_pairwise_und(a1, a2):
     Calculates pairwise dice similarity for each vertex between two
     matrices. Treats the matrices as binary and undirected.
 
-    Paramaters
+    Parameters
     ----------
     A1 : NxN :obj:`numpy.ndarray`
         Matrix 1
