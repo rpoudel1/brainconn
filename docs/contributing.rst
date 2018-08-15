@@ -83,18 +83,18 @@ You can see a list of current contributors in the [contributors tab][link_contri
 *&mdash; Based on contributing guidelines from the [STEMMRoleModels][link_stemmrolemodels] project.*
 
 [link_github]: https://github.com/
-[link_brainconn]: https://github.com/ME-ICA/brainconn
+[link_brainconn]: https://github.com/FIU-Neuro/brainconn
 [link_signupinstructions]: https://help.github.com/articles/signing-up-for-a-new-github-account
 [link_react]: https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments
-[link_issues]: https://github.com/ME-ICA/brainconn/issues
-[link_gitter]: https://gitter.im/me-ica/brainconn
-[link_coc]: https://github.com/ME-ICA/brainconn/blob/master/Code_of_Conduct.md
-[link_labels]: https://github.com/ME-ICA/brainconn/labels
+[link_issues]: https://github.com/FIU-Neuro/brainconn/issues
+[link_gitter]: https://gitter.im/FIU-Neuro/brainconn
+[link_coc]: https://github.com/FIU-Neuro/brainconn/blob/master/Code_of_Conduct.md
+[link_labels]: https://github.com/FIU-Neuro/brainconn/labels
 [link_discussingissues]: https://help.github.com/articles/discussing-projects-in-issues-and-pull-requests
 
-[link_bugs]: https://github.com/ME-ICA/brainconn/labels/bug
-[link_helpwanted]: https://github.com/ME-ICA/brainconn/labels/help%20wanted
-[link_enhancement]: https://github.com/ME-ICA/brainconn/labels/enhancement
+[link_bugs]: https://github.com/FIU-Neuro/brainconn/labels/bug
+[link_helpwanted]: https://github.com/FIU-Neuro/brainconn/labels/help%20wanted
+[link_enhancement]: https://github.com/FIU-Neuro/brainconn/labels/enhancement
 
 [link_pullrequest]: https://help.github.com/articles/creating-a-pull-request/
 [link_fork]: https://help.github.com/articles/fork-a-repo/
@@ -103,4 +103,4 @@ You can see a list of current contributors in the [contributors tab][link_contri
 [link_styleguide]: http://brainconn.readthedocs.io/en/latest/contributing.html
 [link_updateupstreamwiki]: https://help.github.com/articles/syncing-a-fork/
 [link_stemmrolemodels]: https://github.com/KirstieJane/STEMMRoleModels
-[link_contributors]: https://github.com/ME-ICA/brainconn/graphs/contributors
+[link_contributors]: https://github.com/FIU-Neuro/brainconn/graphs/contributors
