@@ -4,7 +4,7 @@ Welcome to our nascent brainconn repo... we appreciate your contributions to thi
 
 The following guidelines will streamline the process of getting acclimated to the project. If there is anything we failed to cover, please feel free to let us know by opening an [issue][link_issues].
 
-Are you new to GitHub and it's esoteric ways? First you'll need to set up a free [GitHub][link_github] account and sign in. Here are some [instructions][link_signupinstructions].
+Are you new to GitHub and its esoteric ways? First you'll need to set up a free [GitHub][link_github] account and sign in. Here are some [instructions][link_signupinstructions].
 
 Perhaps you are veteran GitHub user and know your stuff? Click the links below to get started:
 * [Joining the conversation](#joining-the-conversation)
@@ -18,9 +18,6 @@ Perhaps you are veteran GitHub user and know your stuff? Click the links below t
 `brainconn` is an independent fork of `bctpy`, which is itself a Python implementation of the `BCT` MATLAB toolbox.
 With all love to [Roan LaPlante](https://github.com/aestrivex) and his excellent tool, there were a number of elements we sought to change. Therefore, we chose to develop our ideas independently from his original project fork.
 As with most repositories on GitHub, most communications will be through open [issues][link_issues].
-For more informal discussions and details on general project updates, a [gitter chat room][link_gitter] will be the place to go.
-
-As you might imagine, there will be plenty of communication between these two platforms; regardless of which you prefer, we look forward to your contributions.
 
 When crafting your contributions to `brainconn`, please be mindful of our [code of conduct][link_coc].
 
@@ -87,7 +84,6 @@ You can see a list of current contributors in the [contributors tab][link_contri
 [link_signupinstructions]: https://help.github.com/articles/signing-up-for-a-new-github-account
 [link_react]: https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments
 [link_issues]: https://github.com/FIU-Neuro/brainconn/issues
-[link_gitter]: https://gitter.im/FIU-Neuro/brainconn
 [link_coc]: https://github.com/FIU-Neuro/brainconn/blob/master/Code_of_Conduct.md
 [link_labels]: https://github.com/FIU-Neuro/brainconn/labels
 [link_discussingissues]: https://help.github.com/articles/discussing-projects-in-issues-and-pull-requests
