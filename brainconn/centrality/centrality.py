@@ -26,6 +26,10 @@ def betweenness_bin(G):
     -----
     Betweenness centrality may be normalised to the range [0,1] as
     BC/[(N-1)(N-2)], where N is the number of nodes in the network.
+
+    Betweeness centrality assumes that the information is routed
+    along the shortest paths which may not be an appropriate assumption
+    in case information transmission in brain. 
     """
     G = np.array(G, dtype=float)  # force G to have float type so it can be
     # compared to float np.inf
