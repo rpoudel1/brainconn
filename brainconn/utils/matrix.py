@@ -286,13 +286,14 @@ def autofix(W, copy=True):
 
     return W
 
-def test_mtx_fmt(array):
+
+def check_mtx_fmt(array):
     """
     Checks format of array to see if it is binary
     and the directionality of the input matrix
     """
     bin_bool = len(np.unique(array))
-    if  bin_bool > 2:
+    if bin_bool > 2:
         bin_status = 'wei'
     elif bin_bool == 2:
         bin_status = 'bin'
