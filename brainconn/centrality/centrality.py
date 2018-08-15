@@ -858,7 +858,8 @@ def subgraph_centrality(CIJ):
     Cs = np.real(np.dot(vecs * vecs, np.exp(vals)))
     return Cs  # imaginary part from precision error
 
-def leverage_centrality ():
+
+def leverage_centrality():
     """
     This concept considers the centrality of the node depending on whether
     its neighbour rely on the node for information
@@ -870,3 +871,4 @@ def leverage_centrality ():
     For further information on utitlity of leverage centrality in the
     brain network refer to Joyce (2010)
     """
+    pass
