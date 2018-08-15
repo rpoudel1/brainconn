@@ -7,12 +7,38 @@ from ..core import kcore_bd, kcore_bu
 from ..distance import reachdist
 from ..utils import invert
 
+def Degree_centrality (G):
+    """
+    Degree centrality, is the simplest measure of centrality. It assumes
+    that no nodes with many connections exert more influence over network.
+    However, the limitation of degree centrality is that all connections
+    are treated as same strength.
 
-def betweenness_bin(G):
+    """
+
+def Delta_centrality (G):
+    """
+    Another way of thinking about centrality is that it does not depend
+    on either degree, closeness or betweenness but is based on the effect
+    of the removal of a node has on the structure and function of the rest
+    of the network.
+
+    The intuition behind this measure is that inactivation of nodes will
+    exert a disproportionate impact on remaining network elements.
+
+    Delta centrality is closely related to analysis of network robustness.
+
+    Used to creat putative scaffold. Refer to Sporns (2016) paper to see an
+    example of structural scaffold of human brain.
+    """
+
+def betweenness(G):
     """
     Node betweenness centrality is the fraction of all shortest paths in
     the network that contain a given node. Nodes with high values of
     betweenness centrality participate in a large number of shortest paths.
+
+
 
     Parameters
     ----------
@@ -189,7 +215,7 @@ def diversity_coef_sign(W, ci):
     return Hpos, Hneg
 
 
-def edge_betweenness_bin(G):
+def edge_betweenness(G):
     """
     Edge betweenness centrality is the fraction of all shortest paths in
     the network that contain a given edge. Edges with high values of
@@ -344,6 +370,13 @@ def eigenvector_centrality_und(CIJ):
     that have high eigenvector centrality. The eigenvector centrality of
     node i is equivalent to the ith element in the eigenvector
     corresponding to the largest eigenvalue of the adjacency matrix.
+
+    Eigenvector centrality is based on the notion that the given node is highly
+    central if its' neighbors also share the same property. Howveer, it does not
+    account for the disparity in degree of a node with respect to its'
+    neighbours. This has different implications depending on the networks'
+    assortavity and the tendency of a node to be connected to nodes with
+    similar degrees (Joyce, 2010)
 
     Parameters
     ----------
@@ -824,3 +857,16 @@ def subgraph_centrality(CIJ):
     # compute eigenvector centr.
     Cs = np.real(np.dot(vecs * vecs, np.exp(vals)))
     return Cs  # imaginary part from precision error
+
+def Leverage_centrality:
+    """
+    This concept considers the centrality of the node depending on whether
+    its neighbour rely on the node for information
+
+    leverage centrality does not assume shortest path or in a serial fashion.
+    It focuses on disparity in node degrees to quantify information flow
+    locally.
+
+    For further information on utitlity of leverage centrality in the
+    brain network refer to Joyce (2010)
+    """
