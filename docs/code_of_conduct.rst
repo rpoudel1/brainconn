@@ -50,7 +50,7 @@ representative at an online or offline event.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting Elizabeth DuPre at elizabeth.dupre@mail.mcgill.ca.
+reported by contacting Adam Kimbler at akimbler@fiu.edu or Katie Bottenhorn at kbottenhorn@fiu.edu.
 Confidentiality will be respected in reporting.
 
 ## Attribution
