@@ -12,7 +12,7 @@ The `brainconn` Python library is a fork of `bctpy`, which in turn in a Python i
 `brainconn` implements graph theoretic measures in Python.
 
 ### Why graph theory?
-
+because it's coOoOoOoOol ;)
 
 
 ## Copyright information
