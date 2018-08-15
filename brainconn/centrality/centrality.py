@@ -7,7 +7,8 @@ from ..core import kcore_bd, kcore_bu
 from ..distance import reachdist
 from ..utils import invert
 
-def degree_centrality (G):
+
+def degree_centrality(G):
     """
     Degree centrality, is the simplest measure of centrality. It assumes
     that no nodes with many connections exert more influence over network.
@@ -15,8 +16,10 @@ def degree_centrality (G):
     are treated as same strength.
 
     """
+    pass
 
-def delta_centrality (G):
+
+def delta_centrality(G):
     """
     Another way of thinking about centrality is that it does not depend
     on either degree, closeness or betweenness but is based on the effect
@@ -31,14 +34,14 @@ def delta_centrality (G):
     Used to creat putative scaffold. Refer to Sporns (2016) paper to see an
     example of structural scaffold of human brain.
     """
+    pass
+
 
 def betweenness(G):
     """
     Node betweenness centrality is the fraction of all shortest paths in
     the network that contain a given node. Nodes with high values of
     betweenness centrality participate in a large number of shortest paths.
-
-
 
     Parameters
     ----------
