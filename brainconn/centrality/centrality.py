@@ -7,7 +7,7 @@ from ..core import kcore_bd, kcore_bu
 from ..distance import reachdist
 from ..utils import invert
 
-def Degree_centrality (G):
+def degree_centrality (G):
     """
     Degree centrality, is the simplest measure of centrality. It assumes
     that no nodes with many connections exert more influence over network.
@@ -16,7 +16,7 @@ def Degree_centrality (G):
 
     """
 
-def Delta_centrality (G):
+def delta_centrality (G):
     """
     Another way of thinking about centrality is that it does not depend
     on either degree, closeness or betweenness but is based on the effect
@@ -858,7 +858,7 @@ def subgraph_centrality(CIJ):
     Cs = np.real(np.dot(vecs * vecs, np.exp(vals)))
     return Cs  # imaginary part from precision error
 
-def Leverage_centrality:
+def leverage_centrality ():
     """
     This concept considers the centrality of the node depending on whether
     its neighbour rely on the node for information
