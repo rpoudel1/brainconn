@@ -20,7 +20,7 @@ To achieve this end, we expect the following from our contributors:
 Rested assured, we will not tolerate harassment or other inappropriate behavior in our community.
 If you violate the below-listed rules, you will be blocked from further comments/community involvement. No exceptions.
 
-* The inclusion of sexualized language or imagery on any contribution, community correspondence, or post.
+* Inclusion of sexualized language or imagery on any contribution, community correspondence, or post.
 * Unwelcome sexual attention or advances
 * Racist or sexist language
 * Personal or political attacks on contributors
