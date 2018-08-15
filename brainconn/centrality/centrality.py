@@ -29,7 +29,7 @@ def betweenness_bin(G):
 
     Betweeness centrality assumes that the information is routed
     along the shortest paths which may not be an appropriate assumption
-    in case information transmission in brain. 
+    in case information transmission in brain.
     """
     G = np.array(G, dtype=float)  # force G to have float type so it can be
     # compared to float np.inf
@@ -659,6 +659,9 @@ def module_degree_zscore(W, ci, flag=0):
 
 def pagerank_centrality(A, d, falff=None):
     """
+    Interesting fact: It is used to rank websites in the results of Google
+    search engine.
+
     The PageRank centrality is a variant of eigenvector centrality. This
     function computes the PageRank centrality of each vertex in a graph.
 
